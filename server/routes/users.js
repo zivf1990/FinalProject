@@ -19,7 +19,6 @@ router.get("/:id", function (req, res, next) {
     `SELECT * FROM user WHERE id = ${req.params.id}`,
     (err, data) => {
       if (err) throw err;
-      console.log(typeof data);
       if (data.length > 0) res.send(data[0]);
       else res.send("User not found");
     }
@@ -27,7 +26,7 @@ router.get("/:id", function (req, res, next) {
 });
 
 router.get("/:id/:items", function (req, res, next) {
-  console.log("user posts request");
+  console.log("user items request");
 
   const { id, items } = req.params;
 
@@ -47,24 +46,6 @@ router.get("/:id/:items", function (req, res, next) {
   } else {
     res.send("{}");
   }
-});
-
-router.post("/:id", function (req, res, next) {
-  console.log("user id request");
-  connection.query(
-    `
-    SELECT u.id,u.name,u.address
-    FROM user u
-    JOIN password p
-    ON u.id = p.user_id
-    WHERE u.username = ${req.body.username} AND p.password = ${req.body.password};
-  `,
-    (err, data) => {
-      if (err) throw err;
-      if (data.length > 0) res.send(data[0].id);
-      else res.send("User not found");
-    }
-  );
 });
 
 module.exports = router;

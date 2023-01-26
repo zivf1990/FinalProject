@@ -1,10 +1,12 @@
 import React, { Component, useEffect, useRef, useState } from "react";
+import { useUser } from "../context/UserContext";
 import { useStateRef } from "../hooks/useStateRef";
 import { getCookie } from "../js/cookie";
 
 function Todos() {
   const [todos, setTodos, todosRef] = useStateRef(null);
-  const userId = getCookie("userId");
+  // const userId = getCookie("userId");
+  const { userId } = useUser();
 
   useEffect(() => {
     window.onbeforeunload = toLocalStorage;
@@ -23,10 +25,9 @@ function Todos() {
     try {
       if (!todos) {
         console.log("working");
-        const res = await fetch(
-          `https://jsonplaceholder.typicode.com/todos?userId=${userId}`
-        );
+        const res = await fetch(`http://localhost:8000/users/${userId}/todos`);
         const data = await res.json();
+        console.log("data ", data);
         setTodos(data);
       }
     } catch (e) {

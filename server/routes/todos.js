@@ -18,7 +18,6 @@ router.get("/:id", function (req, res, next) {
     `SELECT * FROM todo WHERE id = ${req.params.id}`,
     (err, data) => {
       if (err) throw err;
-      console.log(typeof data);
       if (data.length > 0) res.send(data[0]);
       else res.send("User not found");
     }
