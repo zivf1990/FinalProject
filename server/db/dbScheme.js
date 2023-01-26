@@ -33,7 +33,7 @@ const dbScheme = [
     columns: [
       {
         column_name: "password",
-        data_type: "VARCHAR(20)",
+        data_type: "VARCHAR(61)",
         not_null: true,
       },
       {

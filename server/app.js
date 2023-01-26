@@ -4,6 +4,7 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const cors = require("cors");
+const bcrypt = require("bcrypt");
 
 //import routers.
 const indexRouter = require("./routes/index");
@@ -11,7 +12,7 @@ const usersRouter = require("./routes/users");
 const todosRouter = require("./routes/todos");
 const postsRouter = require("./routes/posts");
 const commentsRouter = require("./routes/comments");
-// const loginRouter = require("./routes/login");
+const loginRouter = require("./routes/login");
 // const signupRouter = require("./routes/signup");
 
 //initialize express.
@@ -40,14 +41,64 @@ app.use("/users", usersRouter);
 app.use("/todos", todosRouter);
 app.use("/posts", postsRouter);
 app.use("/comments", commentsRouter);
-// app.use("/login", loginRouter);
+app.use("/login", loginRouter);
 // app.use("/signup", signupRouter);
 
 //import mysql connection and dbSchema.
-// const connection = require("./modules/sqlConfig");
+const connection = require("./modules/sqlConfig");
 // const dbSchema = require("./db/dbScheme");
 // const { createTables, insertTable } = require("./modules/sqlManager");
 // createTables(connection, dbSchema);
 // insertTable(commentData, dbSchema, connection);
+
+// get the hashed password from the database.
+// const selectQuery = `
+// SELECT p.password
+// FROM password p
+// JOIN user u
+// ON u.id = p.user_id
+// WHERE u.username = "${"ziv1"}";
+
+// `;
+// connection.query(selectQuery, function (error, results, fields) {
+//   if (error) throw error;
+//   console.log(results);
+//   if (!results[0]?.password) {
+//     // return res.send(false);
+//   } else {
+//     const hashedPassword = results[0]?.password;
+//     console.log("hashedPassword ", hashedPassword);
+
+//     // console.log( bcrypt.compareSync("1234", hashedPassword))
+//     // // compare the plain-text password with the hashed password
+//     bcrypt.compare("1234", hashedPassword, function (err, res) {
+//       console.log("bcrypt checks passwords...");
+//       if (res) {
+//         console.log("password match");
+//         // return res.send(true);
+//       } else {
+//         console.log("password not match");
+//         // return res.send(false);
+//       }
+//     });
+//   }
+// });
+
+const savePassword = async () => {
+  bcrypt.hash("1234", 10, (err, hash) => {
+    if (err) throw new Error("Coundn't encrypt the user password: ", err);
+
+    const query = `
+    INSERT INTO password(password, user_id) VALUES("${hash}",9);
+    `;
+
+    connection.query(query, (err) => {
+      if (err) throw err;
+      console.log("success");
+    });
+  });
+};
+
+// savePassword();
 
 module.exports = app;
