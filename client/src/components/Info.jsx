@@ -1,43 +1,29 @@
 import React, { Component, useEffect, useState } from "react";
+import { useUser } from "../context/UserContext";
 import { useStateRef } from "../hooks/useStateRef";
 import { getCookie } from "../js/cookie";
+import { getLocalStorage } from "../util/localsessionStorage";
 
 function Info() {
-  let userId = getCookie("userId");
-  const [user, setUser, userRef] = useStateRef(null);
+  const { userId, setUserId } = useUser();
+  const [user, setUser] = useStateRef(null);
 
   useEffect(() => {
-    window.onbeforeunload = toLocalStorage;
-    const localUserInfo = localStorage.getItem('localUserInfo');
-    if (localUserInfo) {
-      setUser(JSON.parse(localUserInfo));
-      console.log(111111)
-    }
-    else {
-      getUser()
-      console.log(2222222)
-    }
-    return () => {
-      toLocalStorage();
-
-    }
+    const uId = getLocalStorage("userId");
+    if (uId){ setUserId(uId);
+      console.log(uId, userId);
+    getUser()};
   }, [])
 
 
   const getUser = async () => {
     const res = await fetch(
-      `https://jsonplaceholder.typicode.com/users/${userId}`
+      `http://localhost:8000/users/${userId}`
     );
-    if (!res.ok) throw new Error(res.message);
-
     const data = await res.json();
     setUser(data);
     return data;
   };
-
-  function toLocalStorage() {
-    localStorage.setItem('localUserInfo', JSON.stringify(userRef.current));
-  }
 
   return (
     <div className='main-content'>
@@ -49,10 +35,7 @@ function Info() {
           <h1>id: {user?.id}</h1>
           <h2>Name: {user?.name}</h2>
           <h2>Username: {user?.username}</h2>
-          <h2>Email: {user?.email}</h2>
-          <h2>Address: {user?.address?.city}</h2>
-          <h2>Phone: {user?.phone}</h2>
-          <h2>Company: {user?.company?.name}</h2>
+          <h2>Address: {user?.address}</h2>
         </div>
       </div>
     </div>
