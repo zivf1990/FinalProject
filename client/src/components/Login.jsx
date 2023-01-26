@@ -4,7 +4,7 @@ import { setCookie } from "../js/cookie";
 import { useUser } from "../context/UserContext";
 
 const Login = () => {
-  const { setUserNum } = useUser();
+  const { setUserId } = useUser();
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
@@ -26,12 +26,12 @@ const Login = () => {
     if (loading) {
       return;
     }
-
-    const response = await validateUser();
-    console.log(response);
+    validateUser();
+    // const response = await validateUser();
+    // console.log(response);
   };
 
-  const getUser = async () => {
+  const validateUser = async () => {
     setLoading(true);
 
     const { username, password } = userInput;
@@ -46,32 +46,27 @@ const Login = () => {
       if (!res.ok) throw new Error(res.message);
 
       const data = await res.json();
+      console.log("response: ", data);
+
       setLoading(false);
-      return data[0];
+
+      //success to login.
+      if (data?.result == true) {
+        localStorage.setItem("userId", data.userId);
+        setUserId(data.userId);
+        // setCookie("userId", user.id, 1);
+        // window.history.pushState(null, null, window.location.href);
+        // window.onpopstate = window.history.go(1);
+        navigate(`/home`);
+        console.log("Home");
+      } else {
+        //falied to login.
+      }
     } catch (e) {
       console.log(e);
       setTimeout(3000, alert("Please Check Your Internet Connection"));
       setTimeout(3000, window.location.reload());
     }
-  };
-
-  const validateUser = async (user) => {
-    if (!user) {
-      setErrorMessage("User not found");
-      return;
-    }
-
-    if (user?.address?.geo?.lat !== userInput.password) {
-      setErrorMessage("Wrong password");
-      return;
-    }
-
-    localStorage.setItem("userId", user.id);
-    setUserNum(user.id);
-    setCookie("userId", user.id, 1);
-    window.history.pushState(null, null, window.location.href);
-    window.onpopstate = window.history.go(1);
-    navigate(`/home/${userInput.username}`);
   };
 
   return (

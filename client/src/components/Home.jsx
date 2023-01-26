@@ -5,13 +5,13 @@ import Category from "./Category";
 
 function Home() {
   let userId = getCookie("userId");
-  const { userName } = useParams();
+  // const { userName } = useParams();
 
 
   return (
     <div className='main-content'>
       <Category/>
-      <h1>Welcome {userName}!</h1>
+      {/* <h1>Welcome {}!</h1> */}
     </div>
   );
 }
