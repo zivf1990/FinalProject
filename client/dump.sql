@@ -51,7 +51,7 @@ DROP TABLE IF EXISTS `password`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `password` (
-  `password` varchar(20) NOT NULL,
+  `password` varchar(61) NOT NULL,
   `user_id` bigint unsigned NOT NULL,
   UNIQUE KEY `user_id` (`user_id`),
   CONSTRAINT `password_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -64,7 +64,7 @@ CREATE TABLE `password` (
 
 LOCK TABLES `password` WRITE;
 /*!40000 ALTER TABLE `password` DISABLE KEYS */;
-INSERT INTO `password` VALUES ('ziv',9),('ofek',11),('yotam',12);
+INSERT INTO `password` VALUES ('$2b$10$x7ZY90yGw.rl26UM02XWV.Nzc7wQSGtxyzn8pVIuX2J9HBcaVnvaq',9);
 /*!40000 ALTER TABLE `password` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -160,4 +160,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-01-26  9:08:16
+-- Dump completed on 2023-01-26 11:33:22
