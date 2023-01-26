@@ -11,16 +11,16 @@ import Comments from "../pages/CommentsPage";
 import Home from "./Home";
 
 function Header() {
-  const userId = getCookie("userId");
-  const { userNum } = useUser();
+  // const userId = getCookie("userId");
+  const { userId } = useUser();
   return (
     <>
-      {userId || userNum ? (
+      {userId ? (
         <>
           <NavBar />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/home/:userName" element={<Home />} />
+            <Route path="/home" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path={`users/:id/`}>
               <Route path="Info" element={<Info />} />

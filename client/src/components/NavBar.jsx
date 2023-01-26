@@ -4,17 +4,16 @@ import { useUser } from "../context/UserContext";
 import { deleteCookie, getCookie } from "../js/cookie";
 
 function NavBar() {
-  const [userId, setUserId] = useState("");
-  const {setUserNum, userNum} = useUser();
-
+  // const [userId, setUserId] = useState("");
+  const { setUserId, userId } = useUser();
 
   useEffect(() => {
-    setUserId(getCookie("userId"));
+    // setUserId(getCookie("userId"));
   });
 
   function logOut() {
-    deleteCookie("userId");
-    setUserNum("");
+    // deleteCookie("userId");
+    setUserId("");
   }
 
   return (
@@ -25,7 +24,7 @@ function NavBar() {
         <NavLink to={`users/${userId}/Posts`}>Posts</NavLink>
         <NavLink to={`users/${userId}/Albums`}>Albums</NavLink>
       </div>
-      {!userId && !userNum ? (
+      {!userId ? (
         <NavLink to="/Login">LogIn</NavLink>
       ) : (
         <NavLink onClick={logOut} id="logOutButton" to="/">

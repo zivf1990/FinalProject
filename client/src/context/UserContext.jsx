@@ -1,20 +1,19 @@
-
 import React, { useState, createContext, useContext, useEffect } from "react";
 
 const UserContext = createContext();
 export const useUser = () => useContext(UserContext);
 
 export default function UserProvider({ children }) {
-  const [userNum, setUserNum] = useState(null);
+  const [userId, setUserId] = useState(null);
 
   useEffect(() => {
-        if (!userNum) {
-            localStorage.clear();      
+    if (!userId) {
+      localStorage.clear();
     }
-}, [userNum])
+  }, [userId]);
 
   return (
-    <UserContext.Provider value={{ userNum, setUserNum }}>
+    <UserContext.Provider value={{ userId, setUserId }}>
       {children}
     </UserContext.Provider>
   );
