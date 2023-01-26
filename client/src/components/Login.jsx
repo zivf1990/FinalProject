@@ -9,7 +9,7 @@ const Login = () => {
 
   const [loading, setLoading] = useState(false);
   const [userInput, setUserInput] = useState({
-    username: "admin",
+    username: "ziv1",
     password: "1234",
   });
 

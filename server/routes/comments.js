@@ -12,10 +12,16 @@ router.get("/", function (req, res, next) {
   });
 });
 
-router.get("/:id", function (req, res, next) {
+router.get("/:postId", function (req, res, next) {
   console.log("comment id request");
   connection.query(
-    `SELECT * FROM comment WHERE id = ${req.params.id}`,
+    `
+    SELECT * 
+    FROM comment c 
+    JOIN post p
+    ON p.id = c.post_id
+    WHERE p.id = ${req.params.postId}
+    `,
     (err, data) => {
       if (err) throw err;
       console.log(typeof data);

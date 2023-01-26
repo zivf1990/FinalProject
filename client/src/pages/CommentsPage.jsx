@@ -18,7 +18,7 @@ function Comments() {
     if (!comments) {
       try {
         const res = await fetch(
-          `https://jsonplaceholder.typicode.com/comments?postId=${postId}`
+          `http://localhost:8000/comments?postId=${postId}`
         );
         if (!res.ok) throw new Error(res.message);
 
@@ -32,7 +32,7 @@ function Comments() {
 
   return (
     <div className="main-content">
-      <h2 style={{marginTop: 50}}>{postObj.title}</h2>
+      <h2 style={{ marginTop: 50 }}>{postObj.title}</h2>
       <p>{postObj.body}</p>
       {comments &&
         comments.map((comment) => (
@@ -41,7 +41,9 @@ function Comments() {
             <p>{comment.body}</p>
           </div>
         ))}
-      <button onClick={() => navigate(`/Users/${postId}/Posts`)}>go back</button>
+      <button onClick={() => navigate(`/Users/${postId}/Posts`)}>
+        go back
+      </button>
     </div>
   );
 }

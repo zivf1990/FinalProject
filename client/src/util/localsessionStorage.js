@@ -3,7 +3,7 @@ const setLocalStorage = (key, value) => {
 };
 
 const getLocalStorage = (key) => {
-  return JSON.parse(sessionStorage.getItem(key));
+  return JSON.parse(localStorage.getItem(key));
 };
 
 const setSessionStorage = (key, value) => {

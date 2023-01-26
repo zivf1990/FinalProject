@@ -289,3 +289,9 @@ a.NavLink svg {
   color: white;
   font-size: 1.6rem;
 }
+
+.item-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

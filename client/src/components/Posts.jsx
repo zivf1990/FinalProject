@@ -13,17 +13,18 @@ function Posts() {
 
   const { setPostObj } = usePost();
 
-  const getPosts = async () => {
-    if (!posts) {
-      const res = await fetch(
-        `https://jsonplaceholder.typicode.com/posts?userId=${userId}`
-      );
-      if (!res.ok) throw new Error(res.message);
+  const [inputs, setInputs] = useState({
+    postTitle: "",
+    postBody: "",
+  });
 
-      const data = await res.json();
-      setPosts(data);
-      return data;
-    }
+  const handleChange = ({ target }) => {
+    const { name, value } = target;
+    setInputs((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
   };
 
   useEffect(() => {
@@ -32,6 +33,34 @@ function Posts() {
 
     getPosts();
   }, []);
+
+  const getPosts = async () => {
+    if (!posts) {
+      const res = await fetch(`http://localhost:8000/users/${userId}/posts`);
+
+      if (!res.ok) throw new Error(res.message);
+
+      const data = await res.json();
+      setPosts(data);
+      return data;
+    }
+  };
+
+  const deletepost = async (id) => {
+    try {
+      const res = await fetch(`http://localhost:8000/posts/${id}`, {
+        method: "DELETE",
+      });
+      if (res.ok) {
+        setPosts(posts.filter((post) => post.id !== id));
+      } else {
+        throw new Error(res.message);
+      }
+      console.log(res);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   function changeContext(index) {
     setPostObj({
@@ -45,20 +74,42 @@ function Posts() {
     <div className="main-content">
       <h1 style={{ marginTop: 50 }}>Posts</h1>
 
+      <form className="item-form">
+        <label htmlFor="postTitle">
+          Post title:
+          <input
+            id="postTitle"
+            type="text"
+            onChange={handleChange}
+            value={inputs.postTitle}
+          />
+        </label>
+
+        <label htmlFor="postBody">
+          Post body:
+          <input
+            id="postBody"
+            type="text"
+            onChange={handleChange}
+            value={inputs.postBody}
+          />
+        </label>
+        <button onSubmit={handleSubmit}>add</button>
+      </form>
+
       {posts &&
         posts.map((post, index) => (
-          <NavLink
-            onClick={() => changeContext(index)}
-            key={post.id}
-            to={`${post.id}`}
-          >
+          <div>
             <Post
               key={index}
               title={post.title}
               body={post.body}
               postId={post.id}
+              deletepost={deletepost}
+              index={index}
+              changeContext={changeContext}
             />
-          </NavLink>
+          </div>
         ))}
     </div>
   );

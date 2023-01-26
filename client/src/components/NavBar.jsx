@@ -18,12 +18,7 @@ function NavBar() {
 
   return (
     <header id="navBar">
-      <div>
-        <NavLink to={`users/${userId}/Info`}>Info</NavLink>
-        <NavLink to={`users/${userId}/Todos`}>Todos</NavLink>
-        <NavLink to={`users/${userId}/Posts`}>Posts</NavLink>
-        <NavLink to={`users/${userId}/Albums`}>Albums</NavLink>
-      </div>
+      <div></div>
       {!userId ? (
         <NavLink to="/Login">LogIn</NavLink>
       ) : (

@@ -93,19 +93,18 @@ router.put("/", function (req, res, next) {
   }
 });
 
-router.delete("/", function (req, res, next) {
-  const { post_id } = req.body;
-
+router.delete("/:post_id", function (req, res, next) {
   connection.query(
     `
           DELETE 
           FROM post
-          WHERE id = ${post_id}
+          WHERE id = ${req.params.post_id}
     `,
     (err) => {
       if (err) {
         return res.send(false);
       }
+      console.log("item deleted");
       res.send(true);
     }
   );

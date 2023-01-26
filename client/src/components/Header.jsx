@@ -22,12 +22,10 @@ function Header() {
             <Route path="/" element={<Home />} />
             <Route path="/home" element={<Home />} />
             <Route path="/login" element={<Login />} />
-            <Route path={`users/:id/`}>
-              <Route path="Info" element={<Info />} />
-              <Route path="Todos" element={<Todos />} />
-              <Route path="Posts" element={<Posts />} />
-              <Route path="Posts/:postId" element={<Comments />} />
-            </Route>
+            <Route path="info" element={<Info />} />
+            <Route path="todos" element={<Todos />} />
+            <Route path="posts" element={<Posts />} />
+            <Route path="posts/:postId" element={<Comments />} />
           </Routes>
         </>
       ) : (
