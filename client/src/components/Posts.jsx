@@ -3,12 +3,13 @@ import { NavLink } from "react-router-dom";
 import { usePost } from "../context/PostContext";
 import { useUser } from "../context/UserContext";
 import { getCookie } from "../js/cookie";
+import { getLocalStorage } from "../util/localsessionStorage";
 import Post from "./Post";
 
 function Posts() {
   const [posts, setPosts] = useState(null);
   // const userId = getCookie("userId");
-  const { userId } = useUser();
+  const { userId, setUserId } = useUser();
 
   const { setPostObj } = usePost();
 
@@ -26,6 +27,9 @@ function Posts() {
   };
 
   useEffect(() => {
+    const uId = getLocalStorage("userId");
+    if (uId) setUserId(uId);
+
     getPosts();
   }, []);
 

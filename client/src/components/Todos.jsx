@@ -2,13 +2,18 @@ import React, { Component, useEffect, useRef, useState } from "react";
 import { useUser } from "../context/UserContext";
 import { useStateRef } from "../hooks/useStateRef";
 import { getCookie } from "../js/cookie";
+import { getLocalStorage } from "../util/localsessionStorage";
 
 function Todos() {
   const [todos, setTodos, todosRef] = useStateRef(null);
   // const userId = getCookie("userId");
-  const { userId } = useUser();
+  const { userId, setUserId } = useUser();
+
 
   useEffect(() => {
+    const uId = getLocalStorage("userId");
+    if (uId) setUserId(uId);
+
     window.onbeforeunload = toLocalStorage;
     const localTodos = localStorage.getItem("todos");
     if (localTodos) {
