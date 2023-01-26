@@ -1,12 +1,15 @@
 import React, { Component, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { usePost } from "../context/PostContext";
+import { useUser } from "../context/UserContext";
 import { getCookie } from "../js/cookie";
 import Post from "./Post";
 
 function Posts() {
   const [posts, setPosts] = useState(null);
-  const userId = getCookie("userId");
+  // const userId = getCookie("userId");
+  const { userId } = useUser();
+
   const { setPostObj } = usePost();
 
   const getPosts = async () => {
