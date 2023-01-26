@@ -6,13 +6,13 @@ import { useUser } from "../context/UserContext";
 const Login = () => {
   const { setUserNum } = useUser();
   const navigate = useNavigate();
-  
+
   const [loading, setLoading] = useState(false);
   const [userInput, setUserInput] = useState({
-    username: "Bret",
-    password: "-37.3159",
+    username: "admin",
+    password: "1234",
   });
-  
+
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleChange = ({ target }) => {
@@ -22,19 +22,26 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (loading) {
       return;
     }
-    const response = await validateUser(await getUser(userInput.username));
+
+    const response = await validateUser();
     console.log(response);
   };
 
-  const getUser = async (username) => {
+  const getUser = async () => {
     setLoading(true);
+
+    const { username, password } = userInput;
+
     try {
-      const res = await fetch(
-        `https://jsonplaceholder.typicode.com/users?username=${username}`
-      );
+      const res = await fetch(`http://localhost:8000/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password }),
+      });
 
       if (!res.ok) throw new Error(res.message);
 
