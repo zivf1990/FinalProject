@@ -47,31 +47,49 @@ function Todos() {
   const deleteTodo = async (id) => {
     try {
       const res = await fetch(
-        `https://jsonplaceholder.typicode.com/todos/${id}`,
+        `http://localhost:8000/todos`,
         {
           method: "DELETE",
+          headers:{'content-type': 'application/json'},
+          body: JSON.stringify({ todo_id: id ,user_id: userId})
         }
       );
-      if (res.ok) {
-        setTodos(todos.filter((todo) => todo.id !== id));
-      } else {
-        throw new Error(res.message);
-      }
-      console.log(res);
+      const data = await res.json();
+      setTodos(data);
+      console.log(data);
     } catch (e) {
       console.log(e);
     }
   };
 
-  function changeClassName(e) {
-    const todosArr = [...todos];
-    if (todos[e.target.id]) {
-      todosArr[e.target.id].completed === true
-        ? (todosArr[e.target.id].completed = false)
-        : (todosArr[e.target.id].completed = true);
-      setTodos(todosArr);
+  async function changeClassName(id,completed) {
+    console.log("naharda");
+    const res = await fetch(
+      `http://localhost:8000/todos`,
+      {
+        method: "PUT",
+        headers:{'content-type': 'application/json'},
+        body: JSON.stringify({ todo_id: id ,user_id: userId ,completed:!completed, checkCompleted:true})
+      }
+    );
+    const data =await res.json();
+    setTodos(data);
     }
-  }
+
+    async function addTodo() {
+      let title = prompt('Add Todos title');
+      const res = await fetch(
+        `http://localhost:8000/todos`,
+        {
+          method: "POST",
+          headers:{'content-type': 'application/json'},
+          body: JSON.stringify({user_id: userId, title: title})
+        }
+      );
+      const data =await res.json();
+      setTodos(data);
+    }
+
 
   function sortByCompleted() {
     const todosArr = [...todos];
@@ -105,6 +123,8 @@ function Todos() {
   return (
     <div className="main-content">
       <h1 style={{ margin: 50 }}>Todos</h1>
+      <button className="sortButton" onClick={addTodo}>Add Todo</button>
+
       <button className="sortButton" onClick={sortByAB}>
         sort by AB
       </button>
@@ -123,7 +143,7 @@ function Todos() {
             return (
               <div
                 id={index}
-                onClick={changeClassName}
+                onClick={()=>changeClassName(todo.id,todo.completed)}
                 className="todo-completed"
                 key={todo.id}
               >
@@ -140,7 +160,7 @@ function Todos() {
             return (
               <div
                 id={index}
-                onClick={changeClassName}
+                onClick={()=>changeClassName(todo.id,todo.completed)}
                 className="todo"
                 key={todo.id}
               >
