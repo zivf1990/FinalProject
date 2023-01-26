@@ -50,16 +50,33 @@ router.get("/:searched", function (req, res, next) {
 router.post("/", function (req, res, next) {
   const { user_id, body, title } = req.body;
 
+  console.log("Posts request recived in the server");
+
   connection.query(
     `
-        INESRT INTO post(title, body, user_id) 
-        VALUES("${title}", ${body}, ${user_id});
+        INSERT INTO post(title, body, user_id) 
+        VALUES("${title}", "${body}", ${user_id});
     `,
     (err) => {
       if (err) {
+        console.log("very bad");
         return res.send(false);
       }
-      res.send(true);
+      connection.query(
+        `
+      SELECT * 
+      FROM post WHERE user_id = ${user_id}
+ `,
+        (error, result) => {
+          if (error) {
+            console.log("bad");
+            throw error;
+          }
+          console.log("hello", result);
+
+          res.send(result);
+        }
+      );
     }
   );
 });

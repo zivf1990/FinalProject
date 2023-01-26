@@ -25,6 +25,7 @@ function Posts() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    addPost();
   };
 
   useEffect(() => {
@@ -33,6 +34,20 @@ function Posts() {
 
     getPosts();
   }, []);
+
+  async function addPost() {
+    const res = await fetch(`http://localhost:8000/posts`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        user_id: userId,
+        title: inputs.postTitle,
+        body: inputs.postBody,
+      }),
+    });
+    const data = await res.json();
+    setPosts(data);
+  }
 
   const getPosts = async () => {
     if (!posts) {
@@ -74,7 +89,7 @@ function Posts() {
     <div className="main-content">
       <h1 style={{ marginTop: 50 }}>Posts</h1>
 
-      <form className="item-form">
+      <form className="item-form" onSubmit={handleSubmit}>
         <label htmlFor="postTitle">
           Post title:
           <input
@@ -82,6 +97,7 @@ function Posts() {
             type="text"
             onChange={handleChange}
             value={inputs.postTitle}
+            name="postTitle"
           />
         </label>
 
@@ -92,9 +108,10 @@ function Posts() {
             type="text"
             onChange={handleChange}
             value={inputs.postBody}
+            name="postBody"
           />
         </label>
-        <button onSubmit={handleSubmit}>add</button>
+        <button>add</button>
       </form>
 
       {posts &&
