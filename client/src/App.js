@@ -1,17 +1,15 @@
 import "./App.css";
-import Header from "./components/Header";
+import Pages from "./components/Pages";
 import PostProvider from "./context/PostContext";
 import UserProvider from "./context/UserContext";
 
 function App() {
-
-
   return (
     <div className="App">
       <UserProvider>
         <PostProvider>
-          <Header />
-        </PostProvider >
+          <Pages />
+        </PostProvider>
       </UserProvider>
     </div>
   );

@@ -46,9 +46,9 @@ app.use("/login", loginRouter);
 
 //import mysql connection and dbSchema.
 const connection = require("./modules/sqlConfig");
-// const dbSchema = require("./db/dbScheme");
-// const { createTables, insertTable } = require("./modules/sqlManager");
-// createTables(connection, dbSchema);
+const dbSchema = require("./db/dbScheme");
+const { createTables, insertTable } = require("./modules/sqlManager");
+createTables(connection, dbSchema);
 // insertTable(commentData, dbSchema, connection);
 
 // get the hashed password from the database.

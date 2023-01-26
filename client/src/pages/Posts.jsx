@@ -1,10 +1,10 @@
 import React, { Component, useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
 import { usePost } from "../context/PostContext";
 import { useUser } from "../context/UserContext";
 import { getCookie } from "../js/cookie";
 import { getLocalStorage } from "../util/localsessionStorage";
-import Post from "./Post";
+import Post from "../components/Post";
+import { motion } from "framer-motion";
 
 function Posts() {
   const [posts, setPosts] = useState(null);
@@ -86,49 +86,57 @@ function Posts() {
   }
 
   return (
-    <div className="main-content">
-      <h1 style={{ marginTop: 50 }}>Posts</h1>
+    <motion.div
+      className="Grid"
+      animate={{ opacity: 1 }}
+      initial={{ opacity: 0 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <div className="main-content">
+        <h1 style={{ marginTop: 50 }}>Posts</h1>
 
-      <form className="item-form" onSubmit={handleSubmit}>
-        <label htmlFor="postTitle">
-          Post title:
-          <input
-            id="postTitle"
-            type="text"
-            onChange={handleChange}
-            value={inputs.postTitle}
-            name="postTitle"
-          />
-        </label>
-
-        <label htmlFor="postBody">
-          Post body:
-          <input
-            id="postBody"
-            type="text"
-            onChange={handleChange}
-            value={inputs.postBody}
-            name="postBody"
-          />
-        </label>
-        <button>add</button>
-      </form>
-
-      {posts &&
-        posts.map((post, index) => (
-          <div>
-            <Post
-              key={index}
-              title={post.title}
-              body={post.body}
-              postId={post.id}
-              deletepost={deletepost}
-              index={index}
-              changeContext={changeContext}
+        <form className="item-form" onSubmit={handleSubmit}>
+          <label htmlFor="postTitle">
+            Post title:
+            <input
+              id="postTitle"
+              type="text"
+              onChange={handleChange}
+              value={inputs.postTitle}
+              name="postTitle"
             />
-          </div>
-        ))}
-    </div>
+          </label>
+
+          <label htmlFor="postBody">
+            Post body:
+            <input
+              id="postBody"
+              type="text"
+              onChange={handleChange}
+              value={inputs.postBody}
+              name="postBody"
+            />
+          </label>
+          <button>add</button>
+        </form>
+
+        {posts &&
+          posts.map((post, index) => (
+            <div>
+              <Post
+                key={index}
+                title={post.title}
+                body={post.body}
+                postId={post.id}
+                deletepost={deletepost}
+                index={index}
+                changeContext={changeContext}
+              />
+            </div>
+          ))}
+      </div>
+    </motion.div>
   );
 }
 

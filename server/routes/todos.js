@@ -47,7 +47,7 @@ router.get("/:searched", function (req, res, next) {
 
 router.post("/", function (req, res, next) {
   const { user_id, title } = req.body;
-  console.log(user_id,title);
+  console.log(user_id, title);
   connection.query(
     `
         INSERT INTO todo(title, completed, user_id) 
@@ -58,25 +58,28 @@ router.post("/", function (req, res, next) {
         console.log("very bad");
         return res.send(false);
       }
-      connection.query(  `
+      connection.query(
+        `
       SELECT * 
       FROM todo WHERE user_id = ${user_id}
- `, (error, result) => {
-   if(error){
-    console.log("bad");
-     throw error;
-   }
-   console.log("hello", result);
+ `,
+        (error, result) => {
+          if (error) {
+            console.log("bad");
+            throw error;
+          }
+          console.log("hello", result);
 
-   res.send(result);
- })
+          res.send(result);
+        }
+      );
     }
   );
 });
 
 router.put("/", function (req, res, next) {
   console.log("PUT request for todo ", req.body);
-  const { todo_id, completed, checkCompleted, title,user_id } = req.body;
+  const { todo_id, completed, checkCompleted, title, user_id } = req.body;
   console.log(completed);
   if (title) {
     update("title", title);
@@ -97,24 +100,27 @@ router.put("/", function (req, res, next) {
         if (err) {
           return res.send(false);
         }
-        connection.query(  `
+        connection.query(
+          `
         SELECT * 
         FROM todo WHERE user_id = ${user_id}
-   `, (error, result) => {
-     if(error){
-       throw error;
-     }
-     console.log("hello", result);
- 
-     res.send(result);
-   })
+   `,
+          (error, result) => {
+            if (error) {
+              throw error;
+            }
+            console.log("hello", result);
+
+            res.send(result);
+          }
+        );
       }
     );
   }
 });
 
 router.delete("/", function (req, res, next) {
-  const { todo_id,user_id } = req.body;
+  const { todo_id, user_id } = req.body;
   console.log("delete req", todo_id);
   connection.query(
     `
@@ -126,15 +132,18 @@ router.delete("/", function (req, res, next) {
       if (err) {
         return res.send(false);
       }
-     connection.query(  `
+      connection.query(
+        `
      SELECT * 
      FROM todo WHERE user_id = ${user_id}
-`, (error, result) => {
-  if(error){
-    throw error;
-  }
-  res.send(result);
-})
+`,
+        (error, result) => {
+          if (error) {
+            throw error;
+          }
+          res.send(result);
+        }
+      );
     }
   );
 });

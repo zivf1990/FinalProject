@@ -2,6 +2,7 @@ import React, { Component, useEffect, useState } from "react";
 import { useNavigate, useNavigation, useParams } from "react-router-dom";
 import { usePost } from "../context/PostContext";
 import { getCookie } from "../js/cookie";
+import { motion } from "framer-motion";
 
 function Comments() {
   const { postObj } = usePost();
@@ -31,20 +32,25 @@ function Comments() {
   };
 
   return (
-    <div className="main-content">
-      <h2 style={{ marginTop: 50 }}>{postObj.title}</h2>
-      <p>{postObj.body}</p>
-      {comments &&
-        comments.map((comment) => (
-          <div className="comment" key={comment.id}>
-            <h6>{comment.name}</h6>
-            <p>{comment.body}</p>
-          </div>
-        ))}
-      <button onClick={() => navigate(`/Users/${postId}/Posts`)}>
-        go back
-      </button>
-    </div>
+    <motion.div
+      className="Grid"
+      animate={{ opacity: 1 }}
+      initial={{ opacity: 0 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <div className="main-content">
+        <h2 style={{ marginTop: 50 }}>{postObj.title}</h2>
+        <p>{postObj.body}</p>
+        {comments &&
+          comments.map((comment) => (
+            <div className="comment" key={comment.id}>
+              <h6>{comment.name}</h6>
+              <p>{comment.body}</p>
+            </div>
+          ))}
+      </div>
+    </motion.div>
   );
 }
 
