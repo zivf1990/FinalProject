@@ -159,8 +159,4 @@ const dbScheme = [
   },
 ];
 
-// const insertIntoTable = {
-//   table_name: "user_info",
-// };
-
 module.exports = dbScheme;

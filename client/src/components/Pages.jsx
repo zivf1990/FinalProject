@@ -12,6 +12,7 @@ import { AnimatePresence } from "framer-motion";
 
 function Pages() {
   // const userId = getCookie("userId");
+  // const isAdmin = getCookie("isAdmin");
   const { userId } = useUser();
   return (
     <AnimatePresence mode="wait">
@@ -19,6 +20,12 @@ function Pages() {
         {userId ? (
           <>
             <Routes>
+              {/* <Route path="/admin" element={<Home />}>
+                <Route path="info" element={<Info />} />
+                <Route path="todos" element={<Todos />} />
+                <Route path="posts" element={<Posts />} />
+                <Route path="posts/:postId" element={<Comments />} />
+              </Route> */}
               <Route path="/" element={<Home />}>
                 <Route path="info" element={<Info />} />
                 <Route path="todos" element={<Todos />} />
