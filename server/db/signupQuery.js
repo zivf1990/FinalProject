@@ -1,10 +1,6 @@
-const Sequelize = require("sequelize");
 const { saveEncryptPassword } = require("../modules/encryption");
+const sequelize = require("../modules/sequelizeConfig");
 
-const sequelize = new Sequelize("shopify", "root", "z10mz10m", {
-  host: "localhost",
-  dialect: "mysql",
-});
 const createUser2 = async (username, password, email, name, address, cb) => {
   sequelize
     .transaction(async (transaction) => {
@@ -40,7 +36,7 @@ const createUser2 = async (username, password, email, name, address, cb) => {
       }
     })
     .catch((error) => {
-      cb(error);
+      cb(error.message);
     });
 };
 

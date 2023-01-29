@@ -49,26 +49,26 @@ const Login = () => {
       const data = await res.json();
       console.log("response: ", data);
 
-      setLoading(false);
+      // setLoading(false);
 
       //success to login.
-      if (data) {
-        localStorage.setItem("userId", data.userId);
-        console.log(data);
-        setUserId(data);
-        // setCookie("userId", user.id, 1);
-        // window.history.pushState(null, null, window.location.href);
-        // window.onpopstate = window.history.go(1);
-        if(data.permission_level=="user"){
-        navigate(`/Home`);
-        localStorage.setItem("userId", data.token);
-        }
-        else if(data.permission_level=="admin"){
-        navigate(`/admin`);
-        }
-      } else {
-        alert("failed")
-      }
+      // if (data) {
+      //   localStorage.setItem("userId", data.userId);
+      //   console.log(data);
+      //   setUserId(data);
+      //   // setCookie("userId", user.id, 1);
+      //   // window.history.pushState(null, null, window.location.href);
+      //   // window.onpopstate = window.history.go(1);
+      //   if(data.permission_level=="user"){
+      //   navigate(`/Home`);
+      //   localStorage.setItem("userId", data.token);
+      //   }
+      //   else if(data.permission_level=="admin"){
+      //   navigate(`/admin`);
+      //   }
+      // } else {
+      //   alert("failed")
+      // }
     } catch (e) {
       console.log(e);
       setTimeout(3000, alert("Please Check Your Internet Connection"));

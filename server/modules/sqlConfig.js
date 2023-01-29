@@ -1,4 +1,5 @@
 const mysql = require("mysql2");
+const Sequelize = require("sequelize");
 
 const connection = mysql.createConnection({
   host: "localhost",
@@ -12,4 +13,11 @@ connection.connect((err) => {
   console.log("mysql connected successfully");
 });
 
-module.exports = connection;
+
+const sequelize = new Sequelize("shopify", "root", "z10mz10m", {
+  host: "localhost",
+  dialect: "mysql",
+});
+
+module.exports.connection = connection;
+module.exports.sequelize = sequelize;

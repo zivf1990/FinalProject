@@ -8,16 +8,6 @@ const encrypt = {
       cb(hash);
     });
   },
-
-  comparePassword: async (password, hashedPassword) => {
-    const isMatch = await bcrypt.compare(password, hashedPassword);
-
-    if (isMatch) {
-      return "Password is correct";
-    } else {
-      return "Password is incorrect";
-    }
-  },
 };
 
 module.exports = encrypt;
