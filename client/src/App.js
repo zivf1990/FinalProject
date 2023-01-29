@@ -1,4 +1,4 @@
-import "./App.css";
+import "./style/App.css";
 import Pages from "./components/Pages";
 import PostProvider from "./context/PostContext";
 import UserProvider from "./context/UserContext";

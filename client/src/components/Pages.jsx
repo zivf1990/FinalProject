@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import { useUser } from "../context/UserContext";
 import Info from "./Info";
-import Login from "../pages/Login";
+import Login2 from "../pages/Login2";
 import NavBar from "./NavBar";
 import Posts from "../pages/Posts";
 import Todos from "../pages/Todos";
@@ -25,13 +25,13 @@ function Pages() {
                 <Route path="posts" element={<Posts />} />
                 <Route path="posts/:postId" element={<Comments />} />
               </Route>
-              <Route path="login" element={<Login />} />
+              <Route path="login" element={<Login2 />} />
             </Routes>
           </>
         ) : (
           <>
             <Routes>
-              <Route path="*" element={<Login />} />
+              <Route path="*" element={<Login2 />} />
             </Routes>
           </>
         )}

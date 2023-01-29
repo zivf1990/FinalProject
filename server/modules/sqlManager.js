@@ -10,7 +10,7 @@ const sqlManager = {
   createTables: async (connection, dbSchema) => {
     dbSchema.forEach(async (table) => {
       try {
-        const query = module.exports.generateTableQuery(table);
+        const query = module.exports.generateCreateTableQuery(table);
         await connection.promise().query(query);
         console.log(`Table ${table.table_name} created successfully`);
       } catch (error) {
@@ -18,7 +18,114 @@ const sqlManager = {
       }
     });
   },
-  insertTable: async (data, dbSchema, connection) => {
+  monitorTables: async (connection, dbSchema) => {
+    try {
+      await connection.connect();
+      for (const table of dbSchema) {
+        let tableExist = false;
+        // check if table exist
+        const [rows, fields] = await connection.execute(`SHOW TABLES`);
+        for (let row of rows) {
+          for (let key in row) {
+            if (row[key] === table.table_name) {
+              tableExist = true;
+              break;
+            }
+          }
+        }
+        if (!tableExist) {
+          // create table
+          let columns = "";
+          for (let column of table.columns) {
+            columns += `${column.column_name} ${column.data_type}`;
+            if (column.unsigned) columns += " UNSIGNED";
+            if (column.auto_increment) columns += " AUTO_INCREMENT";
+            if (column.primary_key) columns += " PRIMARY KEY";
+            if (column.not_null) columns += " NOT NULL";
+            if (column.unique) columns += " UNIQUE";
+            columns += ",";
+          }
+          let foreign_keys = "";
+          if (table.foreign_keys) {
+            for (let foreign_key of table.foreign_keys) {
+              foreign_keys += `, FOREIGN KEY (${foreign_key.column_name}) REFERENCES ${foreign_key.outer_table}(${foreign_key.outer_column})`;
+            }
+          }
+          const createTableSql = `CREATE TABLE ${
+            table.table_name
+          } (${columns.slice(0, -1)} ${foreign_keys})`;
+          await connection.execute(createTableSql);
+          console.log(`Table ${table.table_name} created`);
+        } else {
+          // alter table
+          for (let column of table.columns) {
+            let columnExist = false;
+            const [rows, fields] = await connection.execute(
+              `DESCRIBE ${table.table_name}`
+            );
+            for (let row of rows) {
+              if (row.Field === column.column_name) {
+                columnExist = true;
+                break;
+              }
+            }
+            if (!columnExist) {
+              // add column
+              let columnDef = `${column.column_name} ${column.data_type}`;
+              if (column.unsigned) columnDef += " UNSIGNED";
+              if (column.auto_increment) columnDef += " AUTO_INCREMENT";
+              if (column.primary_key) columnDef += " PRIMARY KEY";
+              if (column.not_null) columnDef += " NOT NULL";
+              if (column.unique) columnDef += " UNIQUE";
+              const addColumnSql = `ALTER TABLE ${table.table_name} ADD ${columnDef}`;
+              await connection.execute(addColumnSql);
+              console.log(
+                `Column ${column.column_name} added to table ${table.table_name}`
+              );
+            } else {
+              // modify column
+              let modifyDef = "";
+              const [rows, fields] = await connection.execute(
+                `DESCRIBE ${table.table_name}`
+              );
+              for (let row of rows) {
+                if (row.Field === column.column_name) {
+                  if (
+                    row.Type.toUpperCase() !== column.data_type.toUpperCase()
+                  ) {
+                    modifyDef += `CHANGE ${row.Field} ${column.column_name} ${column.data_type}`;
+                  }
+                  if (row.Null === "NO" && !column.not_null) {
+                    modifyDef += " NULL";
+                  } else if (row.Null === "YES" && column.not_null) {
+                    modifyDef += " NOT NULL";
+                  }
+                  if (row.Key === "UNI" && !column.unique) {
+                    modifyDef += " DROP INDEX";
+                  } else if (row.Key !== "UNI" && column.unique) {
+                    modifyDef += " ADD UNIQUE";
+                  }
+                  break;
+                }
+              }
+              if (modifyDef) {
+                const modifyColumnSql = `ALTER TABLE ${table.table_name} ${modifyDef}`;
+                await connection.execute(modifyColumnSql);
+                console.log(
+                  `Column ${column.column_name} modified in table ${table.table_name}`
+                );
+              }
+            }
+          }
+        }
+      }
+      await connection.end();
+    } catch (err) {
+      console.log(err);
+      await connection.end();
+    }
+  },
+  insertIntoTable: async (data, dbSchema, connection) => {
     try {
       const query = module.exports.generateInsertQuery(data, dbSchema);
       await connection.promise().query(query);
@@ -88,7 +195,7 @@ const sqlManager = {
     // Return the final query
     return query;
   },
-  generateTableQuery: (table) => {
+  generateCreateTableQuery: (table) => {
     //Check for required fields.
     if (!table.table_name || !table.columns) {
       throw new Error("table_name and columns are required");
@@ -100,7 +207,7 @@ const sqlManager = {
         );
       }
     });
-    let query = `CREATE TABLE ${table.table_name} (\n`;
+    let query = `CREATE TABLE IF NOT EXISTS ${table.table_name} (\n`;
     table.columns.forEach((column) => {
       query += `  ${column.column_name} ${column.data_type}`;
 
@@ -121,8 +228,9 @@ const sqlManager = {
             "column_name, outer_table, and outer_column are required for each foreign key"
           );
         }
-        query += `  FOREIGN KEY (${key.column_name}) REFERENCES ${key.outer_table}(${key.outer_column}) ON DELETE CASCADE
-        ON UPDATE CASCADE,\n`;
+        query += `  FOREIGN KEY (${key.column_name}) REFERENCES ${key.outer_table}(${key.outer_column}) 
+  ON DELETE CASCADE 
+  ON UPDATE CASCADE,\n`;
       });
     }
     // remove the "," and close the query.

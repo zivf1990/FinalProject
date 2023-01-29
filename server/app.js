@@ -47,17 +47,14 @@ app.use("/login", loginRouter);
 //import mysql connection and dbSchema.
 const connection = require("./modules/sqlConfig");
 const dbSchema = require("./db/dbScheme");
-const { createTables, insertTable } = require("./modules/sqlManager");
-createTables(connection, dbSchema);
+const {
+  createTables,
+  insertTable,
+  monitorTables,
+} = require("./modules/sqlManager");
+// createTables(connection, dbSchema);
+monitorTables(connection, dbSchema);
 // insertTable(commentData, dbSchema, connection);
-
-// get the hashed password from the database.
-// const selectQuery = `
-// SELECT p.password
-// FROM password p
-// JOIN user u
-// ON u.id = p.user_id
-// WHERE u.username = "${"ziv1"}";
 
 // `;
 // connection.query(selectQuery, function (error, results, fields) {
