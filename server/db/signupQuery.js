@@ -1,5 +1,5 @@
 const Sequelize = require("sequelize");
-const saveEncryptPassword = require("../modules/encryption");
+const { saveEncryptPassword } = require("../modules/encryption");
 
 const sequelize = new Sequelize("shopify", "root", "z10mz10m", {
   host: "localhost",
