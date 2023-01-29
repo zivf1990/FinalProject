@@ -1,6 +1,5 @@
-const connection = require("../modules/sqlConfig");
-
 const Sequelize = require("sequelize");
+const saveEncryptPassword = require("../modules/encryption");
 
 const sequelize = new Sequelize("shopify", "root", "z10mz10m", {
   host: "localhost",
@@ -18,16 +17,20 @@ const createUser2 = async (username, password, email, name, address, cb) => {
 
         const userId = await result1[0];
 
-        const passwordQuery = `INSERT INTO user_password(password, user_id) VALUES("${password}", ${userId})`;
+        const encryptPassword = await new Promise((resolve) => {
+          saveEncryptPassword(password, resolve);
+        });
 
-        const result2 = await sequelize.query(passwordQuery, { transaction });
+        const passwordQuery = `INSERT INTO user_password(password, user_id) VALUES("${encryptPassword}", ${userId})`;
+
+        await sequelize.query(passwordQuery, { transaction });
 
         const token = Math.random() * Number.MAX_SAFE_INTEGER;
 
         const permissionQuery = `INSERT INTO user_permission(user_id, permission_level , token)
        VALUES( ${userId}, "user", "${token}")`;
 
-        const result3 = await sequelize.query(permissionQuery, { transaction });
+        await sequelize.query(permissionQuery, { transaction });
 
         console.log("User Created");
         cb(token);
