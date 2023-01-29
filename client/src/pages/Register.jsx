@@ -42,27 +42,27 @@ const Register = () => {
       const res = await fetch(`http://localhost:8000/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password , email, name, address}),
+        body: JSON.stringify({ username, password, email, name, address }),
       });
 
-      if (!res.ok) throw new Error(res.message);
-
+      // if (!res.status === 201)
+      console.log(res.message);
       const data = await res.json();
       console.log("response: ", data);
 
-      setLoading(false);
+      // setLoading(false);
 
       //success to login.
-      if (data?.result == true) {
-        localStorage.setItem("userId", data.userId);
-        setUserId(data.userId);
-        // setCookie("userId", user.id, 1);
-        // window.history.pushState(null, null, window.location.href);
-        // window.onpopstate = window.history.go(1);
-        navigate(`/`);
-      } else {
-        //falied to login.
-      }
+      // if (data?.result == true) {
+      //   localStorage.setItem("userId", data.userId);
+      //   setUserId(data.userId);
+      // setCookie("userId", user.id, 1);
+      // window.history.pushState(null, null, window.location.href);
+      // window.onpopstate = window.history.go(1);
+      //   navigate(`/`);
+      // } else {
+      //falied to login.
+      // }
     } catch (e) {
       console.log(e);
       setTimeout(3000, alert("Please Check Your Internet Connection"));
@@ -137,15 +137,15 @@ const Register = () => {
                 </div>
                 <div className="input-field">
                   <input
-                    type="address"
-                    name="text"
+                    type="text"
+                    name="address"
                     className={loading === false ? "input" : "input wait"}
                     id="address"
                     onChange={handleChange}
                     value={userInput.address}
                     required
                   />
-                  <label htmlFor="email">Address</label>
+                  <label htmlFor="address">Address</label>
                 </div>
                 <div className="input-field">
                   <input
