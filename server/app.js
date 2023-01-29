@@ -47,8 +47,11 @@ app.use("/login", loginRouter);
 //import mysql connection and dbSchema.
 const connection = require("./modules/sqlConfig");
 const dbSchema = require("./db/dbScheme");
-const { createTables, monitorTables } = require("./modules/sqlManager");
-// createTables(connection, dbSchema);
-// monitorTables(connection, dbSchema);
+const { createTables, createDatabase } = require("./modules/sqlManager");
+
+createTables(connection, dbSchema);
+
+
+
 
 module.exports = app;
