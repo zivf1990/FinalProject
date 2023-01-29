@@ -26,6 +26,11 @@ const dbScheme = [
         not_null: true,
       },
       {
+        column_name: "user_picture",
+        data_type: "VARCHAR(200)",
+        not_null: true,
+      },
+      {
         column_name: "email",
         data_type: "VARCHAR(30)",
         not_null: true,
@@ -78,8 +83,9 @@ const dbScheme = [
         unique: true,
       },
       {
-        column_name: "is_admin",
-        data_type: "BOOLEAN",
+        column_name: "permission_level",
+        data_type: "VARCHAR(10)",
+        not_null: true,
       },
     ],
     foreign_keys: [
@@ -87,6 +93,23 @@ const dbScheme = [
         column_name: "user_id",
         outer_table: "user_info",
         outer_column: "user_id",
+      },
+    ],
+  },
+  {
+    table_name: "category",
+    columns: [
+      {
+        column_name: "category_id",
+        data_type: "BIGINT",
+        unsigned: true,
+        auto_increment: true,
+        primary_key: true,
+      },
+      {
+        column_name: "category_name",
+        data_type: "VARCHAR(20)",
+        not_null: true,
       },
     ],
   },
@@ -106,19 +129,30 @@ const dbScheme = [
         not_null: true,
       },
       {
+        column_name: "product_picture",
+        data_type: "VARCHAR(200)",
+        not_null: true,
+      },
+      {
         column_name: "price",
         data_type: "INT",
         not_null: true,
       },
       {
-        column_name: "category",
-        data_type: "VARCHAR(30)",
+        column_name: "category_id",
+        data_type: "BIGINT",
         not_null: true,
+        unsigned: true
+      },
+      {
+        column_name: "amount",
+        data_type: "INT",
+        unsigned: true,
       },
       {
         column_name: "seller_id",
         data_type: "BIGINT",
-        unsigned: true,
+        unsigned: true
       },
 
     ],
@@ -128,29 +162,10 @@ const dbScheme = [
         outer_table: "user_info",
         outer_column: "user_id",
       },
-    ],
-  },
-  {
-    table_name: "stock",
-    columns: [
       {
-        column_name: "product_id",
-        data_type: "BIGINT",
-        unsigned: true,
-      },
-  
-      {
-        column_name: "amount",
-        data_type: "INT",
-        unsigned: true,
-        not_null: true,
-      },
-    ],
-    foreign_keys: [
-      {
-        column_name: "product_id",
-        outer_table: "product",
-        outer_column: "product_id",
+        column_name: "category_id",
+        outer_table: "category",
+        outer_column: "category_id",
       },
     ],
   },

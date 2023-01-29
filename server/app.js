@@ -49,7 +49,7 @@ const connection = require("./modules/sqlConfig");
 const dbSchema = require("./db/dbScheme");
 const { createTables, createDatabase } = require("./modules/sqlManager");
 
-// createTables(connection, dbSchema);
+createTables(connection, dbSchema);
 
 
 

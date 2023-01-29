@@ -234,8 +234,7 @@ const sqlManager = {
   ${
     table.table_name === "history"
       ? "ON UPDATE CASCADE"
-      : `ON DELETE CASCADE 
-  ON UPDATE CASCADE`
+      : `ON DELETE CASCADE ON UPDATE CASCADE`
   },\n`;
       });
     }

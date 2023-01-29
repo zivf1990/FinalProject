@@ -5,6 +5,7 @@ import Login from "../pages/Login";
 import NavBar from "./NavBar";
 import Posts from "../pages/Posts";
 import Todos from "../pages/Todos";
+import Register from "../pages/Register";
 import { getCookie } from "../js/cookie";
 import Comments from "../pages/Comments";
 import Home from "../pages/Home";
@@ -31,7 +32,7 @@ function Pages() {
         ) : (
           <>
             <Routes>
-              <Route path="*" element={<Login />} />
+              <Route path="*" element={<Register />} />
             </Routes>
           </>
         )}
