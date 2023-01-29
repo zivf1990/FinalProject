@@ -228,9 +228,15 @@ const sqlManager = {
             "column_name, outer_table, and outer_column are required for each foreign key"
           );
         }
-        query += `  FOREIGN KEY (${key.column_name}) REFERENCES ${key.outer_table}(${key.outer_column}) 
-  ON DELETE CASCADE 
-  ON UPDATE CASCADE,\n`;
+        query += `  FOREIGN KEY (${key.column_name}) REFERENCES ${
+          key.outer_table
+        }(${key.outer_column}) 
+  ${
+    table.table_name === "history"
+      ? "ON UPDATE CASCADE"
+      : `ON DELETE CASCADE 
+  ON UPDATE CASCADE`
+  },\n`;
       });
     }
     // remove the "," and close the query.
