@@ -28,12 +28,12 @@ const dbScheme = [
       {
         column_name: "user_picture",
         data_type: "VARCHAR(200)",
-        not_null: true,
       },
       {
         column_name: "email",
         data_type: "VARCHAR(30)",
         not_null: true,
+        unique: true,
       },
       {
         column_name: "created_at",
@@ -58,7 +58,6 @@ const dbScheme = [
         column_name: "user_id",
         data_type: "BIGINT",
         unsigned: true,
-       
       },
     ],
     foreign_keys: [
@@ -142,7 +141,7 @@ const dbScheme = [
         column_name: "category_id",
         data_type: "BIGINT",
         not_null: true,
-        unsigned: true
+        unsigned: true,
       },
       {
         column_name: "amount",
@@ -152,9 +151,8 @@ const dbScheme = [
       {
         column_name: "seller_id",
         data_type: "BIGINT",
-        unsigned: true
+        unsigned: true,
       },
-
     ],
     foreign_keys: [
       {
@@ -176,24 +174,24 @@ const dbScheme = [
         column_name: "user_id",
         data_type: "BIGINT",
         unsigned: true,
-        not_null: true
+        not_null: true,
       },
       {
         column_name: "product_id",
         data_type: "BIGINT",
         unsigned: true,
-        not_null: true
+        not_null: true,
       },
       {
         column_name: "purchase_amount",
         data_type: "BIGINT",
         unsigned: true,
-        not_null: true
+        not_null: true,
       },
       {
         column_name: "purchase_date",
         data_type: "DATE",
-        not_null: true
+        not_null: true,
       },
     ],
     foreign_keys: [
@@ -210,6 +208,5 @@ const dbScheme = [
     ],
   },
 ];
-
 
 module.exports = dbScheme;

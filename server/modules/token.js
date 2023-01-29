@@ -19,12 +19,22 @@ const token = {
         const insertQuery = `INSERT INTO user_permission (user_id, token) VALUES (?, ?)`;
         await connection.query(insertQuery, [user_id, token]);
 
-        return cb(token);
+        cb(token);
       }
     );
   },
-  removeToken: (token) => {
-    // connection.query(`DELETE FROM `
+  removeToken: (token, cb) => {
+    connection.query(
+      `
+    UPDATE user_permission
+    SET token = null 
+    WHERE token = "${token}"
+    `,
+      (err, data) => {
+        if (err) console.log(err);
+        cb(data);
+      }
+    );
   },
 };
 

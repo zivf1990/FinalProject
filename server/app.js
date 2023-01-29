@@ -17,6 +17,7 @@ const loginRouter = require("./routes/login");
 
 //initialize express.
 const app = express();
+const createUser = require("./db/signupQuery");
 
 //Settings.
 app.use(cors());
@@ -48,10 +49,14 @@ app.use("/login", loginRouter);
 const connection = require("./modules/sqlConfig");
 const dbSchema = require("./db/dbScheme");
 const { createTables, createDatabase } = require("./modules/sqlManager");
+// createTables(connection, dbSchema);
 
-createTables(connection, dbSchema);
-
-
-
+createUser(
+  "d2swds",
+  "jjjdwdfdjj1jj2j",
+  "zzzzzz@gmail.com",
+  "jerusalem",
+  "password1"
+);
 
 module.exports = app;
