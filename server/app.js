@@ -47,39 +47,9 @@ app.use("/login", loginRouter);
 //import mysql connection and dbSchema.
 const connection = require("./modules/sqlConfig");
 const dbSchema = require("./db/dbScheme");
-const {
-  createTables,
-  insertTable,
-  monitorTables,
-} = require("./modules/sqlManager");
+const { createTables, monitorTables } = require("./modules/sqlManager");
 // createTables(connection, dbSchema);
-monitorTables(connection, dbSchema);
-// insertTable(commentData, dbSchema, connection);
-
-// `;
-// connection.query(selectQuery, function (error, results, fields) {
-//   if (error) throw error;
-//   console.log(results);
-//   if (!results[0]?.password) {
-//     // return res.send(false);
-//   } else {
-//     const hashedPassword = results[0]?.password;
-//     console.log("hashedPassword ", hashedPassword);
-
-//     // console.log( bcrypt.compareSync("1234", hashedPassword))
-//     // // compare the plain-text password with the hashed password
-//     bcrypt.compare("1234", hashedPassword, function (err, res) {
-//       console.log("bcrypt checks passwords...");
-//       if (res) {
-//         console.log("password match");
-//         // return res.send(true);
-//       } else {
-//         console.log("password not match");
-//         // return res.send(false);
-//       }
-//     });
-//   }
-// });
+// monitorTables(connection, dbSchema);
 
 const savePassword = async () => {
   bcrypt.hash("1234", 10, (err, hash) => {
@@ -95,7 +65,5 @@ const savePassword = async () => {
     });
   });
 };
-
-// savePassword();
 
 module.exports = app;
