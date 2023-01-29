@@ -51,12 +51,19 @@ const dbSchema = require("./db/dbScheme");
 const { createTables, createDatabase } = require("./modules/sqlManager");
 // createTables(connection, dbSchema);
 
-createUser(
-  "d2swds",
-  "jjjdwdfdjj1jj2j",
-  "zzzzzz@gmail.com",
-  "jerusalem",
-  "password1"
-);
+// createUser(
+//   "ofeko",
+//   "1234",
+//   "zzzzz@gmail.com",
+//   "jerusalem",
+//   "password1", (data)=>{
+//     if(data){
+//       console.log(data)
+//     }
+//     else{
+//       console.log(false);
+//     }
+//   }
+// );
 
 module.exports = app;

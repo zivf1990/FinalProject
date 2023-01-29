@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import { useUser } from "../context/UserContext";
 import Info from "./Info";
 import Login from "../pages/Login";
@@ -18,8 +18,7 @@ function Pages() {
   return (
     <AnimatePresence mode="wait">
       <>
-        {userId ? (
-          <>
+       
             <Routes>
               {/* <Route path="/admin" element={<Home />}>
                 <Route path="info" element={<Info />} />
@@ -27,22 +26,17 @@ function Pages() {
                 <Route path="posts" element={<Posts />} />
                 <Route path="posts/:postId" element={<Comments />} />
               </Route> */}
-              <Route path="/" element={<Home />}>
+              <Route index element = {<Navigate replace to='/login'/>} />
+              <Route path="login" element={<Login />} />
+              <Route path="/Home" element={<Home />}>
                 <Route path="info" element={<Info />} />
                 <Route path="todos" element={<Todos />} />
                 <Route path="posts" element={<Posts />} />
                 <Route path="posts/:postId" element={<Comments />} />
               </Route>
-              <Route path="login" element={<Login />} />
+              <Route path="register" element={<Register />} />
             </Routes>
-          </>
-        ) : (
-          <>
-            <Routes>
-              <Route path="*" element={<Register />} />
-            </Routes>
-          </>
-        )}
+        
       </>
     </AnimatePresence>
   );

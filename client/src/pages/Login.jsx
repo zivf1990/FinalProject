@@ -52,15 +52,22 @@ const Login = () => {
       setLoading(false);
 
       //success to login.
-      if (data?.result == true) {
+      if (data) {
         localStorage.setItem("userId", data.userId);
-        setUserId(data.userId);
+        console.log(data);
+        setUserId(data);
         // setCookie("userId", user.id, 1);
         // window.history.pushState(null, null, window.location.href);
         // window.onpopstate = window.history.go(1);
-        navigate(`/`);
+        if(data.permission_level=="user"){
+        navigate(`/Home`);
+        localStorage.setItem("userId", data.token);
+        }
+        else if(data.permission_level=="admin"){
+        navigate(`/admin`);
+        }
       } else {
-        //falied to login.
+        alert("failed")
       }
     } catch (e) {
       console.log(e);
