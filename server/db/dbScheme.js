@@ -1,9 +1,9 @@
 const dbScheme = [
   {
-    table_name: "user",
+    table_name: "user_info",
     columns: [
       {
-        column_name: "id",
+        column_name: "user_id",
         data_type: "BIGINT",
         unsigned: true,
         auto_increment: true,
@@ -16,20 +16,33 @@ const dbScheme = [
       },
       {
         column_name: "username",
-        data_type: "VARCHAR(20)",
+        data_type: "VARCHAR(30)",
         not_null: true,
         unique: true,
       },
-
       {
         column_name: "address",
-        data_type: "VARCHAR(20)",
+        data_type: "VARCHAR(80)",
         not_null: true,
+      },
+      {
+        column_name: "email",
+        data_type: "VARCHAR(30)",
+        not_null: true,
+      },
+      {
+        column_name: "created_at",
+        data_type: "DATE",
+        not_null: true,
+      },
+      {
+        column_name: "updated_at",
+        data_type: "DATE",
       },
     ],
   },
   {
-    table_name: "password",
+    table_name: "user_password",
     columns: [
       {
         column_name: "password",
@@ -40,127 +53,148 @@ const dbScheme = [
         column_name: "user_id",
         data_type: "BIGINT",
         unsigned: true,
-        not_null: true,
+       
+      },
+    ],
+    foreign_keys: [
+      {
+        column_name: "user_id",
+        outer_table: "user_info",
+        outer_column: "user_id",
+      },
+    ],
+  },
+  {
+    table_name: "user_permission",
+    columns: [
+      {
+        column_name: "user_id",
+        data_type: "BIGINT",
+        unsigned: true,
+      },
+      {
+        column_name: "token",
+        data_type: "VARCHAR(60)",
         unique: true,
       },
-    ],
-    foreign_keys: [
       {
-        column_name: "user_id",
-        outer_table: "user",
-        outer_column: "id",
-      },
-    ],
-  },
-  {
-    table_name: "post",
-    columns: [
-      {
-        column_name: "id",
-        data_type: "BIGINT",
-        unsigned: true,
-        auto_increment: true,
-        primary_key: true,
-      },
-      {
-        column_name: "title",
-        data_type: "VARCHAR(30)",
-        not_null: true,
-      },
-      {
-        column_name: "body",
-        data_type: "VARCHAR(150)",
-      },
-
-      {
-        column_name: "user_id",
-        data_type: "BIGINT",
-        unsigned: true,
-        not_null: true,
-      },
-    ],
-    foreign_keys: [
-      {
-        column_name: "user_id",
-        outer_table: "user",
-        outer_column: "id",
-      },
-    ],
-  },
-  {
-    table_name: "todo",
-    columns: [
-      {
-        column_name: "id",
-        data_type: "BIGINT",
-        unsigned: true,
-        auto_increment: true,
-        primary_key: true,
-      },
-      {
-        column_name: "title",
-        data_type: "VARCHAR(30)",
-        not_null: true,
-      },
-      {
-        column_name: "completed",
+        column_name: "is_admin",
         data_type: "BOOLEAN",
-        not_null: true,
-      },
-
-      {
-        column_name: "user_id",
-        data_type: "BIGINT",
-        unsigned: true,
-        not_null: true,
       },
     ],
     foreign_keys: [
       {
         column_name: "user_id",
-        outer_table: "user",
-        outer_column: "id",
+        outer_table: "user_info",
+        outer_column: "user_id",
       },
     ],
   },
   {
-    table_name: "comment",
+    table_name: "product",
     columns: [
       {
-        column_name: "id",
+        column_name: "product_id",
         data_type: "BIGINT",
         unsigned: true,
         auto_increment: true,
         primary_key: true,
       },
       {
-        column_name: "title",
+        column_name: "product_name",
         data_type: "VARCHAR(30)",
         not_null: true,
       },
       {
-        column_name: "body",
-        data_type: "VARCHAR(150)",
+        column_name: "price",
+        data_type: "INT",
+        not_null: true,
       },
       {
-        column_name: "post_id",
+        column_name: "category",
+        data_type: "VARCHAR(30)",
+        not_null: true,
+      },
+      {
+        column_name: "seller_id",
         data_type: "BIGINT",
+        unsigned: true,
+      },
+
+    ],
+    foreign_keys: [
+      {
+        column_name: "seller_id",
+        outer_table: "user_info",
+        outer_column: "user_id",
+      },
+    ],
+  },
+  {
+    table_name: "stock",
+    columns: [
+      {
+        column_name: "product_id",
+        data_type: "BIGINT",
+        unsigned: true,
+      },
+  
+      {
+        column_name: "amount",
+        data_type: "INT",
         unsigned: true,
         not_null: true,
       },
     ],
     foreign_keys: [
       {
-        column_name: "post_id",
-        outer_table: "post",
-        outer_column: "id",
+        column_name: "product_id",
+        outer_table: "product",
+        outer_column: "product_id",
+      },
+    ],
+  },
+  {
+    table_name: "purchase_history",
+    columns: [
+      {
+        column_name: "user_id",
+        data_type: "BIGINT",
+        unsigned: true,
+        not_null: true
+      },
+      {
+        column_name: "product_id",
+        data_type: "BIGINT",
+        unsigned: true,
+        not_null: true
+      },
+      {
+        column_name: "purchase_amount",
+        data_type: "BIGINT",
+        unsigned: true,
+        not_null: true
+      },
+      {
+        column_name: "purchase_date",
+        data_type: "DATE",
+        not_null: true
+      },
+    ],
+    foreign_keys: [
+      {
+        column_name: "user_id",
+        outer_table: "user_info",
+        outer_column: "user_id",
+      },
+      {
+        column_name: "product_id",
+        outer_table: "product",
+        outer_column: "product_id",
       },
     ],
   },
 ];
 
-// const insertIntoTable = {
-//   table_name: "user_info",
-// };
 
 module.exports = dbScheme;
