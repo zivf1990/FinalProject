@@ -1,73 +1,44 @@
 const connection = require("../modules/sqlConfig");
 
-const createUser = async (username, password, email, name, address, cb) => {
-  // Build the first query to insert the user information
-  const userInfoQuery = `INSERT INTO user_info (name, username, email,address) 
-          VALUES("${name}", "${username}", "${email}", "${address}");`;
+const Sequelize = require("sequelize");
 
-  try {
-    // Start a new transaction
-    connection.beginTransaction(async function (err) {
-      if (err) {
-        throw err;
-      }
+const sequelize = new Sequelize("shopify", "root", "z10mz10m", {
+  host: "localhost",
+  dialect: "mysql",
+});
+const createUser2 = async (username, password, email, name, address, cb) => {
+  sequelize
+    .transaction(async (transaction) => {
+      try {
+        const userInfoQuery = `INSERT INTO user_info (name, username, email,address) 
+      VALUES("${name}", "${username}", "${email}", "${address}");`;
 
-      // Execute the first query
-      connection.query(userInfoQuery, function (error, results, fields) {
-        if (error) {
-          // If there's an error, roll back the transaction
-          return connection.rollback(function () {
-            throw error;
-          });
-        }
+        const result1 = await sequelize.query(userInfoQuery, { transaction });
+        console.log(result1);
 
-        // Get the inserted user's ID
-        const insertId = results.insertId;
+        const userId = await result1[0];
 
-        // Build the second query to insert the password
-        const passwordQuery = `INSERT INTO user_password(password, user_id) VALUES("${password}", ${insertId})`;
+        const passwordQuery = `INSERT INTO user_password(password, user_id) VALUES("${password}", ${userId})`;
 
-        // Execute the second query
-        connection.query(passwordQuery, function (error, results, fields) {
-          if (error) {
-            // If there's an error, roll back the transaction
-            return connection.rollback(function () {
-              throw error;
-            });
-          }
-        });
+        const result2 = await sequelize.query(passwordQuery, { transaction });
 
         const token = Math.random() * Number.MAX_SAFE_INTEGER;
 
         const permissionQuery = `INSERT INTO user_permission(user_id, permission_level , token)
-         VALUES( ${insertId}, "user", "${token}")`;
+       VALUES( ${userId}, "user", "${token}")`;
 
-        // Execute the second query
-        connection.query(permissionQuery, function (error, results, fields) {
-          if (error) {
-            // If there's an error, roll back the transaction
-            return connection.rollback(function () {
-              throw error;
-            });
-          }
-          cb(token);
-        });
-      });
+        const result3 = await sequelize.query(permissionQuery, { transaction });
 
-      // Commit the transaction
-      connection.commit(function (err, res) {
-        if (err) {
-          // If there's an error, roll back the transaction
-          return connection.rollback(function () {
-            throw err;
-          });
-        }
-        console.log("Transaction completed.");
-      });
+        console.log("User Created");
+        cb(token);
+      } catch (error) {
+        await transaction.rollback();
+        throw error;
+      }
+    })
+    .catch((error) => {
+      cb(error);
     });
-  } catch (e) {
-    console.log(e);
-  }
 };
 
-module.exports = createUser;
+module.exports = createUser2;
