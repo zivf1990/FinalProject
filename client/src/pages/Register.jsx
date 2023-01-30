@@ -5,7 +5,7 @@ import { setCookie } from "../js/cookie";
 import { useUserToken } from "../context/UserContext";
 
 const Register = () => {
-  const { setUserId } = useUserToken();
+  const { setUserToken } = useUserToken();
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
@@ -55,6 +55,7 @@ const Register = () => {
         const data = await res.json();
         console.log("data: ", data);
         setCookie("token", data.token);
+        setUserToken(data.token);
         navigate("/home");
       }
       // setLoading(false);
