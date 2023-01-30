@@ -9,11 +9,9 @@ const bcrypt = require("bcrypt");
 //import routers.
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
-const todosRouter = require("./routes/todos");
-const postsRouter = require("./routes/posts");
-const commentsRouter = require("./routes/comments");
 const loginRouter = require("./routes/login");
 const signupRouter = require("./routes/signup");
+const productsRouter = require("./routes/products");
 
 //initialize express.
 const app = express();
@@ -39,11 +37,9 @@ app.use(function (req, res, next) {
 //Using Routers
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
-app.use("/todos", todosRouter);
-app.use("/posts", postsRouter);
-app.use("/comments", commentsRouter);
 app.use("/login", loginRouter);
 app.use("/register", signupRouter);
+app.use("/products", productsRouter);
 
 //import mysql connection and dbSchema.
 const connection = require("./modules/sqlConfig");
