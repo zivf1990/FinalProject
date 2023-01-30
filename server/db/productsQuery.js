@@ -29,22 +29,25 @@ const productsQueries = {
         connection.query(selectQuery, function (error, results) {
             if (error) {
                 cb({ message: "failed to bring your products" });
+                console.log("bad job man", "erer");
             }
             if (results.length > 0) {
+                console.log(product_name, product_picture, price, amount, category_id);
                 connection.query(
-                    `INSERT INTO products(product_name, product_picture, price, amount, category_id,seller_id) VALUES("${product_name}","${product_picture}",${price},${amount},${category_id})`,
+                    `INSERT INTO product(product_name, product_picture, price, amount, category_id,seller_id)
+                     VALUES("${product_name}","${product_picture}",${price},${amount},${category_id},${results[0].user_id});`,
                     function (err, toke) {
                         if(err){
                             cb({ message: "failed to bring your products 80" })
                         }
                         else{
-                        cb({ message: "product added" });
-                        console.log(token, "erer");}
+                        cb({ message: "product added" , data:  true});
+                        console.log("good job man", "erer");}
                     }
                 );
             }
             else {
-                cb({ message: "token undefined" });
+                cb({ message: "token undefined"});
             }
         });
     }
