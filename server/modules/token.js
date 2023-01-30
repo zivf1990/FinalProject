@@ -7,10 +7,10 @@ const token = {
     const saltRounds = 10;
     const hash = await bcrypt.hash(random.toString(), saltRounds);
 
-    sequelize.query(`
-    SELECT COUNT(*)
-    FROM user_permission
-    WHERE token = '${hash}';`);
+    // sequelize.query(`
+    // SELECT COUNT(*)
+    // FROM user_permission
+    // WHERE token = '${hash}';`);
 
     return hash;
   },
