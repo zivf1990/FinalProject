@@ -11,13 +11,9 @@ const Category = () => {
         <CgProfile />
         <h4>Account</h4>
       </NavLink>
-      <NavLink className="NavLink" to="/posts">
-        <FiUsers />
-        <h4>Posts</h4>
-      </NavLink>
-      <NavLink className="NavLink" to="/todos">
-        <RiTodoLine />
-        <h4>Todos</h4>
+
+      <NavLink className="NavLink" to="profile">
+        Profile
       </NavLink>
     </div>
   );

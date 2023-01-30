@@ -1,20 +1,16 @@
 import { Route, Routes, Navigate } from "react-router-dom";
 import { useUserToken } from "../context/UserContext";
-import Profile from "./Profile";
+import { AnimatePresence } from "framer-motion";
 import Login from "../pages/Login";
-import Posts from "../pages/Posts";
-import Todos from "../pages/Todos";
 import Register from "../pages/Register";
 import PurchaseHistory from "../pages/PurchaseHistory";
-import Comments from "../pages/Comments";
 import Home from "../pages/Home";
-import { AnimatePresence } from "framer-motion";
 import Shop from "../pages/Shop";
 import AddProduct from "../pages/AddProduct";
 import Products from "../pages/Products";
+import Profile from "../pages/Profile";
 
 function Pages() {
-  // const userId = getCookie("userId");
   // const isAdmin = getCookie("isAdmin");
   const { token } = useUserToken();
   return (
@@ -23,7 +19,7 @@ function Pages() {
         <Routes>
           <Route index element={<Navigate replace to="/login" />} />
           <Route path="login" element={<Login />} />
-          <Route path="/" element={<Home />}>
+          <Route path="/home" element={<Home />}>
             <Route path="shop" element={<Shop />} />
             <Route path="profile" element={<Profile />} />
             <Route path="purchaseHistory" element={<PurchaseHistory />} />

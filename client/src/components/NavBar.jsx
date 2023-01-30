@@ -20,11 +20,13 @@ function NavBar() {
     <header id="navBar">
       <div></div>
       {!userId ? (
-        <NavLink to="/Login">LogIn</NavLink>
+        <NavLink to="/login">LogIn</NavLink>
       ) : (
-        <NavLink onClick={logOut} id="logOutButton" to="/">
-          Logout
-        </NavLink>
+        <>
+          <NavLink onClick={logOut} id="logOutButton" to="/">
+            Logout
+          </NavLink>
+        </>
       )}
     </header>
   );

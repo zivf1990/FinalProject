@@ -2,7 +2,7 @@
   font-family:monospace;
 } */
 
-#navBar {
+/* #navBar {
   display: flex;
   justify-content: space-between;
   background-color: #333;
@@ -275,9 +275,9 @@ a.NavLink {
   width: 6rem;
   height: 5rem;
   /* // cursor: pointer; */
-  transform: scale(0.8);
-}
-a.NavLink:active {
+/* transform: scale(0.8); */
+/* } */
+/* a.NavLink:active {
   background: linear-gradient(to right, #f27121, #e94057);
 }
 
@@ -320,12 +320,12 @@ a.NavLink svg {
   top: 50%;
   left: 2%;
   transform: translate(100%, -50%);
-  color: white;
-}
+  color: white; 
+} */
 
-.Grid {
-  width: 100%;
-  /* display: grid;
+/* .Grid { */
+/* width: 100%; */
+/* display: grid;
   grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
   grid-gap: 3rem; */
-}
+/* } */
