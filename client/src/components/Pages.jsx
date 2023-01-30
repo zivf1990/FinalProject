@@ -1,12 +1,11 @@
 import { Route, Routes, Navigate } from "react-router-dom";
 import { useUserToken } from "../context/UserContext";
-import Profile from "./Profile";
+import Profile from "../pages/Profile";
 import Login from "../pages/Login";
-import Posts from "../pages/Posts";
-import Todos from "../pages/Todos";
+
 import Register from "../pages/Register";
 import PurchaseHistory from "../pages/PurchaseHistory";
-import Comments from "../pages/Comments";
+
 import Home from "../pages/Home";
 import { AnimatePresence } from "framer-motion";
 import Shop from "../pages/Shop";
