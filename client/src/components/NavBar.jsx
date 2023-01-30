@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { useUser } from "../context/UserContext";
+import { useUserToken } from "../context/UserContext";
 import { deleteCookie, getCookie } from "../js/cookie";
 
 function NavBar() {
   // const [userId, setUserId] = useState("");
-  const { setUserId, userId } = useUser();
+  const { setUserId, userId } = useUserToken();
 
   useEffect(() => {
     // setUserId(getCookie("userId"));

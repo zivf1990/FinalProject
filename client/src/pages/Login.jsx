@@ -2,10 +2,10 @@ import "../style/signin.css";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { setCookie } from "../js/cookie";
-import { useUser } from "../context/UserContext";
+import { useUserToken } from "../context/UserContext";
 
 const Login = () => {
-  const { setUserId } = useUser();
+  const { setUserId } = useUserToken();
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
@@ -28,12 +28,10 @@ const Login = () => {
       return;
     }
     validateUser();
-    // const response = await validateUser();
-    // console.log(response);
   };
 
   const validateUser = async () => {
-    setLoading(true);
+    // setLoading(true);
 
     const { username, password } = userInput;
 
@@ -44,35 +42,49 @@ const Login = () => {
         body: JSON.stringify({ username, password }),
       });
 
-      if (!res.ok) throw new Error(res.message);
+      //failed to login. need to show error message in the UI.
+      if (!res.ok) {
+        console.log("status code: ", res.status);
+        console.log("message: ", res);
+        console.log("message: ", res.statusText);
+        setErrorMessage("Something went wrong");
 
-      const data = await res.json();
-      console.log("response: ", data);
+        //success to login. need to save token to coockie and context and redirect.
+      } else {
+        const data = await res.json();
+        console.log("data: ", data);
+        setCookie("token", data.token);
+        if (data.permission_level === "admin") {
+          navigate("/register");
+        } else if (data.permission_level === "user") {
+          navigate("/home");
+        }
+      }
 
-      setLoading(false);
+      // setLoading(false);
 
       //success to login.
-      if (data) {
-        localStorage.setItem("userId", data.userId);
-        console.log(data);
-        setUserId(data);
-        // setCookie("userId", user.id, 1);
-        // window.history.pushState(null, null, window.location.href);
-        // window.onpopstate = window.history.go(1);
-        if(data.permission_level=="user"){
-        navigate(`/Home`);
-        localStorage.setItem("userId", data.token);
-        }
-        else if(data.permission_level=="admin"){
-        navigate(`/admin`);
-        }
-      } else {
-        alert("failed")
-      }
+      // if (data) {
+      //   localStorage.setItem("userId", data.userId);
+      //   console.log(data);
+      //   setUserId(data);
+      //   // setCookie("userId", user.id, 1);
+      //   // window.history.pushState(null, null, window.location.href);
+      //   // window.onpopstate = window.history.go(1);
+      //   if(data.permission_level=="user"){
+      //   navigate(`/Home`);
+      //   localStorage.setItem("userId", data.token);
+      //   }
+      //   else if(data.permission_level=="admin"){
+      //   navigate(`/admin`);
+      //   }
+      // } else {
+      //   alert("failed")
+      // }
     } catch (e) {
-      console.log(e);
-      setTimeout(3000, alert("Please Check Your Internet Connection"));
-      setTimeout(3000, window.location.reload());
+      // console.log(e);
+      // setTimeout(3000, alert("Please Check Your Internet Connection"));
+      // setTimeout(3000, window.location.reload());
     }
   };
 

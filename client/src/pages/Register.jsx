@@ -2,10 +2,10 @@ import "../style/signin.css";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { setCookie } from "../js/cookie";
-import { useUser } from "../context/UserContext";
+import { useUserToken } from "../context/UserContext";
 
 const Register = () => {
-  const { setUserId } = useUser();
+  const { setUserId } = useUserToken();
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
@@ -42,27 +42,34 @@ const Register = () => {
       const res = await fetch(`http://localhost:8000/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password , email, name, address}),
+        body: JSON.stringify({ username, password, email, name, address }),
       });
 
-      if (!res.ok) throw new Error(res.message);
+      //failed to singup. need to show error message in the UI.
 
-      const data = await res.json();
-      console.log("response: ", data);
+      if (!res.ok) {
+        setErrorMessage("Something went wrong");
 
-      setLoading(false);
+        //success to signup. need to save token to coockie and context and redirect.
+      } else {
+        const data = await res.json();
+        console.log("data: ", data);
+        setCookie("token", data.token);
+        navigate("/home");
+      }
+      // setLoading(false);
 
       //success to login.
-      if (data?.result == true) {
-        localStorage.setItem("userId", data.userId);
-        setUserId(data.userId);
-        // setCookie("userId", user.id, 1);
-        // window.history.pushState(null, null, window.location.href);
-        // window.onpopstate = window.history.go(1);
-        navigate(`/`);
-      } else {
-        //falied to login.
-      }
+      // if (data?.result == true) {
+      //   localStorage.setItem("userId", data.userId);
+      //   setUserId(data.userId);
+      // setCookie("userId", user.id, 1);
+      // window.history.pushState(null, null, window.location.href);
+      // window.onpopstate = window.history.go(1);
+      //   navigate(`/`);
+      // } else {
+      //falied to login.
+      // }
     } catch (e) {
       console.log(e);
       setTimeout(3000, alert("Please Check Your Internet Connection"));
@@ -137,8 +144,8 @@ const Register = () => {
                 </div>
                 <div className="input-field">
                   <input
-                    name="address"
                     type="text"
+                    name="address"
                     className={loading === false ? "input" : "input wait"}
                     id="address"
                     onChange={handleChange}

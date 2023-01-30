@@ -1,22 +1,22 @@
 const express = require("express");
 const router = express.Router();
-const connection = require("../modules/sqlConfig");
-const bcrypt = require("bcrypt");
 const checkUser = require("../db/loginQuery");
+const { validateUser } = require("../db/loginQuery");
 
+//login request.
 router.post("/", function (req, res, next) {
-  
   const { username, password } = req.body;
-  checkUser(username,password, (result) => {
-    if(result){
-      console.log(typeof result,'login request"');
-      res.status(200).json(result);
+
+  //check if the username and the password are correct.
+  validateUser(username, password, (response) => {
+    console.log("response:: ", response);
+    if (response?.token) {
+      res.status(200).json(response);
+    } else {
+      console.log("failed to login");
+      res.status(401).send(response);
     }
-    else{
-      console.log("bobby");
-      res.status(400).send(result);
-    }
-  })
+  });
 });
 
 module.exports = router;

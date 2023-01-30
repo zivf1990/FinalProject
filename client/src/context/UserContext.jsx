@@ -1,19 +1,19 @@
 import React, { useState, createContext, useContext, useEffect } from "react";
 
 const UserContext = createContext();
-export const useUser = () => useContext(UserContext);
+export const useUserToken = () => useContext(UserContext);
 
 export default function UserProvider({ children }) {
-  const [userId, setUserId] = useState(null);
+  const [userToken, setUserToken] = useState(null);
 
   useEffect(() => {
-    if (!userId) {
+    if (!userToken) {
       localStorage.clear();
     }
-  }, [userId]);
+  }, [userToken]);
 
   return (
-    <UserContext.Provider value={{ userId, setUserId }}>
+    <UserContext.Provider value={{ userToken, setUserToken }}>
       {children}
     </UserContext.Provider>
   );

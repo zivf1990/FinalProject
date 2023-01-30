@@ -1,30 +1,21 @@
 const bcrypt = require("bcrypt");
-const connection = require("../modules/sqlConfig");
+const sequelize = require("../modules/sequelizeConfig");
 
 const token = {
-  generateToken: async (user_id, cb) => {
-    bcrypt.hash(
-      Math.random() * Number.MAX_SAFE_INTEGER,
-      10,
-      async (err, token) => {
-        if (err) throw new Error("Couldn't encrypt the user password: ", err);
+  generateToken: async () => {
+    const random = Math.floor(Math.random() ** Number.MAX_VALUE);
+    const saltRounds = 10;
+    const hash = await bcrypt.hash(random.toString(), saltRounds);
 
-        const query = `SELECT token FROM user_permission WHERE token = ?`;
-        const results = await connection.query(query, [token]);
+    sequelize.query(`
+    SELECT COUNT(*)
+    FROM user_permission
+    WHERE token = '${hash}';`);
 
-        if (results.length > 0) {
-          return generateToken(user_id, cb);
-        }
-
-        const insertQuery = `INSERT INTO user_permission (user_id, token) VALUES (?, ?)`;
-        await connection.query(insertQuery, [user_id, token]);
-
-        cb(token);
-      }
-    );
+    return hash;
   },
   removeToken: (token, cb) => {
-    connection.query(
+    sequelize.query(
       `
     UPDATE user_permission
     SET token = null 

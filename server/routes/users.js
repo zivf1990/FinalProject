@@ -3,7 +3,6 @@ const router = express.Router();
 const connection = require("../modules/sqlConfig");
 
 /* GET all users listing. */
-
 router.get("/", function (req, res, next) {
   console.log("user list request");
   connection.query("SELECT * FROM user", (err, data) => {
