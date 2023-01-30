@@ -5,7 +5,7 @@ export const useUserToken = () => useContext(UserContext);
 
 export default function UserProvider({ children }) {
   const [userToken, setUserToken] = useState(null);
-
+  console.log(userToken);
   useEffect(() => {
     if (!userToken) {
       localStorage.clear();

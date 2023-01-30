@@ -6,7 +6,7 @@ const token = {
     const random = Math.floor(Math.random() ** Number.MAX_VALUE);
     const saltRounds = 10;
     const hash = await bcrypt.hash(random.toString(), saltRounds);
-
+    console.log("generateToken() ", hash);
     // sequelize.query(`
     // SELECT COUNT(*)
     // FROM user_permission
