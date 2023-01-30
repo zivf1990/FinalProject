@@ -9,7 +9,7 @@ import Shop from "../pages/Shop";
 import AddProduct from "../pages/AddProduct";
 import Products from "../pages/Products";
 import Profile from "../pages/Profile";
-import Category from "./Categories";
+import Category from "../pages/Category";
 
 function Pages() {
   // const isAdmin = getCookie("isAdmin");
@@ -22,7 +22,7 @@ function Pages() {
             <>
               <Route path="/" element={<Home />}>
                 <Route path="shop" element={<Shop />} />
-                <Route path="category/:name" element={<Category />} />
+                <Route path="category/:categoryId" element={<Category />} />
                 <Route path="profile" element={<Profile />} />
                 <Route path="purchaseHistory" element={<PurchaseHistory />} />
                 <Route path="addProduct" element={<AddProduct />} />

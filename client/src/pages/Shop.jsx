@@ -38,7 +38,7 @@ const Shop = () => {
               key={Math.random() * Number.MAX_SAFE_INTEGER}
               className="category"
               onClick={() => {
-                navigate("/home/category/" + item.category_id);
+                navigate("/category/" + item.category_id);
               }}
             >
               <h4>{item.category_name}</h4>

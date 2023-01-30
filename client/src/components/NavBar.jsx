@@ -21,7 +21,17 @@ function NavBar() {
       <div></div>
       <NavLink to="/login">LogIn</NavLink>
       <NavLink onClick={logOut} id="logOutButton" to="/">
-        Logout
+        <h4> Logout</h4>
+      </NavLink>
+      <NavLink id="shop" to="shop">
+        <h4> Shop</h4>
+      </NavLink>
+      <NavLink className="NavLink" to="/info">
+        <h4>Account</h4>
+      </NavLink>
+
+      <NavLink className="NavLink" to="profile">
+        <h4>Profile</h4>
       </NavLink>
     </header>
   );
