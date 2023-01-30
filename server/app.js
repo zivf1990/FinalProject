@@ -34,11 +34,26 @@ app.use(function (req, res, next) {
   next();
 });
 
+//check for user token.
+app.use((req, res, next) => {
+  const bearerHeader = req.headers["authorization"];
+  if (typeof bearerHeader !== "undefined") {
+    const bearer = bearerHeader.split(" ");
+    const bearerToken = bearer[1];
+    req.token = bearerToken;
+    console.log("req.token ", req.token);
+    next();
+  } else {
+    // res.sendStatus(401);
+    next();
+  }
+});
+
 //Using Routers
 app.use("/", indexRouter);
-app.use("/users", usersRouter);
 app.use("/login", loginRouter);
 app.use("/register", signupRouter);
+app.use("/users", usersRouter);
 app.use("/products", productsRouter);
 
 //import mysql connection and dbSchema.
