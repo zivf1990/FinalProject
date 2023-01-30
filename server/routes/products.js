@@ -12,5 +12,7 @@ router.get("/:token", function (req, res, next) {
     }
   });
 });
-
+router.post('/addProduct', function (req, res) {
+  
+});
 module.exports = router;
