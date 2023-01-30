@@ -35,12 +35,13 @@ const Category = () => {
     <div>
       {category.map((item) => {
         return (
-          <div key={item.category_id}>
-            <Link to={"/category/" + item.category_id}>
-              {/* <img src={item.image} alt={item.image} /> */}
-              <h4>{item.category_name}</h4>
-            </Link>
-          </div>
+          <Link to={`/product/${item.product_id}`}>
+            <div key={item.product_id}>
+              <b>price:</b> {item.price}
+              <h4>{item.product_name}</h4>
+              <img src={item.product_picture} />
+            </div>
+          </Link>
         );
       })}
     </div>

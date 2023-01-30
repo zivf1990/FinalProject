@@ -33,6 +33,9 @@ function NavBar() {
       <NavLink className="NavLink" to="profile">
         <h4>Profile</h4>
       </NavLink>
+      <NavLink className="NavLink" to="products">
+        <h4>My Products</h4>
+      </NavLink>
     </header>
   );
 }
