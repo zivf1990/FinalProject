@@ -5,7 +5,7 @@ import { setCookie } from "../js/cookie";
 import { useUserToken } from "../context/UserContext";
 
 const Login = () => {
-  const { setUserId } = useUserToken();
+  const { setUserToken } = useUserToken();
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
@@ -54,6 +54,7 @@ const Login = () => {
         const data = await res.json();
         console.log("data: ", data);
         setCookie("token", data.token);
+        setUserToken(data.token);
         if (data.permission_level === "admin") {
           navigate("/register");
         } else if (data.permission_level === "user") {
