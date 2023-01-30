@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useUserToken } from "../context/UserContext";
 import "../style/shop.css";
-
 
 const Shop = () => {
   const { userToken } = useUserToken();
   const [categories, setCategories] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     console.log(userToken);
@@ -36,6 +37,9 @@ const Shop = () => {
             <div
               key={Math.random() * Number.MAX_SAFE_INTEGER}
               className="category"
+              onClick={() => {
+                navigate("/home/category/" + item.category_id);
+              }}
             >
               <h4>{item.category_name}</h4>
             </div>

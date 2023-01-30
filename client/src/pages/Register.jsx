@@ -57,7 +57,7 @@ const Register = () => {
         // setCookie("token", data.token);
         // setUserToken(data.token);
         setUserToken(data.token);
-        navigate("/home");
+        navigate("/");
       }
       // setLoading(false);
 
