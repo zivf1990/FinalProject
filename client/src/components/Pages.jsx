@@ -10,24 +10,33 @@ import Shop from "../pages/Shop";
 import AddProduct from "../pages/AddProduct";
 import Products from "../pages/Products";
 import Profile from "../pages/Profile";
+import Category from "./Categories";
 
 function Pages() {
   // const isAdmin = getCookie("isAdmin");
-  const { token } = useUserToken();
+  const { userToken } = useUserToken();
   return (
     <AnimatePresence mode="wait">
       <>
         <Routes>
-          <Route index element={<Navigate replace to="/login" />} />
-          <Route path="login" element={<Login />} />
-          <Route path="/home" element={<Home />}>
-            <Route path="shop" element={<Shop />} />
-            <Route path="profile" element={<Profile />} />
-            <Route path="purchaseHistory" element={<PurchaseHistory />} />
-            <Route path="addProduct" element={<AddProduct />} />
-            <Route path="products" element={<Products />} />
-          </Route>
-          <Route path="register" element={<Register />} />
+          {userToken ? (
+            <>
+              <Route path="/" element={<Home />}>
+                <Route path="shop" element={<Shop />} />
+                <Route path="category/:name" element={<Category />} />
+                <Route path="profile" element={<Profile />} />
+                <Route path="purchaseHistory" element={<PurchaseHistory />} />
+                <Route path="addProduct" element={<AddProduct />} />
+                <Route path="products" element={<Products />} />
+              </Route>
+            </>
+          ) : (
+            <>
+              <Route path="login" element={<Login />} />
+              <Route path="register" element={<Register />} />
+            </>
+          )}
+          {/* <Route path="*" element={<Login />} /> */}
         </Routes>
       </>
     </AnimatePresence>

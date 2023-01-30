@@ -1,20 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Outlet, useParams } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { useUserToken } from "../context/UserContext";
-import { getCookie } from "../js/cookie";
 import { getLocalStorage } from "../util/localsessionStorage";
-import Category from "../components/Category";
 import { motion } from "framer-motion";
 import NavBar from "../components/NavBar";
 
 function Home() {
   // let userId = getCookie("userId");
-  const { userId, setUserId } = useUserToken();
 
-  useEffect(() => {
-    const uId = getLocalStorage("userId");
-    if (uId) setUserId(uId);
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <motion.div
@@ -26,7 +20,6 @@ function Home() {
     >
       <div className="main-content">
         <NavBar />
-        <Category />
         <Outlet />
       </div>
     </motion.div>

@@ -5,7 +5,7 @@ import { deleteCookie, getCookie } from "../js/cookie";
 
 function NavBar() {
   // const [userId, setUserId] = useState("");
-  const { setUserId, userId } = useUserToken();
+  const { setUserId, userId, removeToken } = useUserToken();
 
   useEffect(() => {
     // setUserId(getCookie("userId"));
@@ -13,15 +13,16 @@ function NavBar() {
 
   function logOut() {
     // deleteCookie("userId");
-    setUserId("");
+    removeToken();
   }
 
   return (
     <header id="navBar">
-      <div>
-        <NavLink to="/login">Log out</NavLink>
-        <NavLink to="/home/products">my products</NavLink>
-      </div>
+      <div></div>
+      <NavLink to="/login">LogIn</NavLink>
+      <NavLink onClick={logOut} id="logOutButton" to="/">
+        Logout
+      </NavLink>
     </header>
   );
 }
