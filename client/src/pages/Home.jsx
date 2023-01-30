@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Outlet, useParams } from "react-router-dom";
-import { useUser } from "../context/UserContext";
+import { useUserToken } from "../context/UserContext";
 import { getCookie } from "../js/cookie";
 import { getLocalStorage } from "../util/localsessionStorage";
 import Category from "../components/Category";
@@ -9,7 +9,7 @@ import NavBar from "../components/NavBar";
 
 function Home() {
   // let userId = getCookie("userId");
-  const { userId, setUserId } = useUser();
+  const { userId, setUserId } = useUserToken();
 
   useEffect(() => {
     const uId = getLocalStorage("userId");

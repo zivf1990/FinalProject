@@ -1,6 +1,6 @@
 import React, { Component, useEffect, useState } from "react";
 import { usePost } from "../context/PostContext";
-import { useUser } from "../context/UserContext";
+import { useUserToken } from "../context/UserContext";
 import { getCookie } from "../js/cookie";
 import { getLocalStorage } from "../util/localsessionStorage";
 import Post from "../components/Post";
@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 function Posts() {
   const [posts, setPosts] = useState(null);
   // const userId = getCookie("userId");
-  const { userId, setUserId } = useUser();
+  const { userId, setUserId } = useUserToken();
 
   const { setPostObj } = usePost();
 

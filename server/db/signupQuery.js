@@ -1,7 +1,8 @@
 const { saveEncryptPassword } = require("../modules/encryption");
 const sequelize = require("../modules/sequelizeConfig");
+const { generateToken } = require("../modules/token");
 
-const createUser2 = async (username, password, email, name, address, cb) => {
+const createUser = async (username, password, email, name, address, cb) => {
   sequelize
     .transaction(async (transaction) => {
       try {
@@ -21,23 +22,23 @@ const createUser2 = async (username, password, email, name, address, cb) => {
 
         await sequelize.query(passwordQuery, { transaction });
 
-        const token = Math.random() * Number.MAX_SAFE_INTEGER;
+        const token = await generateToken();
 
         const permissionQuery = `INSERT INTO user_permission(user_id, permission_level , token)
-       VALUES( ${userId}, "user", "${token}")`;
+        VALUES( ${userId}, "user", "${token}")`;
 
         await sequelize.query(permissionQuery, { transaction });
 
         console.log("User Created");
-        cb(token);
+        cb({ message: "User Created", token });
       } catch (error) {
         await transaction.rollback();
         throw error;
       }
     })
     .catch((error) => {
-      cb(error.message);
+      cb({ message: error.message, token: undefined });
     });
 };
 
-module.exports = createUser2;
+module.exports = createUser;

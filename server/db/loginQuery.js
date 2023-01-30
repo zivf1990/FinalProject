@@ -1,6 +1,7 @@
 const connection = require("../modules/sqlConfig");
 const bcrypt = require("bcrypt");
 const sequelize = require("../modules/sequelizeConfig");
+const { generateToken } = require("../modules/token");
 
 const login = {
   checkUser: async (username, password, cb) => {
@@ -58,15 +59,30 @@ const login = {
           console.log("isMatch ", isMatch);
 
           if (isMatch) {
-            const queryToken = `SELECT token FROM user_permission WHERE user_id = '${user_id}'`;
+            const token = await generateToken();
 
-            const token = await sequelize.query(queryToken, {
+            const queryToken = `UPDATE user_permission
+            SET token = "${token}"
+            WHERE user_id = ${user_id};`;
+
+            await sequelize.query(queryToken, {
               transaction,
             });
-            cb(token);
+
+            const queryPermission = `SELECT permission_level 
+            FROM user_permission 
+            WHERE user_id = ${user_id}`;
+
+            const data4 = await sequelize.query(queryPermission, {
+              transaction,
+            });
+
+            const permission_level = data4[0][0]?.permission_level;
+
+            cb({ message: "logged in", token, permission_level });
             console.log("user logged in successfully");
           } else {
-            cb("something went wrong");
+            cb({ message: "something went wrong", token: undefined });
           }
         } catch (error) {
           await transaction.rollback();
@@ -74,7 +90,7 @@ const login = {
         }
       })
       .catch((error) => {
-        cb(error.message);
+        cb({ message: error.message, token: undefined });
       });
   },
 };

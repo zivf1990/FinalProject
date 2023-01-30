@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const createUser2 = require("../db/signupQuery");
+const createUser = require("../db/signupQuery");
 
 router.post("/", function (req, res, next) {
   console.log("recived signup request");
@@ -8,7 +8,7 @@ router.post("/", function (req, res, next) {
   const { username, password, email, name, address } = req.body;
 
   try {
-    createUser2(username, password, email, name, address, (data, error) => {
+    createUser(username, password, email, name, address, (data, error) => {
       console.log("signup router ", data);
 
       if (data) {

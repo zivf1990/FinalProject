@@ -2,10 +2,10 @@ import "../style/signin.css";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { setCookie } from "../js/cookie";
-import { useUser } from "../context/UserContext";
+import { useUserToken } from "../context/UserContext";
 
 const Register = () => {
-  const { setUserId } = useUser();
+  const { setUserId } = useUserToken();
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
@@ -45,11 +45,18 @@ const Register = () => {
         body: JSON.stringify({ username, password, email, name, address }),
       });
 
-      // if (!res.status === 201)
-      console.log(res.message);
-      const data = await res.json();
-      console.log("response: ", data);
+      //failed to singup. need to show error message in the UI.
 
+      if (!res.ok) {
+        setErrorMessage("Something went wrong");
+
+        //success to signup. need to save token to coockie and context and redirect.
+      } else {
+        const data = await res.json();
+        console.log("data: ", data);
+        setCookie("token", data.token);
+        navigate("/home");
+      }
       // setLoading(false);
 
       //success to login.

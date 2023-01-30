@@ -1,12 +1,12 @@
 import React, { Component, useEffect, useState } from "react";
-import { useUser } from "../context/UserContext";
+import { useUserToken } from "../context/UserContext";
 import { useStateRef } from "../hooks/useStateRef";
 import { getCookie } from "../js/cookie";
 import { getLocalStorage } from "../util/localsessionStorage";
 import { motion } from "framer-motion";
 
 function Info() {
-  const { userId, setUserId } = useUser();
+  const { userId, setUserId } = useUserToken();
   const [user, setUser] = useStateRef(null);
 
   useEffect(() => {
