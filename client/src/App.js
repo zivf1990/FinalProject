@@ -1,15 +1,15 @@
 import "./style/App.css";
 import Pages from "./components/Pages";
-import PostProvider from "./context/PostContext";
 import UserProvider from "./context/UserContext";
+import CartProvider from "./context/CartContext";
 
 function App() {
   return (
     <div className="App">
       <UserProvider>
-        <PostProvider>
+        <CartProvider>
           <Pages />
-        </PostProvider>
+        </CartProvider>
       </UserProvider>
     </div>
   );

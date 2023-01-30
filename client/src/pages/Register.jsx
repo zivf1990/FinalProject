@@ -54,7 +54,8 @@ const Register = () => {
       } else {
         const data = await res.json();
         console.log("data: ", data);
-        setCookie("token", data.token);
+        // setCookie("token", data.token);
+        // setUserToken(data.token);
         setUserToken(data.token);
         navigate("/home");
       }
