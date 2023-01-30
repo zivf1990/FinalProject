@@ -10,7 +10,8 @@ import Shop from "../pages/Shop";
 import AddProduct from "../pages/AddProduct";
 import Products from "../pages/Products";
 import Profile from "../pages/Profile";
-import Category from "./Categories";
+import Category from "../pages/Category";
+import Product from "../pages/Product";
 
 function Pages() {
   // const isAdmin = getCookie("isAdmin");
@@ -23,20 +24,21 @@ function Pages() {
             <>
               <Route path="/" element={<Home />}>
                 <Route path="shop" element={<Shop />} />
-                <Route path="category/:name" element={<Category />} />
+                <Route path="category/:categoryId" element={<Category />} />
                 <Route path="profile" element={<Profile />} />
                 <Route path="purchaseHistory" element={<PurchaseHistory />} />
                 <Route path="addProduct" element={<AddProduct />} />
                 <Route path="products" element={<Products />} />
+                <Route path="product/:productId" element={<Product />} />
               </Route>
             </>
           ) : (
             <>
               <Route path="login" element={<Login />} />
               <Route path="register" element={<Register />} />
+              <Route path="*" element={<Login />} />
             </>
           )}
-          {/* <Route path="*" element={<Login />} /> */}
         </Routes>
       </>
     </AnimatePresence>

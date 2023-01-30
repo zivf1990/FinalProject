@@ -1,37 +1,49 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { Card2, Grid } from "../styles/styledDivs";
+import { useUserToken } from "../context/UserContext";
 
 const Searched = () => {
-  let params = useParams();
-  const [searchedRecipes, setSearchedRecipes] = useState([]);
+  let { categoryId } = useParams();
+  const { userToken } = useUserToken();
 
-  const getSearched = async (name) => {
-    const data = await fetch(
-      `https://api.spoonacular.com/recipes/complexSearch?apiKey=${process.env.REACT_APP_API_KEY}&query=${name}`
-    );
-    const recipes = await data.json();
-    setSearchedRecipes(recipes.results);
-    console.log(searchedRecipes);
+  const [category, setCategory] = useState([]);
+
+  const getCategory = async (name) => {
+    if (userToken) {
+      const res = await fetch(
+        `http://localhost:8000/products/category/${categoryId}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+            headers: { "Content-Type": "application/json" },
+          },
+        }
+      );
+
+      const data = await res.json();
+      console.log("data: ", data);
+      setCategory(data);
+    }
   };
 
   useEffect(() => {
-    getSearched(params.search);
-  }, [params.search]);
+    getCategory(categoryId);
+  }, [categoryId]);
 
   return (
-    <Grid>
-      {searchedRecipes.map((recipe) => {
+    <div>
+      {category.map((item) => {
         return (
-          <Card2 key={recipe.id}>
-            <Link to={"/recipe/" + recipe.id}>
-              <img src={recipe.image} alt={recipe.title} />
-              <h4>{recipe.title}</h4>
+          <div key={item.category_id}>
+            <Link to={"/category/" + item.category_id}>
+              {/* <img src={item.image} alt={item.image} /> */}
+              <h4>{item.product_name}</h4>
             </Link>
-          </Card2>
+          </div>
         );
       })}
-    </Grid>
+    </div>
   );
 };
 

@@ -1,33 +1,47 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { useUserToken } from "../context/UserContext";
 
 const Category = () => {
-  let params = useParams();
+  let { categoryId } = useParams();
+  const { userToken } = useUserToken();
+
   const [category, setCategory] = useState([]);
 
   const getCategory = async (name) => {
-    const data = await fetch(
-      `https://api.spoonacular.com/recipes/complexSearch?apiKey=${process.env.REACT_APP_API_KEY}&query=${name}`
-    );
-    const recipes = await data.json();
-    setCategory(recipes.results);
-    console.log(category);
+    if (userToken) {
+      const res = await fetch(
+        `http://localhost:8000/products/category/${categoryId}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+            headers: { "Content-Type": "application/json" },
+          },
+        }
+      );
+
+      const data = await res.json();
+      console.log("data: ", data);
+      setCategory(data);
+    }
   };
 
   useEffect(() => {
-    getCategory(params.category);
-  }, [params.category]);
+    getCategory(categoryId);
+  }, [categoryId]);
 
   return (
     <div>
       {category.map((item) => {
         return (
-          <div key={item.category_id}>
-            <Link to={"/category/" + item.category_id}>
-              {/* <img src={item.image} alt={item.image} /> */}
-              <h4>{item.category_name}</h4>
-            </Link>
-          </div>
+          <Link to={`/product/${item.product_id}`}>
+            <div key={item.product_id}>
+              <b>price:</b> {item.price}
+              <h4>{item.product_name}</h4>
+              <img src={item.product_picture} />
+            </div>
+          </Link>
         );
       })}
     </div>

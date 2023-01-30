@@ -6,12 +6,12 @@ export const useCart = () => useContext(CartContext);
 export default function CartProvider({ children }) {
   const [cart, setCart] = useState([]);
 
-  const addToCart = (product) => {
-    setCart((prev) => [...prev, product]);
+  const addToCart = (productID) => {
+    setCart((prev) => [...prev, productID]);
   };
 
-  const removeFromCart = (product) => {
-    setCart(cart.filter((item) => item !== product));
+  const removeFromCart = (productID) => {
+    setCart(cart.filter((product_id) => product_id !== productID));
   };
 
   return (
