@@ -5,6 +5,14 @@ import "../style/profile.css";
 const Profile = () => {
   const { userToken } = useUserToken();
   const [userInfo, setUserInfo] = useState(null);
+  const [userProfilePic, setProfilePicture] = useState(
+    "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+  );
+
+  useEffect(() => {
+    console.log(userToken);
+    getProfile();
+  }, [userToken]);
 
   const getProfile = async () => {
     if (userToken) {
@@ -22,19 +30,11 @@ const Profile = () => {
     }
   };
 
-  useEffect(() => {
-    console.log(userToken);
-    getProfile();
-  }, [userToken]);
-
   return (
     <div className="user-profile">
       {userInfo && (
         <>
-          <img
-            src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-            alt=""
-          />
+          <img src={userProfilePic} alt="" />
           <h4>Full Name: {userInfo?.name}</h4>
           <h4>Username: {userInfo?.username}</h4>
           <h4>Email: {userInfo?.email}</h4>
@@ -46,3 +46,16 @@ const Profile = () => {
 };
 
 export default Profile;
+
+/*
+
+  const handleUpload = (event) => {
+    const uploadedFile = event.target.files[0];
+    setProfilePicture(URL.createObjectURL(uploadedFile));
+  };
+
+   <button>
+            <input type="file" onChange={handleUpload} />
+            Choose Picture
+          </button> 
+*/

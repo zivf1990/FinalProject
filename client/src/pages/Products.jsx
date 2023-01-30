@@ -23,11 +23,13 @@ const Products = () => {
   };
 
   const getProducts = async () => {
-    const res = await fetch(`http://localhost:8000/products/${userToken}`,
-      {
-        headers: { 'Content-Type': 'application/json' },
-      }
-    )
+    const res = await fetch(`http://localhost:8000/products/user`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+        headers: { "Content-Type": "application/json" },
+      },
+    });
     const data = await res.json();
     console.log('data', data);
     setProducts(data.data);

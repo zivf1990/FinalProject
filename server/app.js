@@ -12,6 +12,7 @@ const usersRouter = require("./routes/users");
 const loginRouter = require("./routes/login");
 const signupRouter = require("./routes/signup");
 const productsRouter = require("./routes/products");
+const categoriesRouter = require("./routes/categories");
 
 //initialize express.
 const app = express();
@@ -55,6 +56,7 @@ app.use("/login", loginRouter);
 app.use("/register", signupRouter);
 app.use("/users", usersRouter);
 app.use("/products", productsRouter);
+app.use("/categories", categoriesRouter);
 
 //import mysql connection and dbSchema.
 const connection = require("./modules/sqlConfig");

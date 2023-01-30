@@ -53,7 +53,8 @@ const Login = () => {
       } else {
         const data = await res.json();
         console.log("data: ", data);
-        setCookie("token", data.token);
+        // setCookie("token", data.token);
+        // setUserToken(data.token);
         setUserToken(data.token);
         if (data.permission_level === "admin") {
           navigate("/register");
