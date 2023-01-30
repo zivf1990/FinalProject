@@ -137,15 +137,15 @@ const Register = () => {
                 </div>
                 <div className="input-field">
                   <input
-                    type="address"
-                    name="text"
+                    name="address"
+                    type="text"
                     className={loading === false ? "input" : "input wait"}
                     id="address"
                     onChange={handleChange}
                     value={userInput.address}
                     required
                   />
-                  <label htmlFor="email">Address</label>
+                  <label htmlFor="address">Address</label>
                 </div>
                 <div className="input-field">
                   <input
