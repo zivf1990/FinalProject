@@ -14,6 +14,8 @@ import Category from "../pages/Category";
 import Product from "../pages/Product";
 import AdminHome from "../pages/adminHome";
 import Users from "../pages/shopifyUsers";
+import ShoppingCart from "../pages/shoppingCart";
+import Checkout from "../pages/Checkout";
 
 function Pages() {
   // const isAdmin = getCookie("isAdmin");
@@ -39,6 +41,8 @@ function Pages() {
                 <Route path="addProduct" element={<AddProduct />} />
                 <Route path="products" element={<Products />} />
                 <Route path="product/:productId" element={<Product />} />
+                <Route path="shoppingcart" element={<ShoppingCart />} />
+                <Route path="checkout" element={<Checkout />} />
               </Route>
             </>
           ) : (

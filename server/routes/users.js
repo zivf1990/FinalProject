@@ -2,6 +2,7 @@ const express = require("express");
 const { bringAllUsers } = require("../db/usersQuery");
 const router = express.Router();
 const sequelize = require("../modules/sequelizeConfig");
+const connection = require("../modules/sqlConfig");
 
 /* GET all users listing. */
 // router.get("/", function (req, res, next) {
@@ -64,10 +65,11 @@ router.get("/profile", function (req, res, next) {
       res.status(400).json({ message: error.message });
     });
 });
+
 router.get("/:id", function (req, res, next) {
   console.log("user id request");
   connection.query(
-    `SELECT * FROM user WHERE id = ${req.params.id}`,
+    `SELECT * FROM user_info WHERE id = ${req.params.id}`,
     (err, data) => {
       if (err) throw err;
       if (data.length > 0) res.send(data[0]);
@@ -76,18 +78,19 @@ router.get("/:id", function (req, res, next) {
   );
 });
 
-router.get("/notAdmin", function (req, res, next) {
-  console.log("hello");
-  bringAllUsers((response) => {
-    console.log("response:: ", response);
-    if (response.data) {
-      res.status(200).json(response);
-    } else {
-      console.log("failed to login");
-      res.status(401).send(response);
-    }
-  });
-});
+// router.get("/notAdmin", function (req, res, next) {
+//   console.log("hello");
+
+//   bringAllUsers((response) => {
+//     console.log("response:: ", response);
+//     if (response.data) {
+//       res.status(200).json(response);
+//     } else {
+//       console.log("failed to login");
+//       res.status(401).send(response);
+//     }
+//   });
+// });
 
 router.get("/:id/:items", function (req, res, next) {
   console.log("user items request");

@@ -34,7 +34,10 @@ function NavBar() {
         <h4>Profile</h4>
       </NavLink>
       <NavLink className="NavLink" to="products">
-        <h4>My Products</h4>
+        <h4>Products</h4>
+      </NavLink>
+      <NavLink className="NavLink" to="shoppingcart">
+        <h4>Cart</h4>
       </NavLink>
     </header>
   );
