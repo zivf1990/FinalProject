@@ -13,8 +13,11 @@
   gap: 35px;
 }
 
-.navBar .logo {
-}
+/* .navBar .logo {
+  background-image: url("../img/shopify_logo.png");
+  width: 150px;
+  height: 150px;
+} */
 
 .navBar a {
   text-decoration: none;
