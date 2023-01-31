@@ -44,8 +44,7 @@ const Login = () => {
 
       //failed to login. need to show error message in the UI.
       if (!res.ok) {
-        throw "User does not exist"
-        
+        throw "User does not exist";
 
         //success to login. need to save token to coockie and context and redirect.
       } else {
@@ -61,13 +60,11 @@ const Login = () => {
           setUserToken(data.token);
 
           console.log("eddddddddddddddddddddddddddd");
-          navigate("/");
-        }
-        else if(data.permission_level === "blocked"){
-          throw "User is blocked"
+          navigate("/shop");
+        } else if (data.permission_level === "blocked") {
+          throw "User is blocked";
         }
       }
-
     } catch (e) {
       setErrorMessage(e);
     }
