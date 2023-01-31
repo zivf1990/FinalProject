@@ -40,15 +40,15 @@ const ShoppingCart = () => {
             />
             <img src={`${item.product_picture}`} />
             <button onClick={() => removeFromCart(index)}>remove</button>
-            <button
-              onClick={() => {
-                navigate("/checkout");
-              }}
-            >
-              Go to checkout
-            </button>
           </div>
         ))}
+      <button
+        onClick={() => {
+          navigate("/checkout");
+        }}
+      >
+        Go to checkout
+      </button>
     </div>
   );
 };
