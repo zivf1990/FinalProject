@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useUserToken } from "../context/UserContext";
 import { deleteCookie, getCookie } from "../js/cookie";
+import "../style/navbar.css";
 
 function NavBar() {
   // const [userId, setUserId] = useState("");
-  const { setUserId, userId, removeToken } = useUserToken();
+  const { userToken, removeToken } = useUserToken();
 
   useEffect(() => {
     // setUserId(getCookie("userId"));
@@ -17,28 +18,33 @@ function NavBar() {
   }
 
   return (
-    <header id="navBar">
-      <div></div>
-      <NavLink className="NavLink" to="/purchaseHistory"><h4> Purchase History</h4></NavLink>
-      <NavLink onClick={logOut} id="logOutButton" to="/">
-        <h4> Logout</h4>
-      </NavLink>
-      <NavLink id="shop" to="shop">
-        <h4> Shop</h4>
-      </NavLink>
-      <NavLink className="NavLink" to="/info">
-        <h4>Account</h4>
-      </NavLink>
+    <header className="navBar">
+      <div className="logo">
+        <NavLink id="shop" to="shop">
+          <i class="bx bxl-shopify"> Shopify</i>
+        </NavLink>
+      </div>
+      <div className="nav">
+        <NavLink className="NavLink" to="profile">
+          <h4>Account</h4>
+        </NavLink>
+        <NavLink className="NavLink" to="/sellerproducts">
+          <h4>sell</h4>
+        </NavLink>
 
-      <NavLink className="NavLink" to="profile">
-        <h4>Profile</h4>
-      </NavLink>
-      <NavLink className="NavLink" to="/sellerProducts">
-        <h4>seller manager</h4>
-      </NavLink>
-      <NavLink className="NavLink" to="shoppingcart">
-        <h4>Cart</h4>
-      </NavLink>
+        {userToken ? (
+          <NavLink onClick={logOut} id="logOutButton" to="/">
+            <h4> Logout</h4>
+          </NavLink>
+        ) : (
+          <NavLink to="/login">
+            <h4>LogIn</h4>
+          </NavLink>
+        )}
+        <NavLink className="NavLink" to="shoppingcart">
+          <i className="bx bx-cart"></i>
+        </NavLink>
+      </div>
     </header>
   );
 }

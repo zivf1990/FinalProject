@@ -4,9 +4,13 @@ const connection2 = require("../modules/sqlPromiseConfig");
 const productsQueries = {
     bringAllHistory:(cb) => {
   const selectQuery = `
-         SELECT *
+         SELECT p.product_name, u.username, pur.purchase_amount, pur.purchase_date
          FROM product p
-         JOIN 
+         JOIN user_info u
+         ON p.user_id = u.user_id
+         JOIN purchase_history pur
+         ON pur.user_id = u.user_id AND pur.product_id = P.product_id
+
        `;
   connection.query(selectQuery, function (error, results) {
     console.log(results);

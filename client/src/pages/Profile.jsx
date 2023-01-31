@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
 import { useUserToken } from "../context/UserContext";
 import "../style/profile.css";
 
@@ -41,6 +42,7 @@ const Profile = () => {
           <h4>Address: {userInfo?.address}</h4>
         </>
       )}
+      <NavLink to='/purchaseHistory'>reerer</NavLink>
     </div>
   );
 };

@@ -81,10 +81,10 @@ const SellerProducts = () => {
             <b>price:</b> {product.price}
             <b>amount:</b> {product.amount}
             <button onClick={() => updateAmount(product.product_id)}>
-              update the amount of your product
+              edit amount
             </button>
             <button onClick={() => deleteProduct(product.product_id)}>
-              delete
+              Remove
             </button>
             <b>description:</b> {product.description}
           </li>

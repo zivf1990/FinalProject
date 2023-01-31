@@ -10,6 +10,7 @@ const AddProduct = () => {
     console.log(userToken);
   }, [userToken]);
 
+  const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [userInput, setUserInput] = useState({
     product_name: "",
@@ -19,8 +20,6 @@ const AddProduct = () => {
     category: "1 sport",
     description:""
   });
-
-  const [errorMessage, setErrorMessage] = useState("");
 
   const handleChange = ({ target }) => {
     const { name, value } = target;
@@ -51,13 +50,13 @@ const AddProduct = () => {
     console.log("res");
     let jes = await res.json();
     if (res.ok) {
-      console.log("uuuu");
       if (jes.data == "user") {
         navigate("/sellerproducts");
       } else {
         navigate("/AdminHome/products");
       }
     } else {
+      setErrorMessage(jes);
     }
   }
   return (
@@ -141,7 +140,7 @@ const AddProduct = () => {
               value={loading === false ? "Add" : "Loading..."}
             />
           </div>
-          {/* <p id="response-text">{errorMessage}</p> */}
+          <p id="response-text">{errorMessage}</p>
         </div>
       </form>
     </div>
