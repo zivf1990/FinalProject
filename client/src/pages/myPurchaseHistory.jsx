@@ -37,8 +37,17 @@ const PurchaseHistory = () => {
     <div>
       <h2>My Purchase History</h2>
       <table>
+        <tr>
+            <th>Product</th>
+            <th>Amount bought</th>
+            <th>Purchase Date</th>
+        </tr>
         {
-            history.map((history)=>{})
+            history.map((history)=>( <tr>
+                <th>{history.product_name}</th>
+                <th>{history.purchase_amount}</th>
+                <th>{history.purchase_date}</th>
+            </tr>))
         }
         </table>
     </div>
