@@ -153,6 +153,14 @@ const dbScheme = [
         data_type: "BIGINT",
         unsigned: true,
       },
+      {
+        column_name: "seller_name",
+        data_type: "varchar(40)",
+      },
+      {
+        column_name: "description",
+        data_type: "varchar(300)",
+      },
     ],
     foreign_keys: [
       {

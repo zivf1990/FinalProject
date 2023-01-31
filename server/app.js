@@ -50,4 +50,30 @@ const dbSchema = require("./db/dbScheme");
 const { createTables, createDatabase } = require("./modules/sqlManager");
 // createTables(connection, dbSchema);
 
+const triggerTableProduct2 = `
+CREATE TRIGGER update_seller_name 
+AFTER INSERT ON product
+FOR EACH ROW
+BEGIN
+  UPDATE product p
+  JOIN user_info u ON p.seller_id = u.user_id
+  SET p.seller_name = u.username
+  WHERE p.product_id = NEW.product_id;
+END;`;
+
+const triggerTableProduct1 = `
+  CREATE TRIGGER update_product_amount
+    AFTER INSERT ON purchase_history
+    FOR EACH ROW
+    BEGIN
+      UPDATE product
+      SET amount = amount - NEW.purchase_amount
+      WHERE id = NEW.product_id;
+    END;`;
+
+// connection.query(triggerTableProduct2, (err, result) => {
+//   if (err) console.log(err);
+//   console.log(result);
+// });
+
 module.exports = app;

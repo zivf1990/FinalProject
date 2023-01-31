@@ -5,12 +5,12 @@ import { useNavigate } from "react-router-dom";
 
 const ShoppingCart = () => {
   const { userToken } = useUserToken();
-  const { cart, addToCart, removeFromCart } = useCart();
-  const [selectedValue, setSelectedValue] = useState(1);
+  const { cart, editCart, removeFromCart } = useCart();
   const navigate = useNavigate();
 
-  const handleChange = (event) => {
-    setSelectedValue(event.target.value);
+  const handleChange = (event, item) => {
+    let updatedProduct = { ...item, quantity: parseInt(event.target.value) };
+    editCart(updatedProduct);
   };
 
   useEffect(() => {
@@ -22,26 +22,36 @@ const ShoppingCart = () => {
   return (
     <div className="product">
       {cart &&
-        cart.map((item, index) => (
-          <div
-            key={Math.random() * Number.MAX_SAFE_INTEGER}
-            className="item-in-cart"
-          >
-            <label htmlFor="number-select"></label>
-            <b>price:</b> {item.price}
-            <b>amount:</b>
-            <input
-              type="number"
-              id="number-select"
-              value={selectedValue}
-              min={1}
-              max={item.amount}
-              onChange={handleChange}
-            />
-            <img src={`${item.product_picture}`} />
-            <button onClick={() => removeFromCart(index)}>remove</button>
-          </div>
-        ))}
+        cart.map((item, index) => {
+          const options = [];
+          for (let i = 1; i <= item.amount; i++) {
+            options.push(
+              <option key={Math.random() * Number.MAX_SAFE_INTEGER} value={i}>
+                {i}
+              </option>
+            );
+          }
+
+          return (
+            <div
+              key={Math.random() * Number.MAX_SAFE_INTEGER}
+              className="item-in-cart"
+            >
+              <label htmlFor="number-select"></label>
+              <b>price:</b> {item.price}
+              <b>amount:</b>
+              <select
+                name="quantity"
+                value={item.quantity}
+                onChange={(event) => handleChange(event, item)}
+              >
+                {options}
+              </select>
+              <img src={`${item.product_picture}`} alt="" />
+              <button onClick={() => removeFromCart(index)}>remove</button>
+            </div>
+          );
+        })}
       <button
         onClick={() => {
           navigate("/checkout");

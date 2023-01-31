@@ -8,7 +8,7 @@ const createProductTable = `CREATE TABLE product (
     product_picture VARCHAR(255) NOT NULL
   );`;
 
-const triggerTableProduct = `
+const triggerTableProduct1 = `
   CREATE TRIGGER update_product_amount
     AFTER INSERT ON purchase_history
     FOR EACH ROW
@@ -17,3 +17,17 @@ const triggerTableProduct = `
       SET amount = amount - NEW.purchase_amount
       WHERE id = NEW.product_id;
     END;`;
+
+const triggerTableProduct2 = `
+
+DELIMITER $$
+    CREATE TRIGGER update_seller_name 
+    AFTER INSERT ON product
+    FOR EACH ROW
+    BEGIN
+      UPDATE product p
+      JOIN user_info u ON p.seller_id = u.user_id
+      SET p.seller_name = u.name
+      WHERE p.product_id = NEW.product_id;
+    END $$
+    DELIMITER ;`;
