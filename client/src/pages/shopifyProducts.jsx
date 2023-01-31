@@ -27,7 +27,7 @@ const ShopifyProducts = () => {
       },
     });
     const data = await res.json();
-    console.log("data", data);
+    console.log("dassssssssssssssssssssssssa", data.data);
     setProducts(data.data);
   };
   async function deleteProduct(product_id) {
@@ -80,9 +80,9 @@ const ShopifyProducts = () => {
             <img src={product.product_picture} />
             <b>price:</b> {product.price}
             <b>amount:</b> {product.amount}
-            <button onClick={() => updateAmount(product.product_id)}>
+             {!product.seller_id ?<button  onClick={() => updateAmount(product.product_id)}>
               update the amount of your product
-            </button>
+            </button>:""}
             <button onClick={() => deleteProduct(product.product_id)}>
               delete
             </button>

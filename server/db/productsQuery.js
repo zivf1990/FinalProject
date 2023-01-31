@@ -56,25 +56,32 @@ const productsQueries = {bringAllProducts:(cb) => {
     cb
   ) => {
     const selectQuery = `
-               SELECT user_id
+               SELECT user_id, permission_level
                FROM user_permission 
-               WHERE token = '${token}'
+               WHERE token = '${token}';
              `;
     connection.query(selectQuery, function (error, results) {
+      console.log(results);
       if (error) {
         cb({ message: "failed to bring your products" });
         console.log("bad job man", "erer");
       }
       if (results.length > 0) {
-        console.log(product_name, product_picture, price, amount, category_id);
+          let seller_id;
+          if(results[0].permission_level== "user"){
+            seller_id = results[0].user_id
+          }
+          else if(results[0].permission_level== "admin"){
+            seller_id= null;
+          }
         connection.query(
           `INSERT INTO product(product_name, product_picture, price, amount, category_id,seller_id)
-                     VALUES("${product_name}","${product_picture}",${price},${amount},${category_id},${results[0].user_id});`,
+                     VALUES("${product_name}","${product_picture}",${price},${amount},${category_id},${seller_id});`,
           function (err, toke) {
             if (err) {
               cb({ message: "failed to bring your products 80" });
             } else {
-              cb({ message: "product added", data: true });
+              cb({ message: "product added", data: results[0].permission_level });
               console.log("good job man", "erer");
             }
           }
@@ -102,7 +109,7 @@ const productsQueries = {bringAllProducts:(cb) => {
     const selectQuery = `
                UPDATE product
                SET amount =${amount}
-               ••••WHERE product_id = ${product_id};
+               WHERE product_id = ${product_id};
              `;
     connection.query(selectQuery, function (error, results) {
       if (error) {

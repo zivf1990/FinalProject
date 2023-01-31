@@ -33,6 +33,7 @@ const AddProduct = () => {
 
   async function AddProduct() {
     const category_id = userInput.category[0];
+    console.log("resuuuu");
     const res = await fetch(`http://localhost:8000/products/addProduct`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -45,9 +46,16 @@ const AddProduct = () => {
         token: userToken,
       }),
     });
-
+    console.log("res");
+    let jes= await res.json();
     if (res.ok) {
+      console.log("uuuu");
+      if(jes.data=="user"){
       navigate("/products");
+      }
+      else{
+       navigate("/AdminHome/products");
+      }
     } else {
     }
   }
