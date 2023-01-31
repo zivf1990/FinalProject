@@ -48,10 +48,12 @@ const Product = () => {
         <div key={Math.random() * Number.MAX_SAFE_INTEGER} className="product">
           <b>price:</b> {product.price}
           <b>amount:</b> {product.amount}
+          <b>seller:</b> {product.seller_name}<br/>
           <img src={`${product.product_picture}`} alt="" />
           <button onClick={() => addAndNavigateToCart(product)}>
             Add to cart
           </button>
+          <b>description:</b> {product.description}
         </div>
       )}
     </div>

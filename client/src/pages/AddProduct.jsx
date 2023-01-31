@@ -17,6 +17,7 @@ const AddProduct = () => {
     price: "",
     amount: "",
     category: "1 sport",
+    description:""
   });
 
   const [errorMessage, setErrorMessage] = useState("");
@@ -44,6 +45,7 @@ const AddProduct = () => {
         amount: userInput.amount,
         category_id: category_id,
         token: userToken,
+        description: userInput.description
       }),
     });
     console.log("res");
@@ -124,9 +126,20 @@ const AddProduct = () => {
             </select>
           </div>
           <div className="input-field">
+            <label htmlFor="description">description</label>
+            <input
+              type="text"
+              name="description"
+              id="description"
+              onChange={handleChange}
+              value={userInput.description}
+              required
+            />
+          </div>
+          <div className="input-field">
             <input
               type="submit"
-              value={loading === false ? "Login" : "Loading..."}
+              value={loading === false ? "Add" : "Loading..."}
             />
           </div>
           {/* <p id="response-text">{errorMessage}</p> */}

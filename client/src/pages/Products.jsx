@@ -86,6 +86,7 @@ const Products = () => {
             <button onClick={() => deleteProduct(product.product_id)}>
               delete
             </button>
+            <b>description:</b> {product.description}
           </li>
         ))}
       </ul>

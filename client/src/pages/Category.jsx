@@ -37,8 +37,9 @@ const Category = () => {
         return (
           <Link to={`/product/${item.product_id}`}>
             <div key={item.product_id}>
-              <b>price:</b> {item.price}
               <h4>{item.product_name}</h4>
+              <b>seller:</b> {item.seller_name}<br/>
+              <b>price:</b> {item.price}
               <img src={item.product_picture} />
             </div>
           </Link>
