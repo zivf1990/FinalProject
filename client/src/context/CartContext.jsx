@@ -1,4 +1,6 @@
 import React, { useState, createContext, useContext } from "react";
+import { useEffect } from "react";
+import { getLocalStorage, setLocalStorage } from "../util/localsessionStorage";
 
 const CartContext = createContext();
 export const useCart = () => useContext(CartContext);
@@ -6,12 +8,22 @@ export const useCart = () => useContext(CartContext);
 export default function CartProvider({ children }) {
   const [cart, setCart] = useState([]);
 
-  const addToCart = (productID) => {
-    setCart((prev) => [...prev, productID]);
+  useEffect(() => {
+    const lsCart = getLocalStorage("cart");
+    if (lsCart) setCart(lsCart);
+  }, []);
+
+  useEffect(() => {
+    setLocalStorage("cart", cart);
+  }, [cart]);
+
+  const addToCart = (product) => {
+    console.log("adding to cart", product);
+    setCart((prev) => [...prev, product]);
   };
 
-  const removeFromCart = (productID) => {
-    setCart(cart.filter((product_id) => product_id !== productID));
+  const removeFromCart = (index) => {
+    setCart(cart.filter((item, i) => i !== index));
   };
 
   return (

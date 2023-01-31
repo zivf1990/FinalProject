@@ -2,10 +2,9 @@ const connection = require("../modules/sqlConfig");
 const connection2 = require("../modules/sqlPromiseConfig");
 
 const usersQueries = {
-    bringAllUsers: (cb) => {
-        console.log("hello");
-        const query =
-            `SELECT * FROM user_info u
+  bringAllUsers: (cb) => {
+    console.log("hello");
+    const query = `SELECT * FROM user_info u
             JOIN user_permission per
             ON u.user_id = per.user_id
             WHERE NOT per.permission_level = "admin";`

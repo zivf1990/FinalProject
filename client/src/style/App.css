@@ -335,3 +335,7 @@ th,td{
 #permission_cell:hover{
   background-color: pink;
 }
+
+img {
+  width: 180px;
+}

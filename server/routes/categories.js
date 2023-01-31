@@ -10,9 +10,14 @@ const getCategories = async () => {
 
 //get all categories.
 router.get("/", async function (req, res, next) {
-  const categories = await getCategories();
-  console.log("request for categories ", categories);
-  res.json(categories);
+  try {
+    const categories = await getCategories();
+    console.log("request for categories ", categories);
+    res.status(200).json(categories);
+  } catch (e) {
+    console.log(e);
+    res.status(404).json({ message: e.message });
+  }
 });
 
 module.exports = router;

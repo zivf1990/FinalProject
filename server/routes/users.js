@@ -4,7 +4,6 @@ const router = express.Router();
 const sequelize = require("../modules/sequelizeConfig");
 const connection = require("../modules/sqlConfig");
 
-
 /* GET all users listing. */
 // router.get("/", function (req, res, next) {
 //   console.log("user list request");
@@ -94,13 +93,3 @@ router.put("/userPermission", function (req, res, next) {
 
 
 module.exports = router;
-
-/*
-    SELECT *,
-    CASE
-        WHEN username = ${req.body.username} AND password = ${req.body.password} THEN 'true'
-        ELSE 'false'
-    END evaluation
-    FROM
-    user;
-*/
