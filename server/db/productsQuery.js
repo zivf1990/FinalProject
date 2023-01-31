@@ -1,8 +1,9 @@
 const connection = require("../modules/sqlConfig");
 const connection2 = require("../modules/sqlPromiseConfig");
 
-const productsQueries = {bringAllProducts:(cb) => {
-  const selectQuery = `
+const productsQueries = {
+  bringAllProducts: (cb) => {
+    const selectQuery = `
          SELECT *
          FROM product p
        `;
@@ -43,6 +44,27 @@ const productsQueries = {bringAllProducts:(cb) => {
       } else {
         cb({ message: "you have no products" });
         console.log("ss");
+      }
+    });
+  },
+  bringMyProducts: (token, cb) => {
+    const selectQuery = `
+           SELECT p.product_id, p.product_name, p.product_picture, p.price, p.amount, p.category_id
+           FROM product p
+           JOIN user_permission per
+           ON per.user_id = p.seller_id
+           WHERE token = '${token}'
+           GROUP BY product_id;
+         `;
+    connection.query(selectQuery, function (error, results) {
+      console.log(results);
+      if (error) {
+        cb({ message: "failed to bring your products" });
+      }
+      if (results.length > 0) {
+        cb({ message: "found your products", data: results });
+      } else {
+        cb({ message: "you have no products" });
       }
     });
   },
@@ -87,7 +109,10 @@ const productsQueries = {bringAllProducts:(cb) => {
               console.log(err);
               cb({ message: "failed to bring your products 80" });
             } else {
-              cb({ message: "product added", data: results[0].permission_level });
+              cb({
+                message: "product added",
+                data: results[0].permission_level,
+              });
               console.log("good job man", "erer");
             }
           }
@@ -144,6 +169,6 @@ const productsQueries = {bringAllProducts:(cb) => {
     const categories = data[0];
     console.log(categories);
     return categories[0];
-  }
+  },
 };
 module.exports = productsQueries;
