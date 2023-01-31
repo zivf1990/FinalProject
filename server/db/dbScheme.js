@@ -130,7 +130,6 @@ const dbScheme = [
       {
         column_name: "product_picture",
         data_type: "VARCHAR(200)",
-        not_null: true,
       },
       {
         column_name: "price",
@@ -140,7 +139,6 @@ const dbScheme = [
       {
         column_name: "category_id",
         data_type: "BIGINT",
-        not_null: true,
         unsigned: true,
       },
       {

@@ -47,14 +47,13 @@ const AddProduct = () => {
       }),
     });
     console.log("res");
-    let jes= await res.json();
+    let jes = await res.json();
     if (res.ok) {
       console.log("uuuu");
-      if(jes.data=="user"){
-      navigate("/products");
-      }
-      else{
-       navigate("/AdminHome/products");
+      if (jes.data == "user") {
+        navigate("/sellerproducts");
+      } else {
+        navigate("/AdminHome/products");
       }
     } else {
     }
