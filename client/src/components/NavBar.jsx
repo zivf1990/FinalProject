@@ -19,7 +19,7 @@ function NavBar() {
   return (
     <header id="navBar">
       <div></div>
-      <NavLink to="/login">LogIn</NavLink>
+      <NavLink className="NavLink" to="/purchaseHistory"><h4> Purchase History</h4></NavLink>
       <NavLink onClick={logOut} id="logOutButton" to="/">
         <h4> Logout</h4>
       </NavLink>
@@ -33,7 +33,7 @@ function NavBar() {
       <NavLink className="NavLink" to="profile">
         <h4>Profile</h4>
       </NavLink>
-      <NavLink className="NavLink" to="/sellerproducts">
+      <NavLink className="NavLink" to="/sellerProducts">
         <h4>seller manager</h4>
       </NavLink>
       <NavLink className="NavLink" to="shoppingcart">

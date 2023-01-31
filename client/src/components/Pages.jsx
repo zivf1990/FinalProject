@@ -40,10 +40,11 @@ function Pages() {
                 <Route path="profile" element={<Profile />} />
                 <Route path="purchaseHistory" element={<PurchaseHistory />} />
                 <Route path="addProduct" element={<AddProduct />} />
-                <Route path="SellerProducts" element={<SellerProducts />} />
+                <Route path="sellerProducts" element={<SellerProducts />} />
                 <Route path="product/:productId" element={<Product />} />
                 <Route path="shoppingcart" element={<ShoppingCart />} />
                 <Route path="checkout" element={<Checkout />} />
+                <Route path="purchaseHistory" element={<PurchaseHistory />} />
               </Route>
             </>
           ) : (
