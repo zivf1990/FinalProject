@@ -4,7 +4,7 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const cors = require("cors");
-const bcrypt = require("bcrypt");
+const checkReqToken = require("./middleware/checkReqToken");
 
 //import routers.
 const indexRouter = require("./routes/index");
@@ -18,7 +18,7 @@ const categoriesRouter = require("./routes/categories");
 const app = express();
 const createUser = require("./db/signupQuery");
 
-//Settings.
+//middlewares.
 app.use(cors());
 app.use(logger("dev"));
 app.use(express.json());
@@ -34,21 +34,7 @@ app.use(function (req, res, next) {
   );
   next();
 });
-
-//check for user token.
-app.use((req, res, next) => {
-  const bearerHeader = req.headers["authorization"];
-  if (typeof bearerHeader !== "undefined") {
-    const bearer = bearerHeader.split(" ");
-    const bearerToken = bearer[1];
-    req.token = bearerToken;
-    console.log("req.token ", req.token);
-    next();
-  } else {
-    // res.sendStatus(401);
-    next();
-  }
-});
+app.use(checkReqToken);
 
 //Using Routers
 app.use("/", indexRouter);
@@ -63,5 +49,20 @@ const connection = require("./modules/sqlConfig");
 const dbSchema = require("./db/dbScheme");
 const { createTables, createDatabase } = require("./modules/sqlManager");
 // createTables(connection, dbSchema);
+
+const triggerTableProduct = `
+CREATE TRIGGER update_product_amount
+  AFTER INSERT ON purchase_history
+  FOR EACH ROW
+  BEGIN
+    UPDATE product
+    SET amount = amount - NEW.purchase_amount
+    WHERE id = NEW.product_id;
+  END;`;
+
+connection.query(triggerTableProduct, (err, result) => {
+  if (err) console.log(err);
+  console.log(result);
+});
 
 module.exports = app;

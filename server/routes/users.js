@@ -99,13 +99,3 @@ router.get("/:id/:items", function (req, res, next) {
 });
 
 module.exports = router;
-
-/*
-    SELECT *,
-    CASE
-        WHEN username = ${req.body.username} AND password = ${req.body.password} THEN 'true'
-        ELSE 'false'
-    END evaluation
-    FROM
-    user;
-*/

@@ -1,4 +1,4 @@
-const checkToken = (req, res, next) => {
+const validateToken = (req, res, next) => {
   const token = req.body.token;
 
   if (!token) {
