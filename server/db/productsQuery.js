@@ -1,7 +1,26 @@
 const connection = require("../modules/sqlConfig");
 const connection2 = require("../modules/sqlPromiseConfig");
 
-const productsQueries = {
+const productsQueries = {bringAllProducts:(cb) => {
+  const selectQuery = `
+         SELECT *
+         FROM product p
+       `;
+  connection.query(selectQuery, function (error, results) {
+    console.log(results);
+    if (error) {
+      cb({ message: "failed to bring your products" });
+      console.log("sds");
+    }
+    if (results.length > 0) {
+      cb({ message: "found your products", data: results });
+      console.log("sddddddds");
+    } else {
+      cb({ message: "you have no products" });
+      console.log("ss");
+    }
+  });
+},
   bringMyProducts: (token, cb) => {
     console.log(token, "hjello");
     const selectQuery = `

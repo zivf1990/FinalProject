@@ -44,10 +44,8 @@ const Login = () => {
 
       //failed to login. need to show error message in the UI.
       if (!res.ok) {
-        console.log("status code: ", res.status);
-        console.log("message: ", res);
-        console.log("message: ", res.statusText);
-        setErrorMessage("Something went wrong");
+        throw "User does not exist"
+        
 
         //success to login. need to save token to coockie and context and redirect.
       } else {
@@ -55,38 +53,23 @@ const Login = () => {
         console.log("data: ", data);
         // setCookie("token", data.token);
         // setUserToken(data.token);
-        setUserToken(data.token);
         if (data.permission_level === "admin") {
-          navigate("/register");
-        } else if (data.permission_level === "user") {
+          setUserToken(data.token);
+
           navigate("/adminHome");
+        } else if (data.permission_level === "user") {
+          setUserToken(data.token);
+
+          console.log("eddddddddddddddddddddddddddd");
+          navigate("/");
+        }
+        else if(data.permission_level === "blocked"){
+          throw "User is blocked"
         }
       }
 
-      // setLoading(false);
-
-      //success to login.
-      // if (data) {
-      //   localStorage.setItem("userId", data.userId);
-      //   console.log(data);
-      //   setUserId(data);
-      //   // setCookie("userId", user.id, 1);
-      //   // window.history.pushState(null, null, window.location.href);
-      //   // window.onpopstate = window.history.go(1);
-      //   if(data.permission_level=="user"){
-      //   navigate(`/Home`);
-      //   localStorage.setItem("userId", data.token);
-      //   }
-      //   else if(data.permission_level=="admin"){
-      //   navigate(`/admin`);
-      //   }
-      // } else {
-      //   alert("failed")
-      // }
     } catch (e) {
-      // console.log(e);
-      // setTimeout(3000, alert("Please Check Your Internet Connection"));
-      // setTimeout(3000, window.location.reload());
+      setErrorMessage(e);
     }
   };
 

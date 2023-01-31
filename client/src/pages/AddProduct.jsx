@@ -55,8 +55,8 @@ const AddProduct = () => {
     <div>
       <form onSubmit={handleSubmit}>
         <div className="input-box">
-          <header>Log In</header>
           <div className="input-field">
+            <label htmlFor="product_name">product name</label>
             <input
               type="text"
               name="product_name"
@@ -65,9 +65,9 @@ const AddProduct = () => {
               value={userInput.product_name}
               required
             />
-            <label htmlFor="product_name">product name</label>
           </div>
           <div className="input-field">
+            <label htmlFor="product_picture">product picture url</label>
             <input
               type="text"
               name="product_picture"
@@ -76,9 +76,9 @@ const AddProduct = () => {
               value={userInput.product_picture}
               required
             />
-            <label htmlFor="product_picture">product picture url</label>
           </div>
           <div className="input-field">
+            <label htmlFor="price">price</label>
             <input
               type="text"
               name="price"
@@ -88,9 +88,9 @@ const AddProduct = () => {
               value={userInput.price}
               required
             />
-            <label htmlFor="price">price</label>
           </div>
           <div className="input-field">
+            <label htmlFor="amount">amount</label>
             <input
               type="number"
               name="amount"
@@ -99,7 +99,6 @@ const AddProduct = () => {
               value={userInput.amount}
               required
             />
-            <label htmlFor="amount">amount</label>
           </div>
           <div className="input-field">
             <label htmlFor="category">category</label>

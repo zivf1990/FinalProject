@@ -329,3 +329,9 @@ a.NavLink svg {
   grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
   grid-gap: 3rem; */
 /* } */
+th,td{
+  border: 1px solid black;
+}
+#permission_cell:hover{
+  background-color: pink;
+}

@@ -14,6 +14,7 @@ import Category from "../pages/Category";
 import Product from "../pages/Product";
 import AdminHome from "../pages/adminHome";
 import Users from "../pages/shopifyUsers";
+import ShopifyProducts from "../pages/shopifyProducts";
 
 function Pages() {
   // const isAdmin = getCookie("isAdmin");
@@ -29,7 +30,7 @@ function Pages() {
                 <Route path="profile" element={<Profile />} />
                 <Route path="purchaseHistory" element={<PurchaseHistory />} />
                 <Route path="addProduct" element={<AddProduct />} />
-                <Route path="products" element={<Products />} />
+                <Route path="products" element={<ShopifyProducts />} />
               </Route>
               <Route path="/" element={<Home />}>
                 <Route path="shop" element={<Shop />} />
