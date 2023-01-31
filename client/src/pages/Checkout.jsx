@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUserToken } from "../context/UserContext";
+import { useCart } from "../context/CartContext";
 import "../style/checkout.css";
 
 const Checkout = () => {
   const { userToken } = useUserToken();
   const navigate = useNavigate();
+  const { cart } = useCart();
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [userInput, setUserInput] = useState({
@@ -30,13 +32,13 @@ const Checkout = () => {
     console.log("Checkout... ", userInput);
 
     if (userToken) {
-      const res = await fetch(`http://localhost:8000/purchasehistory}`, {
+      const res = await fetch(`http://localhost:8000/purchasehistory`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${userToken}`,
-          headers: { "Content-Type": "application/json" },
+          "Content-Type": "application/json",
         },
-        body: { test: "ds" },
+        body: JSON.stringify({ userinfo: userInput, purchaseList: cart }),
       });
 
       const data = await res.json();
