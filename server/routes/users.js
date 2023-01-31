@@ -1,5 +1,5 @@
 const express = require("express");
-const { bringAllUsers } = require("../db/usersQuery");
+const { bringAllUsers, changeUserPermission } = require("../db/usersQuery");
 const router = express.Router();
 const sequelize = require("../modules/sequelizeConfig");
 const connection = require("../modules/sqlConfig");
@@ -66,53 +66,30 @@ router.get("/profile", function (req, res, next) {
     });
 });
 
-router.get("/:id", function (req, res, next) {
-  console.log("user id request");
-  connection.query(
-    `SELECT * FROM user_info WHERE id = ${req.params.id}`,
-    (err, data) => {
-      if (err) throw err;
-      if (data.length > 0) res.send(data[0]);
-      else res.send("User not found");
+
+router.get("/notAdmin", function (req, res, next) {
+  console.log("hello");
+  bringAllUsers((response) => {
+    console.log("response:: ", response);
+    if (response.data) {
+      res.status(200).json(response);
+    } else {
+      console.log("failed to login");
+      res.status(401).send(response);
     }
-  );
+  });
+});
+router.put("/userPermission", function (req, res, next) {
+  changeUserPermission(req.body.user_id,(response) => {
+    if (response.data) {
+      res.status(200).json(response);
+    } else {
+      console.log("failed to login");
+      res.status(401).send(response);
+    }
+  });
 });
 
-// router.get("/notAdmin", function (req, res, next) {
-//   console.log("hello");
 
-//   bringAllUsers((response) => {
-//     console.log("response:: ", response);
-//     if (response.data) {
-//       res.status(200).json(response);
-//     } else {
-//       console.log("failed to login");
-//       res.status(401).send(response);
-//     }
-//   });
-// });
-
-router.get("/:id/:items", function (req, res, next) {
-  console.log("user items request");
-
-  const { id, items } = req.params;
-
-  if (items === "posts" || items === "todos") {
-    const item = items.slice(0, -1);
-    console.log(item);
-
-    connection.query(
-      `SELECT * FROM ${item} WHERE user_id = ${id}`,
-      (err, data) => {
-        if (err) throw err;
-        console.log(typeof data);
-        if (data.length > 0) res.send(data);
-        else res.send("User not found");
-      }
-    );
-  } else {
-    res.send("{}");
-  }
-});
 
 module.exports = router;

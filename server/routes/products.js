@@ -7,7 +7,21 @@ const {
   updateAmount,
   getCategories,
   showProduct,
+  bringAllProducts,
 } = require("../db/productsQuery");
+
+router.get("/", function (req, res, next) {
+  console.log("babaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+  bringAllProducts((response) => {
+    console.log("response:: ", response);
+    if (response?.data) {
+      res.status(200).json(response);
+    } else {
+      console.log("failed to login");
+      res.status(401).send(response);
+    }
+  });
+});
 
 router.get("/user", function (req, res, next) {
   console.log("babaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
@@ -64,10 +78,15 @@ router.post("/addProduct", function (req, res) {
     category_id,
     (response) => {
       console.log("response:: ", response);
-      if (response.data) {
+      if (response.data==="user") {
         console.log(response);
         res.status(200).json(response);
-      } else {
+      }
+      else if(response.data==="admin"){
+        console.log(response);
+        res.status(200).json(response);
+      } 
+      else {
         console.log("failed to login");
         res.status(401).send(response);
       }

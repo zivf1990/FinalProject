@@ -19,18 +19,17 @@ function AdminNavBar() {
   return (
     <header id="navBar">
       <div></div>
-      <NavLink to="/login">LogIn</NavLink>
       <NavLink onClick={logOut} id="logOutButton" to="/">
         <h4> Logout</h4>
       </NavLink>
-      <NavLink id="users" to="users">
+      <NavLink id="users" to="/adminHome/users">
         <h4> Users</h4>
       </NavLink>
-      <NavLink className="NavLink" to="profile">
+      <NavLink className="NavLink" to="/adminHome/profile">
         <h4>Profile</h4>
       </NavLink>
-      <NavLink className="NavLink" to="products">
-        <h4>My Products</h4>
+      <NavLink className="NavLink" to="/adminHome/products">
+        <h4>Products in Shopify</h4>
       </NavLink>
     </header>
   );
