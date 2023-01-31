@@ -27,13 +27,28 @@ const Checkout = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("Checkout... ", userInput);
+
+    if (userToken) {
+      const res = await fetch(`http://localhost:8000/purchasehistory}`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+          headers: { "Content-Type": "application/json" },
+        },
+        body: { test: "ds" },
+      });
+
+      const data = await res.json();
+      console.log("data: ", data);
+    }
   };
 
   return (
     <div className="checkout">
       <h1>checkout</h1>
       <form className="checkout-form" onSubmit={handleSubmit}>
-        <label for="name">
+        <label htmlFor="name">
           Name:
           <input
             type="text"
@@ -44,7 +59,7 @@ const Checkout = () => {
           />
         </label>
 
-        <label for="email">
+        <label htmlFor="email">
           Email:
           <input
             type="email"
@@ -55,7 +70,7 @@ const Checkout = () => {
           />
         </label>
 
-        <label for="address">
+        <label htmlFor="address">
           Address:
           <input
             type="text"
@@ -66,7 +81,7 @@ const Checkout = () => {
           />
         </label>
 
-        <label for="card-number">
+        <label htmlFor="card-number">
           Card Number:
           <input
             type="text"
@@ -77,7 +92,7 @@ const Checkout = () => {
           />
         </label>
 
-        <label for="expiry-date">
+        <label htmlFor="expiry-date">
           Expiry Date:
           <input
             type="month"
@@ -88,7 +103,7 @@ const Checkout = () => {
           />
         </label>
 
-        <label for="cvv">
+        <label htmlFor="cvv">
           CVV:
           <input
             type="text"

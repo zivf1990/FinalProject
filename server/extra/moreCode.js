@@ -15,22 +15,8 @@ const triggerTableProduct1 = `
     BEGIN
       UPDATE product
       SET amount = amount - NEW.purchase_amount
-      WHERE id = NEW.product_id;
+      WHERE product_id = NEW.product_id;
     END;`;
-
-const triggerTableProduct2 = `
-
-DELIMITER $$
-    CREATE TRIGGER update_seller_name 
-    AFTER INSERT ON product
-    FOR EACH ROW
-    BEGIN
-      UPDATE product p
-      JOIN user_info u ON p.seller_id = u.user_id
-      SET p.seller_name = u.name
-      WHERE p.product_id = NEW.product_id;
-    END $$
-    DELIMITER ;`;
 
 let values = [["sport"], ["electronics"], ["cars"]];
 

@@ -21,7 +21,7 @@ function NavBar() {
     <header className="navBar">
       <div className="logo">
         <NavLink id="shop" to="shop">
-          <i class="bx bxl-shopify"> Shopify</i>
+          <i className="bx bxl-shopify"> Shopify</i>
         </NavLink>
       </div>
       <div className="nav">
@@ -37,9 +37,14 @@ function NavBar() {
             <h4> Logout</h4>
           </NavLink>
         ) : (
-          <NavLink to="/login">
-            <h4>LogIn</h4>
-          </NavLink>
+          <>
+            <NavLink to="/login">
+              <h4>LogIn</h4>
+            </NavLink>
+            <NavLink to="/register">
+              <h4>Register</h4>
+            </NavLink>
+          </>
         )}
         <NavLink className="NavLink" to="shoppingcart">
           <i className="bx bx-cart"></i>

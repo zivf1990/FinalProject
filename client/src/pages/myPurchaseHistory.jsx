@@ -4,7 +4,7 @@ import { useUserToken } from "../context/UserContext";
 
 const PurchaseHistory = () => {
   const { userToken } = useUserToken();
-  const [History, setHistory] = useState([]);
+  const [history, setHistory] = useState([]);
 
   useEffect(() => {
     console.log(userToken);
@@ -16,7 +16,7 @@ const PurchaseHistory = () => {
   };
 
   const getHistory = async () => {
-    const res = await fetch(`http://localhost:8000/products/user`, {
+    const res = await fetch(`http://localhost:8000/purchasehistory/user`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${userToken}`,
@@ -36,7 +36,11 @@ const PurchaseHistory = () => {
   return (
     <div>
       <h2>My Purchase History</h2>
-      
+      <table>
+        {
+            history.map((history)=>{})
+        }
+        </table>
     </div>
   );
 };

@@ -13,10 +13,11 @@ const loginRouter = require("./routes/login");
 const signupRouter = require("./routes/signup");
 const productsRouter = require("./routes/products");
 const categoriesRouter = require("./routes/categories");
+const purchaseHistoryRouter = require("./routes/purchaseHistory");
+const createUser = require("./db/signupQuery");
 
 //initialize express.
 const app = express();
-const createUser = require("./db/signupQuery");
 
 //middlewares.
 app.use(cors());
@@ -43,6 +44,7 @@ app.use("/register", signupRouter);
 app.use("/users", usersRouter);
 app.use("/products", productsRouter);
 app.use("/categories", categoriesRouter);
+app.use("/purchasehistory", purchaseHistoryRouter);
 
 //import mysql connection and dbSchema.
 const connection = require("./modules/sqlConfig");
@@ -50,47 +52,23 @@ const dbSchema = require("./db/dbScheme");
 const { createTables, createDatabase } = require("./modules/sqlManager");
 // createTables(connection, dbSchema);
 
-const triggerTableProduct2 = `
-CREATE TRIGGER update_seller_name 
-AFTER INSERT ON product
-FOR EACH ROW
-BEGIN
-  UPDATE product p
-  JOIN user_info u ON p.seller_id = u.user_id
-  SET p.seller_name = u.username
-  WHERE p.product_id = NEW.product_id;
-END;`;
+let values = [[1, 15, 1, "CURRENT_TIMESTAMP"]];
 
-const triggerTableProduct1 = `
-  CREATE TRIGGER update_product_amount
-    AFTER INSERT ON purchase_history
-    FOR EACH ROW
-    BEGIN
-      UPDATE product
-      SET amount = amount - NEW.purchase_amount
-      WHERE id = NEW.product_id;
-    END;`;
+// let query = `
+// INSERT INTO purchase_history (user_id, product_id, purchase_amount, purchase_date) 
+// VALUES (1, 8,1,CURRENT_TIMESTAMP)`;
 
-const defaultValueQuery = `ALTER TABLE user_info
-    MODIFY COLUMN created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP;`;
+// const triggerTableProduct1 = `
+//   CREATE TRIGGER update_product_amount
+//     AFTER INSERT ON purchase_history
+//     FOR EACH ROW
+//     BEGIN
+//       UPDATE product
+//       SET amount = amount - EW.purchase_amount
+//       WHERE product_id = NEW.product_id;
+//     END;`;
 
-// let values = [
-//   ["sports"],
-//   ["cars"],
-//   ["electrnics"],
-// ];
-
-// let query = `INSERT INTO category (category_name) VALUES ?`;
-
-// connection.query(query, [values], (err, result) => {
-//   if (err) {
-//     console.error("Error inserting data into the table:", err);
-//     return;
-//   }
-//   console.log("Data inserted successfully:", result);
-// });
-
-// connection.query(`DROP TRIGGER update_seller_name;`, (err, result) => {
+// connection.query(query ,  (err, result) => {
 //   if (err) console.log(err);
 //   console.log(result);
 // });
