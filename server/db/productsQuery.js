@@ -83,7 +83,7 @@ const productsQueries = {
     const selectQuery = `
                UPDATE product
                SET amount =${amount}
-               WHERE product_id = ${product_id};
+               ••••WHERE product_id = ${product_id};
              `;
     connection.query(selectQuery, function (error, results) {
       if (error) {
@@ -103,5 +103,15 @@ const productsQueries = {
     const categories = data[0];
     return categories;
   },
+  showProduct: async (product_id) => {
+    const data = await (
+      await connection2
+    ).execute(`
+    SELECT * FROM product p
+    WHERE product_id = ${product_id};`);
+    const categories = data[0];
+    console.log(categories);
+    return categories[0];
+  }
 };
 module.exports = productsQueries;

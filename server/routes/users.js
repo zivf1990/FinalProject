@@ -1,16 +1,17 @@
 const express = require("express");
+const { bringAllUsers } = require("../db/usersQuery");
 const router = express.Router();
 const sequelize = require("../modules/sequelizeConfig");
 
 /* GET all users listing. */
-router.get("/", function (req, res, next) {
-  console.log("user list request");
-  connection.query("SELECT * FROM user", (err, data) => {
-    if (err) throw err;
-    console.log(data);
-    res.send(data);
-  });
-});
+// router.get("/", function (req, res, next) {
+//   console.log("user list request");
+//   connection.query("SELECT * FROM user", (err, data) => {
+//     if (err) throw err;
+//     console.log(data);
+//     res.send(data);
+//   });
+// });
 
 router.get("/profile", function (req, res, next) {
   console.log("user profile request");
@@ -73,6 +74,19 @@ router.get("/:id", function (req, res, next) {
       else res.send("User not found");
     }
   );
+});
+
+router.get("/notAdmin", function (req, res, next) {
+  console.log("hello");
+  bringAllUsers((response) => {
+    console.log("response:: ", response);
+    if (response.data) {
+      res.status(200).json(response);
+    } else {
+      console.log("failed to login");
+      res.status(401).send(response);
+    }
+  });
 });
 
 router.get("/:id/:items", function (req, res, next) {
