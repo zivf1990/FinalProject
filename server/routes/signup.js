@@ -18,7 +18,7 @@ router.post("/", function (req, res, next) {
       }
     });
   } catch (e) {
-    console.log("zivvvvvvvv");
+    console.log(e);
   }
 });
 

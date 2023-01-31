@@ -39,7 +39,7 @@ const ShopifyUsers = () => {
         }
     };
     function searchByName(){
-        let result = users.filter(str => str.username.includes(searchBar));
+        let result = users.filter(str => str.username.startsWith(searchBar));
         setVisibleUsers(result);
     }
     async function changePermission(user_id){
@@ -51,7 +51,6 @@ const ShopifyUsers = () => {
             }),
           });
           if (res.ok) {
-            console.log("good");
             getUsers();
           } else {
             alert("bad");

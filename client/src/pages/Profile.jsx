@@ -42,7 +42,6 @@ const Profile = () => {
           <h4>Address: {userInfo?.address}</h4>
         </>
       )}
-      <NavLink to='/purchaseHistory'>reerer</NavLink>
     </div>
   );
 };

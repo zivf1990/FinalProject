@@ -31,7 +31,9 @@ function NavBar() {
         <NavLink className="NavLink" to="/sellerproducts">
           <h4>sell</h4>
         </NavLink>
-
+        <NavLink className="NavLink" to="/purchaseHistory">
+          <h4>My Purcahse History</h4>
+        </NavLink>
         {userToken ? (
           <NavLink onClick={logOut} id="logOutButton" to="/">
             <h4> Logout</h4>
