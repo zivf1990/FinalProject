@@ -13,8 +13,19 @@ const router = express.Router();
 //   });
 // });
 
+
+
+
+
+
+
+
+
+
 router.post(`/`, (req, res, next) => {
   console.log("recived post requst for purchase history.");
+  console.log(req.body);
+  console.log(" post req.token", req.token);
 });
 
 module.exports = router;
