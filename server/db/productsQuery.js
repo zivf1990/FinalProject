@@ -7,6 +7,31 @@ const productsQueries = {
          SELECT *
          FROM product p
        `;
+  connection.query(selectQuery, function (error, results) {
+    console.log(results);
+    if (error) {
+      cb({ message: "failed to bring your products" });
+      console.log("sds");
+    }
+    if (results.length > 0) {
+      cb({ message: "found your products", data: results });
+      console.log("sddddddds");
+    } else {
+      cb({ message: "you have no products" });
+      console.log("ss");
+    }
+  });
+},
+  bringMyProducts: (token, cb) => {
+    console.log(token, "hjello");
+    const selectQuery = `
+           SELECT p.product_id, p.product_name, p.product_picture, p.price, p.amount, p.category_id,p.description
+           FROM product p
+           JOIN user_permission per
+           ON per.user_id = p.seller_id
+           WHERE token = '${token}'
+           GROUP BY product_id;
+         `;
     connection.query(selectQuery, function (error, results) {
       console.log(results);
       if (error) {
@@ -50,31 +75,38 @@ const productsQueries = {
     price,
     amount,
     category_id,
+    description,
     cb
   ) => {
     const selectQuery = `
-               SELECT user_id, permission_level
-               FROM user_permission 
-               WHERE token = '${token}';
+               SELECT u.user_id, per.permission_level, u.username
+               FROM user_permission per 
+               JOIN user_info u
+               ON per.user_id = u.user_id
+               WHERE per.token = '${token}';
              `;
     connection.query(selectQuery, function (error, results) {
-      console.log(results);
       if (error) {
         cb({ message: "failed to bring your products" });
         console.log("bad job man", "erer");
       }
       if (results.length > 0) {
-        let seller_id;
-        if (results[0].permission_level == "user") {
-          seller_id = results[0].user_id;
-        } else if (results[0].permission_level == "admin") {
-          seller_id = null;
-        }
+          let seller_id;
+          let seller_name;
+          if(results[0].permission_level== "user"){
+            seller_id = results[0].user_id
+            seller_name=results[0].username;
+          }
+          else if(results[0].permission_level== "admin"){
+            seller_id= null;
+            seller_name='shopify';
+          }
         connection.query(
-          `INSERT INTO product(product_name, product_picture, price, amount, category_id,seller_id)
-                     VALUES("${product_name}","${product_picture}",${price},${amount},${category_id},${seller_id});`,
+          `INSERT INTO product(product_name, product_picture, price, amount, category_id,seller_id, seller_name, description)
+                     VALUES("${product_name}","${product_picture}",${price},${amount},${category_id},${seller_id},"${seller_name}","${description}");`,
           function (err) {
             if (err) {
+              console.log(err);
               cb({ message: "failed to bring your products 80" });
             } else {
               cb({

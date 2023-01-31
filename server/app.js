@@ -74,21 +74,21 @@ const triggerTableProduct1 = `
 const defaultValueQuery = `ALTER TABLE user_info
     MODIFY COLUMN created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP;`;
 
-let values = [
-  ["sports"],
-  ["cars"],
-  ["electrnics"],
-];
+// let values = [
+//   ["sports"],
+//   ["cars"],
+//   ["electrnics"],
+// ];
 
-let query = `INSERT INTO category (category_name) VALUES ?`;
+// let query = `INSERT INTO category (category_name) VALUES ?`;
 
-connection.query(query, [values], (err, result) => {
-  if (err) {
-    console.error("Error inserting data into the table:", err);
-    return;
-  }
-  console.log("Data inserted successfully:", result);
-});
+// connection.query(query, [values], (err, result) => {
+//   if (err) {
+//     console.error("Error inserting data into the table:", err);
+//     return;
+//   }
+//   console.log("Data inserted successfully:", result);
+// });
 
 // connection.query(`DROP TRIGGER update_seller_name;`, (err, result) => {
 //   if (err) console.log(err);

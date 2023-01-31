@@ -86,6 +86,8 @@ const ShopifyProducts = () => {
             <button onClick={() => deleteProduct(product.product_id)}>
               delete
             </button>
+            {product.seller_id ? <span><b>seller:</b> {product.seller_name}</span>:""}
+            <b>description:</b> {product.description}
           </li>
         ))}
       </ul>

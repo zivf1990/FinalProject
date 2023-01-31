@@ -18,6 +18,7 @@ const AddProduct = () => {
     price: "",
     amount: "",
     category: "1 sport",
+    description:""
   });
 
   const handleChange = ({ target }) => {
@@ -43,6 +44,7 @@ const AddProduct = () => {
         amount: userInput.amount,
         category_id: category_id,
         token: userToken,
+        description: userInput.description
       }),
     });
     console.log("res");
@@ -120,6 +122,17 @@ const AddProduct = () => {
               <option value="3">3 fashion</option>
               <option value="4">4 electronics</option>
             </select>
+          </div>
+          <div className="input-field">
+            <label htmlFor="description">description</label>
+            <input
+              type="text"
+              name="description"
+              id="description"
+              onChange={handleChange}
+              value={userInput.description}
+              required
+            />
           </div>
           <div className="input-field">
             <input
