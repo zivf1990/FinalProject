@@ -3,7 +3,7 @@ import { useUserToken } from "../context/UserContext";
 import Login from "../pages/Login";
 
 import Register from "../pages/Register";
-import PurchaseHistory from "../pages/PurchaseHistory";
+import PurchaseHistory from "../pages/myPurchaseHistory";
 import { AnimatePresence } from "framer-motion";
 import Home from "../pages/Home";
 import Shop from "../pages/Shop";
@@ -44,6 +44,7 @@ function Pages() {
                 <Route path="product/:productId" element={<Product />} />
                 <Route path="shoppingcart" element={<ShoppingCart />} />
                 <Route path="checkout" element={<Checkout />} />
+                <Route path="purchaseHistory" element={<PurchaseHistory />} />
               </Route>
             </>
           ) : (

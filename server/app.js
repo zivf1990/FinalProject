@@ -45,9 +45,9 @@ const { createTables, createDatabase } = require("./modules/sqlManager");
 
 let values = [[1, 15, 1, "CURRENT_TIMESTAMP"]];
 
-let query = `
-INSERT INTO purchase_history (user_id, product_id, purchase_amount, purchase_date) 
-VALUES (1, 15,1,CURRENT_TIMESTAMP)`;
+// let query = `
+// INSERT INTO purchase_history (user_id, product_id, purchase_amount, purchase_date) 
+// VALUES (1, 8,1,CURRENT_TIMESTAMP)`;
 
 // const triggerTableProduct1 = `
 //   CREATE TRIGGER update_product_amount
@@ -55,11 +55,11 @@ VALUES (1, 15,1,CURRENT_TIMESTAMP)`;
 //     FOR EACH ROW
 //     BEGIN
 //       UPDATE product
-//       SET amount = amount - NEW.purchase_amount
+//       SET amount = amount - EW.purchase_amount
 //       WHERE product_id = NEW.product_id;
 //     END;`;
 
-// connection.query(query,[values] ,  (err, result) => {
+// connection.query(query ,  (err, result) => {
 //   if (err) console.log(err);
 //   console.log(result);
 // });
