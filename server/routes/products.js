@@ -6,6 +6,7 @@ const {
   deleteProduct,
   updateAmount,
   getCategories,
+  showProduct,
 } = require("../db/productsQuery");
 
 router.get("/user", function (req, res, next) {
@@ -19,6 +20,14 @@ router.get("/user", function (req, res, next) {
       res.status(401).send(response);
     }
   });
+});
+
+
+router.get("/:id/data", async function (req, res, next) {
+  const { id } = req.params;
+  const category = await showProduct(id);
+  console.log("request for categories ", category);
+  res.json(category);
 });
 
 router.post('/addProduct', function (req, res) {

@@ -59,7 +59,7 @@ const Login = () => {
         if (data.permission_level === "admin") {
           navigate("/register");
         } else if (data.permission_level === "user") {
-          navigate("/");
+          navigate("/adminHome");
         }
       }
 
