@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useUserToken } from "../context/UserContext";
 
-const Products = () => {
+const SellerProducts = () => {
   const { userToken } = useUserToken();
   const [products, setProducts] = useState([]);
   const [check, setCheck] = useState(true);
@@ -94,4 +94,4 @@ const Products = () => {
   );
 };
 
-export default Products;
+export default SellerProducts;

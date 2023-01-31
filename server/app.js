@@ -71,7 +71,10 @@ const triggerTableProduct1 = `
       WHERE id = NEW.product_id;
     END;`;
 
-// connection.query(triggerTableProduct2, (err, result) => {
+const defaultValueQuery = `ALTER TABLE user_info
+    MODIFY COLUMN created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP;`;
+
+// connection.query(defaultValueQuery, (err, result) => {
 //   if (err) console.log(err);
 //   console.log(result);
 // });

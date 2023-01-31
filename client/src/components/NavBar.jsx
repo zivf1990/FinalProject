@@ -33,8 +33,8 @@ function NavBar() {
       <NavLink className="NavLink" to="profile">
         <h4>Profile</h4>
       </NavLink>
-      <NavLink className="NavLink" to="products">
-        <h4>Products</h4>
+      <NavLink className="NavLink" to="/sellerproducts">
+        <h4>seller manager</h4>
       </NavLink>
       <NavLink className="NavLink" to="shoppingcart">
         <h4>Cart</h4>

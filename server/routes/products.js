@@ -36,7 +36,6 @@ router.get("/user", function (req, res, next) {
   });
 });
 
-
 router.get("/:id/data", async function (req, res, next) {
   const { id } = req.params;
   const category = await showProduct(id);
@@ -44,19 +43,29 @@ router.get("/:id/data", async function (req, res, next) {
   res.json(category);
 });
 
-router.post('/addProduct', function (req, res) {
-  const {token,product_name, product_picture, price, amount, category_id}=req.body;
+router.post("/addProduct", function (req, res) {
+  const { token, product_name, product_picture, price, amount, category_id } =
+    req.body;
   console.log("body", req.body);
-  addProduct(token,product_name, product_picture, price, amount, category_id, (response) => {
-    console.log("response:: ", response);
-    if (response.data) {
-      console.log(response);
-      res.status(200).json(response);
-    } else {
-      console.log("failed to login");
-      res.status(401).send(response);
+  addProduct(
+    token,
+    product_name,
+    product_picture,
+    price,
+    amount,
+    category_id,
+    (response) => {
+      console.log("response:: ", response);
+      if (response.data) {
+        console.log(response);
+        res.status(200).json(response);
+      } else {
+        console.log("failed to login");
+        res.status(401).send(response);
+      }
     }
-  })});
+  );
+});
 //get all category.
 router.get("/category/:categoryId", async function (req, res, next) {
   const { categoryId } = req.params;
@@ -78,15 +87,13 @@ router.post("/addProduct", function (req, res) {
     category_id,
     (response) => {
       console.log("response:: ", response);
-      if (response.data==="user") {
+      if (response.data === "user") {
         console.log(response);
         res.status(200).json(response);
-      }
-      else if(response.data==="admin"){
+      } else if (response.data === "admin") {
         console.log(response);
         res.status(200).json(response);
-      } 
-      else {
+      } else {
         console.log("failed to login");
         res.status(401).send(response);
       }

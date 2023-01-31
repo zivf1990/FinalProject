@@ -126,7 +126,7 @@ const AddProduct = () => {
           <div className="input-field">
             <input
               type="submit"
-              value={loading === false ? "Login" : "Loading..."}
+              value={loading === false ? "Add" : "Loading..."}
             />
           </div>
           {/* <p id="response-text">{errorMessage}</p> */}

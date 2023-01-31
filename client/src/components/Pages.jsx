@@ -1,4 +1,4 @@
-import { Route, Routes, Navigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { useUserToken } from "../context/UserContext";
 import Login from "../pages/Login";
 
@@ -8,7 +8,6 @@ import { AnimatePresence } from "framer-motion";
 import Home from "../pages/Home";
 import Shop from "../pages/Shop";
 import AddProduct from "../pages/AddProduct";
-import Products from "../pages/Products";
 import Profile from "../pages/Profile";
 import Category from "../pages/Category";
 import Product from "../pages/Product";
@@ -17,6 +16,7 @@ import Users from "../pages/shopifyUsers";
 import ShopifyProducts from "../pages/shopifyProducts";
 import ShoppingCart from "../pages/shoppingCart";
 import Checkout from "../pages/Checkout";
+import SellerProducts from "../pages/SellerProducts";
 
 function Pages() {
   // const isAdmin = getCookie("isAdmin");
@@ -40,7 +40,7 @@ function Pages() {
                 <Route path="profile" element={<Profile />} />
                 <Route path="purchaseHistory" element={<PurchaseHistory />} />
                 <Route path="addProduct" element={<AddProduct />} />
-                <Route path="products" element={<Products />} />
+                <Route path="SellerProducts" element={<SellerProducts />} />
                 <Route path="product/:productId" element={<Product />} />
                 <Route path="shoppingcart" element={<ShoppingCart />} />
                 <Route path="checkout" element={<Checkout />} />
