@@ -28,17 +28,17 @@ const Category = () => {
       const data = await res.json();
       console.log("data: ", data);
       setCategory(data);
-      setVisibleCategory(data)
+      setVisibleCategory(data);
     }
   };
 
   useEffect(() => {
     getCategory(categoryId);
   }, [categoryId]);
-  useEffect(() => searchByName(), [searchBar])
+  useEffect(() => searchByName(), [searchBar]);
   const handleChange = ({ target }) => {
     const { value } = target;
-    setSearchBar(value)
+    setSearchBar(value);
   };
   function searchByName() {
     let result = category.filter(str => str.product_name.startsWith(searchBar));

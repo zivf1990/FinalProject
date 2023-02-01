@@ -22,3 +22,22 @@ th {
 }
 
 
+img {
+  width: 180px;
+}
+
+.login2-container {
+  max-width: 1300px;
+}
+
+.category-card {
+  min-width: 100%;
+  max-height: 100px;
+
+  text-align: center;
+}
+
+.historyInput{
+ margin-left: 30%;
+ margin-bottom: 10px;
+}

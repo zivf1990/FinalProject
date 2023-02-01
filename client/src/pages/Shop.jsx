@@ -2,6 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSessionID } from "../context/UserContext";
 import "../style/shop.css";
+import {
+  MDBCard,
+  MDBCardImage,
+  MDBCardBody,
+  MDBCardTitle,
+  MDBCardText,
+  MDBRow,
+  MDBCol,
+} from "mdb-react-ui-kit";
 
 const Shop = () => {
   const { sessionID } = useSessionID();
@@ -31,21 +40,35 @@ const Shop = () => {
 
   return (
     <div className="categories">
-      {categories && (
-        <>
-          {categories.map((item) => (
-            <div
-              key={Math.random() * Number.MAX_SAFE_INTEGER}
-              className="category"
-              onClick={() => {
-                navigate("/category/" + item.category_id);
-              }}
-            >
-              <h4>{item.category_name}</h4>
-            </div>
-          ))}
-        </>
-      )}
+      <MDBRow className="row-cols-1 row-cols-md-4 g-4 gap-5 m-4 justify-content-center">
+        {categories && (
+          <>
+            {categories.map((item) => (
+              <MDBCard
+                key={Math.random() * Number.MAX_SAFE_INTEGER}
+                className="p-4"
+                onClick={() => {
+                  navigate("/category/" + item.category_id);
+                }}
+              >
+                <MDBCardImage
+                  src="https://mdbootstrap.com/img/new/standard/nature/184.webp"
+                  position="top"
+                  alt="..."
+                />
+                <MDBCardBody>
+                  <MDBCardTitle>{item.category_name}</MDBCardTitle>
+                  {/* <MDBCardText>
+            Some quick example text to build on the card title and make up the
+            bulk of the card's content.
+          </MDBCardText> */}
+                  {/* <MDBBtn href="#">Button</MDBBtn> */}
+                </MDBCardBody>
+              </MDBCard>
+            ))}
+          </>
+        )}
+      </MDBRow>
     </div>
   );
 };

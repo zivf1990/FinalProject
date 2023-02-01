@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import { useSessionID } from "../context/UserContext";
-import { useCart } from "../context/CartContext";
 
 const ShopifyUsers = () => {
   const { sessionID } = useSessionID();
-
   const [users, setUsers] = useState([]);
   const [searchBar, setSearchBar] = useState("");
   const [visibleUsers, setVisibleUsers] = useState([]);

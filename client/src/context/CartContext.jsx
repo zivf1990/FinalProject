@@ -67,7 +67,7 @@ export default function CartProvider({ children }) {
   };
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart, editCart }}>
+    <CartContext.Provider value={{ cart, addToCart, removeFromCart, editCart, setCart }}>
       {children}
     </CartContext.Provider>
   );

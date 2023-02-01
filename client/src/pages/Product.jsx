@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useSessionID } from "../context/UserContext";
 import { useCart } from "../context/CartContext";
 
+
 const Product = () => {
   const { sessionID } = useSessionID();
   const { addToCart, removeFromCart } = useCart();
@@ -54,6 +55,7 @@ const Product = () => {
           <button onClick={() => addAndNavigateToCart(product)}>
             Add to cart
           </button>
+     
           <b>description:</b> {product.description}
         </div>
       )}

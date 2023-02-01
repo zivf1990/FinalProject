@@ -4,6 +4,15 @@ import { useNavigate } from "react-router-dom";
 import { setCookie } from "../js/cookie";
 import { useSessionID } from "../context/UserContext";
 
+import Sheet from "@mui/joy/Sheet";
+import Typography from "@mui/joy/Typography";
+import FormControl from "@mui/joy/FormControl";
+import FormLabel from "@mui/joy/FormLabel";
+import Input from "@mui/joy/Input";
+import Button from "@mui/joy/Button";
+import Link from "@mui/joy/Link";
+import ModeToggle from "../components/ModeToggle";
+
 const Login = () => {
   const { setSessionID } = useSessionID();
   const navigate = useNavigate();
@@ -73,58 +82,68 @@ const Login = () => {
 
   return (
     <>
-      <div className="login-wrapper">
-        <div className="container main">
-          <div className="row">
-            <div className="col-md-6 signin-image">
-              <div className="text"></div>
-            </div>
+      <ModeToggle />
 
-            <form
-              className={
-                loading === false ? "col-md-6 right" : "col-md-6 input-loading"
-              }
-              onSubmit={handleSubmit}
-            >
-              <div className="input-box">
-                <header>Log In</header>
-                <div className="input-field">
-                  <input
-                    type="text"
-                    name="username"
-                    className={loading === false ? "input" : "input wait"}
-                    id="username"
-                    onChange={handleChange}
-                    value={userInput.username}
-                    required
-                  />
-                  <label htmlFor="username">Username</label>
-                </div>
-                <div className="input-field">
-                  <input
-                    type="password"
-                    name="password"
-                    className={loading === false ? "input" : "input wait"}
-                    id="password"
-                    onChange={handleChange}
-                    value={userInput.password}
-                    required
-                  />
-                  <label htmlFor="password">Password</label>
-                </div>
-                <div className="input-field">
-                  <input
-                    type="submit"
-                    className={loading === false ? "submit" : "loading"}
-                    value={loading === false ? "Login" : "Loading..."}
-                  />
-                </div>
-                {errorMessage && <p id="response-text">{errorMessage}</p>}
-              </div>
-            </form>
-          </div>
+      <Sheet
+        sx={{
+          width: 300,
+          mx: "auto", // margin left & right
+          my: 4, // margin top & botom
+          py: 3, // padding top & bottom
+          px: 2, // padding left & right
+          display: "flex",
+          flexDirection: "column",
+          gap: 2,
+          borderRadius: "sm",
+          boxShadow: "md",
+        }}
+        variant="outlined"
+      >
+        <div>
+          <Typography level="h4" component="h1">
+            <b>Welcome!</b>
+          </Typography>
+          <Typography level="body2">Sign in to continue.</Typography>
         </div>
-      </div>
+        <FormControl>
+          <FormLabel>Username</FormLabel>
+          <Input
+            // html input attribute
+            name="username"
+            type="text"
+            placeholder="username"
+            id="username"
+            onChange={handleChange}
+            value={userInput.username}
+            required
+          />
+        </FormControl>
+        <FormControl>
+          <FormLabel>Password</FormLabel>
+          <Input
+            // html input attribute
+            name="password"
+            type="password"
+            placeholder="password"
+            id="password"
+            onChange={handleChange}
+            value={userInput.password}
+            required
+          />
+        </FormControl>
+
+        <Button onClick={handleSubmit} sx={{ mt: 1 /* margin top */ }}>
+          Log in
+        </Button>
+        <Typography
+          endDecorator={<Link href="/register">Sign up</Link>}
+          fontSize="sm"
+          sx={{ alignSelf: "center" }}
+        >
+          Don&apos;t have an account?
+        </Typography>
+        {errorMessage && <p id="response-text">{errorMessage}</p>}
+      </Sheet>
     </>
   );
 };
