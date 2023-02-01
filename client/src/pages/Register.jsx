@@ -74,108 +74,108 @@ const Register = () => {
 
   return (
     <>
-  <ModeToggle />
+      <ModeToggle />
 
-<Sheet
-  sx={{
-    width: 300,
-    mx: "auto", // margin left & right
-    my: 4, // margin top & botom
-    py: 3, // padding top & bottom
-    px: 2, // padding left & right
-    display: "flex",
-    flexDirection: "column",
-    gap: 2,
-    borderRadius: "sm",
-    boxShadow: "md",
-  }}
-  variant="outlined"
->
-  <div>
-    <Typography level="h4" component="h1">
-      <b>Welcome!</b>
-    </Typography>
-    <Typography level="body2">Sign in to continue.</Typography>
-  </div>
-  <FormControl>
-    <FormLabel>Email</FormLabel>
-    <Input
-      // html input attribute
-      name="username"
-      type="text"
-      placeholder="username"
-      id="username"
-      onChange={handleChange}
-      value={userInput.username}
-      required
-    />
-  </FormControl>
-  <FormControl>
-    <FormLabel>Password</FormLabel>
-    <Input
-      // html input attribute
-      name="password"
-      type="password"
-      placeholder="password"
-      id="password"
-      onChange={handleChange}
-      value={userInput.password}
-      required
-    />
-  </FormControl>
-  <FormControl>
-    <FormLabel>Password</FormLabel>
-    <Input
-      // html input attribute
-      name="password"
-      type="password"
-      placeholder="password"
-      id="password"
-      onChange={handleChange}
-      value={userInput.password}
-      required
-    />
-  </FormControl>
-  <FormControl>
-    <FormLabel>Password</FormLabel>
-    <Input
-      // html input attribute
-      name="password"
-      type="password"
-      placeholder="password"
-      id="password"
-      onChange={handleChange}
-      value={userInput.password}
-      required
-    />
-  </FormControl>
-  <FormControl>
-    <FormLabel>Password</FormLabel>
-    <Input
-      // html input attribute
-      name="password"
-      type="password"
-      placeholder="password"
-      id="password"
-      onChange={handleChange}
-      value={userInput.password}
-      required
-    />
-  </FormControl>
+      <Sheet 
+        sx={{
+          width: 300,
+          mx: "auto", // margin left & right
+          my: 4, // margin top & botom
+          py: 3, // padding top & bottom
+          px: 2, // padding left & right
+          display: "flex",
+          flexDirection: "column",
+          gap: 2,
+          borderRadius: "sm",
+          boxShadow: "md",
+        }}
+        variant="outlined"
+      >
+        <div>
+          <Typography level="h4" component="h1">
+            <b>Welcome!</b>
+          </Typography>
+          <Typography level="body2">Sign in to continue.</Typography>
+        </div>
+        <FormControl>
+          <FormLabel>Username</FormLabel>
+          <Input
+            // html input attribute
+            name="username"
+            type="text"
+            placeholder="username"
+            id="username"
+            onChange={handleChange}
+            value={userInput.username}
+            required
+          />
+        </FormControl>
+        <FormControl>
+          <FormLabel>Password</FormLabel>
+          <Input
+            // html input attribute
+            name="password"
+            type="password"
+            placeholder="password"
+            id="password"
+            onChange={handleChange}
+            value={userInput.password}
+            required
+          />
+        </FormControl>
+        <FormControl>
+          <FormLabel>Email</FormLabel>
+          <Input
+            // html input attribute
+            type="email"
+            name="email"
+            className={loading === false ? "input" : "input wait"}
+            id="email"
+            onChange={handleChange}
+            value={userInput.email}
+            required
+          />
+        </FormControl>
+        <FormControl>
+          <FormLabel>Name</FormLabel>
+          <Input
+            // html input attribute
+            type="text"
+            name="name"
+            className={loading === false ? "input" : "input wait"}
+            id="name"
+            onChange={handleChange}
+            value={userInput.name}
+            required
+          />
+        </FormControl>
+        <FormControl>
+          <FormLabel>Address</FormLabel>
+          <Input
+            // html input attribute
+            type="text"
+            name="address"
+            className={loading === false ? "input" : "input wait"}
+            id="address"
+            onChange={handleChange}
+            value={userInput.address}
+            required
+          />
+        </FormControl>
 
-  <Button onClick={handleSubmit} sx={{ mt: 1 /* margin top */ }}>
-    Log in
-  </Button>
-  <Typography
-    endDecorator={<Link href="/register">Sign up</Link>}
-    fontSize="sm"
-    sx={{ alignSelf: "center" }}
-  >
-    Don&apos;t have an account?
-  </Typography>
-  {errorMessage && <p id="response-text">{errorMessage}</p>}
-</Sheet>
-
+        <Button onClick={handleSubmit} sx={{ mt: 1 /* margin top */ }}>
+         Register
+        </Button>
+        <Typography
+          endDecorator={<Link href="/register">Sign up</Link>}
+          fontSize="sm"
+          sx={{ alignSelf: "center" }}
+        >
+          Don&apos;t have an account?
+        </Typography>
+        {errorMessage && <p id="response-text">{errorMessage}</p>}
+      </Sheet>
+{/* 
       <div className="login-wrapper">
         <div className="container main">
           <div className="row">
@@ -263,7 +263,7 @@ const Register = () => {
             </form>
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   );
 };

@@ -33,5 +33,18 @@
   }
 
   #theProduct{
-    height: 600px;
+    display: flex;
+    flex-direction: row;
+    height: 20vw;
+    width:80vw
+  }
+  #theProduct img{
+    display: flex;
+    flex-direction: row;
+    width:20%
+  }
+  #theProduct div{
+    display: flex;
+    flex-direction: row;
+    width:80%
   }

@@ -46,9 +46,9 @@ function Pages() {
                 <Route path="sellerproducts" element={<SellerProducts />} />
                 <Route path="product/:productId" element={<Product />} />
                 <Route path="purchaseHistory" element={<PurchaseHistory />} />
+                <Route path="shoppingcart" element={<ShoppingCart />} />
+                <Route path="checkout" element={<Checkout />} />
               </Route>
-              <Route path="shoppingcart" element={<ShoppingCart />} />
-              <Route path="checkout" element={<Checkout />} />
             </>
           ) : (
             <>
