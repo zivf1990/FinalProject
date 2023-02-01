@@ -141,8 +141,7 @@ const AddProduct = () => {
               required
             >
               {categories.map((item) => (
-                <option key={item.category_id} value={item.category_id}>
-                  {item.category_name}
+                <option key={item.category_id}>{item.category_id} {item.category_name}
                 </option>
               ))}
             </select>

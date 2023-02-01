@@ -58,17 +58,17 @@ const ShopifyUsers = () => {
   }
   return (
     <div className="users">
-      <h1>erere</h1>
-      <label htmlFor="searchBar">
-        Search By Username
+      <h1>Shopify Users</h1>
         <input
+        placeholder=" Search By Username"
+        className="historyInput"
           type="text"
           name="searchBar"
           id="searchBar"
           onChange={handleChange}
           value={searchBar}
         />
-      </label>
+    
       <table>
         <tr>
           <th>User ID</th>
