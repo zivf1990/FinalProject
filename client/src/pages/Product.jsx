@@ -43,9 +43,9 @@ const Product = () => {
   };
 
   return (
-    <div className="product">
+    <div className="self-product">
       {product && (
-        <div key={Math.random() * Number.MAX_SAFE_INTEGER} className="product">
+        <div key={Math.random() * Number.MAX_SAFE_INTEGER}>
           <b>price:</b> {product.price}
           <b>amount:</b> {product.amount}
           <b>seller:</b> {product.seller_name}

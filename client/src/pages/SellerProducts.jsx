@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSessionID } from "../context/UserContext";
+import "../style/stock.css";
 
 const SellerProducts = () => {
   const { sessionID } = useSessionID();
@@ -34,7 +35,8 @@ const SellerProducts = () => {
     console.log("erere");
     const res = await fetch(`http://localhost:8000/products/deleteProduct`, {
       method: "DELETE",
-      headers: { "Content-Type": "application/json" },
+      headers: {"x-session-id": sessionID,
+      "Content-Type": "application/json", },
       body: JSON.stringify({
         product_id: product_id,
       }),
@@ -49,7 +51,10 @@ const SellerProducts = () => {
   async function updateAmount(product_id) {
     const res = await fetch(`http://localhost:8000/products/updateAmount`, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "x-session-id": sessionID,
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
         product_id: product_id,
         amount: newAmount,
@@ -65,32 +70,40 @@ const SellerProducts = () => {
 
   console.log(products);
   return (
-    <div>
-      <h2>my products</h2>
-      <input
+    <div id="productsDiv">
+      <h2>My Products</h2>
+      <div id="headersPr">
+   <input
         onChange={handleChange}
         type="number"
+        id="searchBar"
+        name="searchBar"
         placeholder="insert new amount"
         value={newAmount}
       />
-      <ul>
+      <Link to="/addProduct" id="addProduct">add product</Link></div>
+      <ul id="sellerProducts">
         {products?.map((product) => (
-          <li key={product.product_id}>
-            {product.product_name}
+          <li id="sellerProduct" key={product.product_id}>
             <img src={product.product_picture} />
+            <div>
+            <b>product name:</b>
+            {product.product_name}
             <b>price:</b> {product.price}
             <b>amount:</b> {product.amount}
-            <button onClick={() => updateAmount(product.product_id)}>
+            <b>description:</b> {product.description}
+            <div>
+            <button onClick={() => updateAmount(product.product_id)} style={{display:'inline'}}>
               edit amount
             </button>
             <button onClick={() => deleteProduct(product.product_id)}>
               Remove
             </button>
-            <b>description:</b> {product.description}
+            </div>
+            </div>
           </li>
         ))}
       </ul>
-      <Link to="/addProduct">add product</Link>
     </div>
   );
 };

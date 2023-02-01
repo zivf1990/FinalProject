@@ -52,10 +52,6 @@ router.post("/", (req, res) => {
           // store the token and session ID in the database
           const sessionID = `${username}-${Date.now()}`;
 
-          console.log("token ", token);
-          console.log("sessionID ", sessionID);
-          console.log("user_id ", user_id);
-
           await sequelize.query(
             `UPDATE user_permission
             SET token = "${token}", sessionID = "${sessionID}"
@@ -79,11 +75,10 @@ router.post("/", (req, res) => {
           console.log("user logged in successfully");
           console.log("sessionID", sessionID);
         } else {
-          return res.status(500).send({ error: "something went wrong" });
+          throw new Error("something went wrong");
         }
       } catch (error) {
         await transaction.rollback();
-        return res.status(500).send({ error });
       }
     })
     .catch((error) => {

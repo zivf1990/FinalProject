@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useSessionID } from "../context/UserContext";
+import "../style/categoryProducts.css";
+
 
 const Category = () => {
   let { categoryId } = useParams();
@@ -39,27 +41,27 @@ const Category = () => {
     setSearchBar(value)
   };
   function searchByName() {
-    let result = category.filter(str => str.seller_name.startsWith(searchBar));
+    let result = category.filter(str => str.product_name.startsWith(searchBar));
     setVisibleCategory(result);
   }
   return (
     <div>
       <label htmlFor="searchBar">
-        Search By Username
+        Search By Product name
         <input type="text" name="searchBar" id="searchBar" onChange={handleChange} value={searchBar} />
       </label>
+      <div id="categoryProducts">
       {visibleCategory.map((item) => {
         return (
-          <Link to={`/product/${item.product_id}`}>
-            <div key={item.product_id}>
+          <Link className="product" key={item.product_id} to={`/product/${item.product_id}`}>
               <h4>{item.product_name}</h4>
               <b>seller:</b> {item.seller_name}<br />
               <b>price:</b> {item.price}
               <img src={item.product_picture} />
-            </div>
           </Link>
         );
       })}
+      </div>
     </div>
   );
 };

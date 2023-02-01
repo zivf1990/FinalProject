@@ -1,4 +1,5 @@
 import "./style/App.css";
+
 import Pages from "./components/Pages";
 import UserProvider from "./context/UserContext";
 import CartProvider from "./context/CartContext";

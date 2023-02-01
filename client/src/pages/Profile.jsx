@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useSessionID } from "../context/UserContext";
-import "../style/profile.css";
+import "../style/account.css";
 
 const Profile = () => {
   const { sessionID } = useSessionID();
@@ -34,13 +34,13 @@ const Profile = () => {
   return (
     <div className="user-profile">
       {userInfo && (
-        <>
+        <div className="the-profile">
           <img src={userProfilePic} alt="" />
           <h4>Full Name: {userInfo?.name}</h4>
           <h4>Username: {userInfo?.username}</h4>
           <h4>Email: {userInfo?.email}</h4>
           <h4>Address: {userInfo?.address}</h4>
-        </>
+        </div>
       )}
     </div>
   );
