@@ -2,3 +2,11 @@
   padding: 0 20px;
   text-align: center;
 }
+
+.opacity {
+  opacity: 0.9;
+}
+
+.card {
+  color: aliceblue;
+}
