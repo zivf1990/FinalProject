@@ -12,6 +12,8 @@ const AddProduct = () => {
 
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [categories, setCategories] = useState([]);
+
   const [userInput, setUserInput] = useState({
     product_name: "",
     product_picture: "",
@@ -21,6 +23,10 @@ const AddProduct = () => {
     description: "",
   });
 
+  useEffect(() => {
+    getCategories();
+  }, []);
+
   const handleChange = ({ target }) => {
     const { name, value } = target;
     setUserInput((prevUser) => ({ ...prevUser, [name]: value }));
@@ -29,6 +35,20 @@ const AddProduct = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     AddProduct();
+  };
+
+  const getCategories = async () => {
+    const res = await fetch(`http://localhost:8000/categories`, {
+      method: "GET",
+      headers: {
+        "x-session-id": sessionID,
+        "Content-Type": "application/json",
+      },
+    });
+
+    const data = await res.json();
+
+    setCategories(data);
   };
 
   async function AddProduct() {
@@ -119,10 +139,11 @@ const AddProduct = () => {
               value={userInput.category}
               required
             >
-              <option value="1">1 sport</option>
-              <option value="2">2 house</option>
-              <option value="3">3 fashion</option>
-              <option value="4">4 electronics</option>
+              {categories.map((item) => (
+                <option key={item.category_id} value={item.category_id}>
+                  {item.category_name}
+                </option>
+              ))}
             </select>
           </div>
           <div className="input-field">

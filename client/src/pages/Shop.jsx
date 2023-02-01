@@ -46,7 +46,7 @@ const Shop = () => {
             {categories.map((item) => (
               <MDBCard
                 key={Math.random() * Number.MAX_SAFE_INTEGER}
-                className="p-4"
+                className="p-0 bg-black card"
                 onClick={() => {
                   navigate("/category/" + item.category_id);
                 }}
@@ -56,14 +56,13 @@ const Shop = () => {
                   position="top"
                   alt="..."
                 />
-                <MDBCardBody>
-                  <MDBCardTitle>{item.category_name}</MDBCardTitle>
-                  {/* <MDBCardText>
+
+                <MDBCardTitle>{item.category_name}</MDBCardTitle>
+                {/* <MDBCardText>
             Some quick example text to build on the card title and make up the
             bulk of the card's content.
           </MDBCardText> */}
-                  {/* <MDBBtn href="#">Button</MDBBtn> */}
-                </MDBCardBody>
+                {/* <MDBBtn href="#">Button</MDBBtn> */}
               </MDBCard>
             ))}
           </>
