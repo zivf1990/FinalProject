@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSessionID } from "../context/UserContext";
 import { useCart } from "../context/CartContext";
+
 import "../style/checkout.css";
 
 const Checkout = () => {
   const { sessionID } = useSessionID();
   const navigate = useNavigate();
-  const { cart } = useCart();
+  const { cart, setCart } = useCart();
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [userInput, setUserInput] = useState({
@@ -43,6 +44,9 @@ const Checkout = () => {
 
       const data = await res.json();
       console.log("data: ", data);
+
+      setCart([]);
+      navigate("/shop");
     }
   };
 

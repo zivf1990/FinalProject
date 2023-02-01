@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { useSessionID } from "../context/UserContext";
 import "../style/profile.css";
 
-const Profile = () => {
+const Account = () => {
   const { sessionID } = useSessionID();
   const [userInfo, setUserInfo] = useState(null);
   const [userProfilePic, setProfilePicture] = useState(
@@ -46,7 +46,7 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default Account;
 
 /*
 

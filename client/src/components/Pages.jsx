@@ -8,7 +8,7 @@ import { AnimatePresence } from "framer-motion";
 import Home from "../pages/Home";
 import Shop from "../pages/Shop";
 import AddProduct from "../pages/AddProduct";
-import Profile from "../pages/Profile";
+import Account from "../pages/Account";
 import Category from "../pages/Category";
 import Product from "../pages/Product";
 import AdminHome from "../pages/adminHome";
@@ -18,6 +18,8 @@ import ShoppingCart from "../pages/shoppingCart";
 import Checkout from "../pages/Checkout";
 import SellerProducts from "../pages/SellerProducts";
 import PurchaseHistory from "../pages/PurchaseHistory";
+import Login2 from "../pages/Login2";
+import NotSigned from "../pages/NotSigned";
 
 function Pages() {
   // const isAdmin = getCookie("isAdmin");
@@ -30,7 +32,7 @@ function Pages() {
             <>
               <Route path="/AdminHome" element={<AdminHome />}>
                 <Route path="users" element={<Users />} />
-                <Route path="profile" element={<Profile />} />
+                <Route path="profile" element={<Account />} />
                 <Route path="addProduct" element={<AddProduct />} />
                 <Route path="products" element={<ShopifyProducts />} />
                 <Route path="purchaseHistory" element={<PurchaseHistory />} />
@@ -38,21 +40,25 @@ function Pages() {
               <Route path="/" element={<Home />}>
                 <Route path="shop" element={<Shop />} />
                 <Route path="category/:categoryId" element={<Category />} />
-                <Route path="profile" element={<Profile />} />
+                <Route path="account" element={<Account />} />
                 <Route path="purchaseHistory" element={<MyPurchaseHistory />} />
                 <Route path="addProduct" element={<AddProduct />} />
                 <Route path="sellerproducts" element={<SellerProducts />} />
                 <Route path="product/:productId" element={<Product />} />
-                <Route path="shoppingcart" element={<ShoppingCart />} />
-                <Route path="checkout" element={<Checkout />} />
                 <Route path="purchaseHistory" element={<PurchaseHistory />} />
               </Route>
+              <Route path="shoppingcart" element={<ShoppingCart />} />
+              <Route path="checkout" element={<Checkout />} />
             </>
           ) : (
             <>
+              <Route path="/" element={<Home />}>
+                <Route path="shop" element={<Shop />} />
+                <Route path="*" element={<NotSigned />} />
+              </Route>
+
               <Route path="login" element={<Login />} />
               <Route path="register" element={<Register />} />
-              <Route path="*" element={<Login />} />
             </>
           )}
         </Routes>

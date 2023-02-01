@@ -26,40 +26,51 @@ const Category = () => {
       const data = await res.json();
       console.log("data: ", data);
       setCategory(data);
-      setVisibleCategory(data)
+      setVisibleCategory(data);
     }
   };
 
   useEffect(() => {
     getCategory(categoryId);
   }, [categoryId]);
-  useEffect(() => searchByName(), [searchBar])
+  useEffect(() => searchByName(), [searchBar]);
   const handleChange = ({ target }) => {
     const { value } = target;
-    setSearchBar(value)
+    setSearchBar(value);
   };
   function searchByName() {
-    let result = category.filter(str => str.seller_name.startsWith(searchBar));
+    let result = category.filter((str) =>
+      str.seller_name.startsWith(searchBar)
+    );
     setVisibleCategory(result);
   }
   return (
     <div>
       <label htmlFor="searchBar">
         Search By Username
-        <input type="text" name="searchBar" id="searchBar" onChange={handleChange} value={searchBar} />
+        <input
+          type="text"
+          name="searchBar"
+          id="searchBar"
+          onChange={handleChange}
+          value={searchBar}
+        />
       </label>
-      {visibleCategory.map((item) => {
-        return (
-          <Link to={`/product/${item.product_id}`}>
-            <div key={item.product_id}>
-              <h4>{item.product_name}</h4>
-              <b>seller:</b> {item.seller_name}<br />
-              <b>price:</b> {item.price}
-              <img src={item.product_picture} />
-            </div>
-          </Link>
-        );
-      })}
+      {visibleCategory.map((item) => (
+        <>
+          {item.amount > 0 && (
+            <Link to={`/product/${item.product_id}`}>
+              <div key={item.product_id}>
+                <h4>{item.product_name}</h4>
+                <b>seller:</b> {item.seller_name}
+                <br />
+                <b>price:</b> {item.price}
+                <img src={item.product_picture} alt="" />
+              </div>
+            </Link>
+          )}
+        </>
+      ))}
     </div>
   );
 };

@@ -16,12 +16,16 @@ const sessionIDcheck = async (req, res, next) => {
 
   if (!excludePaths.includes(req.path)) {
     console.log("Running middleware sessionIDcheck");
+
     const clientSessionID = req.headers["x-session-id"];
     console.log("clientSessionID ", clientSessionID);
+
     if (!clientSessionID) {
       return res.status(401).send({ error: "Unauthorized" });
     }
+
     const data = await getTokenAndSessionID(clientSessionID);
+    
     const sessionID = data["sessionID"];
     const token = data["token"];
 

@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
-import { useSessionID } from "../context/UserContext";
-import { getLocalStorage } from "../util/localsessionStorage";
 import { motion } from "framer-motion";
+import ResponsiveAppBar from "../components/ResponsiveNavBar";
 import NavBar from "../components/NavBar";
 
 function Home() {
@@ -20,6 +19,7 @@ function Home() {
     >
       <div className="main-content">
         <NavBar />
+        {/* <ResponsiveAppBar /> */}
         <Outlet />
       </div>
     </motion.div>

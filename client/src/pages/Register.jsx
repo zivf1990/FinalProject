@@ -4,6 +4,15 @@ import { useNavigate } from "react-router-dom";
 import { setCookie } from "../js/cookie";
 import { useSessionID } from "../context/UserContext";
 
+import Sheet from "@mui/joy/Sheet";
+import Typography from "@mui/joy/Typography";
+import FormControl from "@mui/joy/FormControl";
+import FormLabel from "@mui/joy/FormLabel";
+import Input from "@mui/joy/Input";
+import Button from "@mui/joy/Button";
+import Link from "@mui/joy/Link";
+import ModeToggle from "../components/ModeToggle";
+
 const Register = () => {
   const { setSessionID } = useSessionID();
   const navigate = useNavigate();
@@ -46,7 +55,6 @@ const Register = () => {
       });
 
       //failed to singup. need to show error message in the UI.
-
       if (!res.ok) {
         setErrorMessage("Something went wrong");
 
@@ -57,19 +65,6 @@ const Register = () => {
         setSessionID(data.sessionID);
         navigate("/");
       }
-      // setLoading(false);
-
-      //success to login.
-      // if (data?.result == true) {
-      //   localStorage.setItem("userId", data.userId);
-      //   setUserId(data.userId);
-      // setCookie("userId", user.id, 1);
-      // window.history.pushState(null, null, window.location.href);
-      // window.onpopstate = window.history.go(1);
-      //   navigate(`/`);
-      // } else {
-      //falied to login.
-      // }
     } catch (e) {
       console.log(e);
       setTimeout(3000, alert("Please Check Your Internet Connection"));
@@ -79,6 +74,108 @@ const Register = () => {
 
   return (
     <>
+  <ModeToggle />
+
+<Sheet
+  sx={{
+    width: 300,
+    mx: "auto", // margin left & right
+    my: 4, // margin top & botom
+    py: 3, // padding top & bottom
+    px: 2, // padding left & right
+    display: "flex",
+    flexDirection: "column",
+    gap: 2,
+    borderRadius: "sm",
+    boxShadow: "md",
+  }}
+  variant="outlined"
+>
+  <div>
+    <Typography level="h4" component="h1">
+      <b>Welcome!</b>
+    </Typography>
+    <Typography level="body2">Sign in to continue.</Typography>
+  </div>
+  <FormControl>
+    <FormLabel>Email</FormLabel>
+    <Input
+      // html input attribute
+      name="username"
+      type="text"
+      placeholder="username"
+      id="username"
+      onChange={handleChange}
+      value={userInput.username}
+      required
+    />
+  </FormControl>
+  <FormControl>
+    <FormLabel>Password</FormLabel>
+    <Input
+      // html input attribute
+      name="password"
+      type="password"
+      placeholder="password"
+      id="password"
+      onChange={handleChange}
+      value={userInput.password}
+      required
+    />
+  </FormControl>
+  <FormControl>
+    <FormLabel>Password</FormLabel>
+    <Input
+      // html input attribute
+      name="password"
+      type="password"
+      placeholder="password"
+      id="password"
+      onChange={handleChange}
+      value={userInput.password}
+      required
+    />
+  </FormControl>
+  <FormControl>
+    <FormLabel>Password</FormLabel>
+    <Input
+      // html input attribute
+      name="password"
+      type="password"
+      placeholder="password"
+      id="password"
+      onChange={handleChange}
+      value={userInput.password}
+      required
+    />
+  </FormControl>
+  <FormControl>
+    <FormLabel>Password</FormLabel>
+    <Input
+      // html input attribute
+      name="password"
+      type="password"
+      placeholder="password"
+      id="password"
+      onChange={handleChange}
+      value={userInput.password}
+      required
+    />
+  </FormControl>
+
+  <Button onClick={handleSubmit} sx={{ mt: 1 /* margin top */ }}>
+    Log in
+  </Button>
+  <Typography
+    endDecorator={<Link href="/register">Sign up</Link>}
+    fontSize="sm"
+    sx={{ alignSelf: "center" }}
+  >
+    Don&apos;t have an account?
+  </Typography>
+  {errorMessage && <p id="response-text">{errorMessage}</p>}
+</Sheet>
+
       <div className="login-wrapper">
         <div className="container main">
           <div className="row">

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import { FormStyle } from "../styles/styledDivs";
 
 const Search = () => {
   const [input, setInput] = useState("");
@@ -13,7 +12,7 @@ const Search = () => {
   };
 
   return (
-    <FormStyle onSubmit={handleSubmit}>
+    <div onSubmit={handleSubmit}>
       <FaSearch />
       <input
         type="text"
@@ -23,7 +22,7 @@ const Search = () => {
           setInput(event.target.value);
         }}
       />
-    </FormStyle>
+    </div>
   );
 };
 
