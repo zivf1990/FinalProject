@@ -2,29 +2,29 @@ import React, { useState, createContext, useContext, useEffect } from "react";
 import { deleteCookie, getCookie, setCookie } from "../js/cookie";
 
 const UserContext = createContext();
-export const useUserToken = () => useContext(UserContext);
+export const useSessionID = () => useContext(UserContext);
 
 export default function UserProvider({ children }) {
-  const [userToken, setToken] = useState(null);
+  const [sessionID, setSessionIDc] = useState(null);
 
   useEffect(() => {
-    const token = getCookie("token");
+    const coockieSessionID = getCookie("shopifySessionID");
 
-    if (token && !userToken) setToken(token);
-  }, [userToken]);
+    if (coockieSessionID && !sessionID) setSessionIDc(coockieSessionID);
+  }, [sessionID]);
 
-  const setUserToken = (token) => {
-    setCookie("token", token);
-    setToken(token);
+  const setSessionID = (sessionID) => {
+    setCookie("shopifySessionID", sessionID);
+    setSessionIDc(sessionID);
   };
 
-  const removeToken = () => {
-    deleteCookie("token");
-    setToken(null);
+  const removeSessionID = () => {
+    deleteCookie("shopifySessionID");
+    sessionID(null);
   };
 
   return (
-    <UserContext.Provider value={{ userToken, setUserToken, removeToken }}>
+    <UserContext.Provider value={{ sessionID, setSessionID, removeSessionID }}>
       {children}
     </UserContext.Provider>
   );

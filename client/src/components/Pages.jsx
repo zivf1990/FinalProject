@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import { useUserToken } from "../context/UserContext";
+import { useSessionID } from "../context/UserContext";
 import Login from "../pages/Login";
 
 import Register from "../pages/Register";
@@ -20,12 +20,12 @@ import SellerProducts from "../pages/SellerProducts";
 
 function Pages() {
   // const isAdmin = getCookie("isAdmin");
-  const { userToken } = useUserToken();
+  const { sessionID } = useSessionID();
   return (
     <AnimatePresence mode="wait">
       <>
         <Routes>
-          {userToken ? (
+          {sessionID ? (
             <>
               <Route path="/AdminHome" element={<AdminHome />}>
                 <Route path="users" element={<Users />} />

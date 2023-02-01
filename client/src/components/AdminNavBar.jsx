@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { useUserToken } from "../context/UserContext";
+import { useSessionID } from "../context/UserContext";
 import { deleteCookie, getCookie } from "../js/cookie";
 
 function AdminNavBar() {
   // const [userId, setUserId] = useState("");
-  const { setUserId, userId, removeToken } = useUserToken();
+  const { setSessionID, SessionID, removeSessionID } = useSessionID();
 
   useEffect(() => {
     // setUserId(getCookie("userId"));
@@ -13,7 +13,7 @@ function AdminNavBar() {
 
   function logOut() {
     // deleteCookie("userId");
-    removeToken();
+    removeSessionID();
   }
 
   return (

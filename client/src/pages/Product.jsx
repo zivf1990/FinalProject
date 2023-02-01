@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useUserToken } from "../context/UserContext";
+import { useSessionID } from "../context/UserContext";
 import { useCart } from "../context/CartContext";
 
 const Product = () => {
-  const { userToken } = useUserToken();
+  const { sessionID } = useSessionID();
   const { addToCart, removeFromCart } = useCart();
 
   const { productId } = useParams();
@@ -12,7 +12,7 @@ const Product = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(userToken);
+    console.log(sessionID);
     getProduct();
   }, []);
 
@@ -23,14 +23,14 @@ const Product = () => {
 
   const getProduct = async () => {
     console.log("sdssd");
-    if (userToken) {
+    if (sessionID) {
       const res = await fetch(
         `http://localhost:8000/products/${productId}/data`,
         {
           method: "GET",
           headers: {
-            Authorization: `Bearer ${userToken}`,
-            headers: { "Content-Type": "application/json" },
+            "x-session-id": sessionID,
+            "Content-Type": "application/json",
           },
         }
       );
@@ -48,7 +48,8 @@ const Product = () => {
         <div key={Math.random() * Number.MAX_SAFE_INTEGER} className="product">
           <b>price:</b> {product.price}
           <b>amount:</b> {product.amount}
-          <b>seller:</b> {product.seller_name}<br/>
+          <b>seller:</b> {product.seller_name}
+          <br />
           <img src={`${product.product_picture}`} alt="" />
           <button onClick={() => addAndNavigateToCart(product)}>
             Add to cart

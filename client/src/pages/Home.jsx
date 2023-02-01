@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
-import { useUserToken } from "../context/UserContext";
+import { useSessionID } from "../context/UserContext";
 import { getLocalStorage } from "../util/localsessionStorage";
 import { motion } from "framer-motion";
 import NavBar from "../components/NavBar";

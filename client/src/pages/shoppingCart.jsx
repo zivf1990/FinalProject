@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useUserToken } from "../context/UserContext";
+import { useSessionID } from "../context/UserContext";
 import { useCart } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
 
 const ShoppingCart = () => {
-  const { userToken } = useUserToken();
+  const { sessionID } = useSessionID();
   const { cart, editCart, removeFromCart } = useCart();
   const navigate = useNavigate();
 
@@ -14,7 +14,7 @@ const ShoppingCart = () => {
   };
 
   useEffect(() => {
-    //   console.log(userToken);
+    //   console.log(sessionID);
     //   getProduct();
     console.log("cart ", cart);
   }, []);

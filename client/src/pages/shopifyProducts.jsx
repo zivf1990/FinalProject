@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useUserToken } from "../context/UserContext";
+import { useSessionID } from "../context/UserContext";
 
 const ShopifyProducts = () => {
-  const { userToken } = useUserToken();
+  const { sessionID } = useSessionID();
   const [products, setProducts] = useState([]);
   const [check, setCheck] = useState(true);
   const [newAmount, setNewAmount] = useState("");
 
   useEffect(() => {
-    console.log(userToken);
+    console.log(sessionID);
     getProducts();
   }, [check]);
 
@@ -22,8 +22,8 @@ const ShopifyProducts = () => {
     const res = await fetch(`http://localhost:8000/products`, {
       method: "GET",
       headers: {
-        Authorization: `Bearer ${userToken}`,
-        headers: { "Content-Type": "application/json" },
+        "x-session-id": sessionID,
+        "Content-Type": "application/json",
       },
     });
     const data = await res.json();
@@ -80,13 +80,23 @@ const ShopifyProducts = () => {
             <img src={product.product_picture} />
             <b>price:</b> {product.price}
             <b>amount:</b> {product.amount}
-             {!product.seller_id ?<button  onClick={() => updateAmount(product.product_id)}>
-              update the amount of your product
-            </button>:""}
+            {!product.seller_id ? (
+              <button onClick={() => updateAmount(product.product_id)}>
+                update the amount of your product
+              </button>
+            ) : (
+              ""
+            )}
             <button onClick={() => deleteProduct(product.product_id)}>
               delete
             </button>
-            {product.seller_id ? <span><b>seller:</b> {product.seller_name}</span>:""}
+            {product.seller_id ? (
+              <span>
+                <b>seller:</b> {product.seller_name}
+              </span>
+            ) : (
+              ""
+            )}
             <b>description:</b> {product.description}
           </li>
         ))}

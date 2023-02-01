@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useUserToken } from "../context/UserContext";
+import { useSessionID } from "../context/UserContext";
 
 const AddProduct = () => {
-  const { userToken } = useUserToken();
+  const { sessionID } = useSessionID();
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(userToken);
-  }, [userToken]);
+    console.log(sessionID);
+  }, [sessionID]);
 
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -18,7 +18,7 @@ const AddProduct = () => {
     price: "",
     amount: "",
     category: "1 sport",
-    description:""
+    description: "",
   });
 
   const handleChange = ({ target }) => {
@@ -36,15 +36,17 @@ const AddProduct = () => {
     console.log("resuuuu");
     const res = await fetch(`http://localhost:8000/products/addProduct`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "x-session-id": sessionID,
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
         product_name: userInput.product_name,
         product_picture: userInput.product_picture,
         price: userInput.price,
         amount: userInput.amount,
         category_id: category_id,
-        token: userToken,
-        description: userInput.description
+        description: userInput.description,
       }),
     });
     console.log("res");

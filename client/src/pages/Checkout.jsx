@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useUserToken } from "../context/UserContext";
+import { useSessionID } from "../context/UserContext";
 import { useCart } from "../context/CartContext";
 import "../style/checkout.css";
 
 const Checkout = () => {
-  const { userToken } = useUserToken();
+  const { sessionID } = useSessionID();
   const navigate = useNavigate();
   const { cart } = useCart();
   const [errorMessage, setErrorMessage] = useState("");
@@ -19,8 +19,8 @@ const Checkout = () => {
   });
 
   useEffect(() => {
-    console.log(userToken);
-  }, [userToken]);
+    console.log(sessionID);
+  }, [sessionID]);
 
   const handleChange = ({ target }) => {
     const { name, value } = target;
@@ -31,11 +31,11 @@ const Checkout = () => {
     e.preventDefault();
     console.log("Checkout... ", userInput);
 
-    if (userToken) {
+    if (sessionID) {
       const res = await fetch(`http://localhost:8000/purchasehistory`, {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${userToken}`,
+          "x-session-id": sessionID,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ userinfo: userInput, purchaseList: cart }),

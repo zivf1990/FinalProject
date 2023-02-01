@@ -2,7 +2,7 @@ const connection = require("../modules/sqlConfig");
 const connection2 = require("../modules/sqlPromiseConfig");
 
 const purchaseHistoryQuery = {
-  bringMyHistory: (token,cb) => {
+  bringMyHistory: (user_id, cb) => {
     const selectQuery = `
         SELECT
         product.product_name,
@@ -12,9 +12,7 @@ const purchaseHistoryQuery = {
         product
         JOIN purchase_history
         ON product.product_id = purchase_history.product_id
-        JOIN user_permission 
-        ON purchase_history.user_id = user_permission.user_id
-        WHERE user_permission.token="${token}"
+        WHERE user_id =${user_id}
        `;
     connection.query(selectQuery, function (error, results) {
       console.log(results);
@@ -31,14 +29,12 @@ const purchaseHistoryQuery = {
       }
     });
   },
-  brisngMyHistory: (token, cb) => {
-    console.log(token, "hjello");
+  brisngMyHistory: (user_id, cb) => {
+    console.log(user_id, "hjello");
     const selectQuery = `
            SELECT p.product_id, p.product_name, p.product_picture, p.price, p.amount, p.category_id
            FROM product p
-           JOIN user_permission per
-           ON per.user_id = p.seller_id
-           WHERE token = '${token}'
+           WHERE user_id = ${user_id}
            GROUP BY product_id;
          `;
     connection.query(selectQuery, function (error, results) {
@@ -55,6 +51,6 @@ const purchaseHistoryQuery = {
         console.log("ss");
       }
     });
-  }
-}
+  },
+};
 module.exports = purchaseHistoryQuery;

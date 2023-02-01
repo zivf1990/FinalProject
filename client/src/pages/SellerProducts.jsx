@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useUserToken } from "../context/UserContext";
+import { useSessionID } from "../context/UserContext";
 
 const SellerProducts = () => {
-  const { userToken } = useUserToken();
+  const { sessionID } = useSessionID();
   const [products, setProducts] = useState([]);
   const [check, setCheck] = useState(true);
   const [newAmount, setNewAmount] = useState("");
 
   useEffect(() => {
-    console.log(userToken);
+    console.log(sessionID);
     getProducts();
   }, [check]);
 
@@ -22,8 +22,8 @@ const SellerProducts = () => {
     const res = await fetch(`http://localhost:8000/products/user`, {
       method: "GET",
       headers: {
-        Authorization: `Bearer ${userToken}`,
-        headers: { "Content-Type": "application/json" },
+        "x-session-id": sessionID,
+        "Content-Type": "application/json",
       },
     });
     const data = await res.json();

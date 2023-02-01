@@ -2,10 +2,10 @@ import "../style/signin.css";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { setCookie } from "../js/cookie";
-import { useUserToken } from "../context/UserContext";
+import { useSessionID } from "../context/UserContext";
 
 const Register = () => {
-  const { setUserToken } = useUserToken();
+  const { setSessionID } = useSessionID();
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
@@ -50,11 +50,11 @@ const Register = () => {
       if (!res.ok) {
         setErrorMessage("Something went wrong");
 
-        //success to signup. need to save token to coockie and context and redirect.
+        //success to signup. need to save sessionID to coockie and context and redirect.
       } else {
         const data = await res.json();
         console.log("data: ", data);
-        setUserToken(data.token);
+        setSessionID(data.sessionID);
         navigate("/");
       }
       // setLoading(false);

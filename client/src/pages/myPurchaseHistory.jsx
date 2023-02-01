@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useUserToken } from "../context/UserContext";
+import { useSessionID } from "../context/UserContext";
 
 const PurchaseHistory = () => {
-  const { userToken } = useUserToken();
+  const { sessionID } = useSessionID();
   const [history, setHistory] = useState([]);
 
   useEffect(() => {
-    console.log(userToken);
+    console.log(sessionID);
     getHistory();
   }, []);
 
@@ -19,28 +19,23 @@ const PurchaseHistory = () => {
     const res = await fetch(`http://localhost:8000/purchasehistory/user`, {
       method: "GET",
       headers: {
-        Authorization: `Bearer ${userToken}`,
-        headers: { "Content-Type": "application/json" },
+        "x-session-id": sessionID,
+        "Content-Type": "application/json",
       },
     });
     const data = await res.json();
     console.log("data", data);
-    if(res.ok){
-        setHistory(data.data);
-    }
-    else{
-        console.log("Erer");
+    if (res.ok) {
+      setHistory(data.data);
+    } else {
+      console.log("Erer");
     }
   };
 
   return (
     <div>
       <h2>My Purchase History</h2>
-      <table>
-        {
-            history.map((history)=>{})
-        }
-        </table>
+      <table>{history.map((history) => {})}</table>
     </div>
   );
 };

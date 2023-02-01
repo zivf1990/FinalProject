@@ -1,22 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { useUserToken } from "../context/UserContext";
+import { useSessionID } from "../context/UserContext";
 
 const PurchaseHistory = () => {
-  const { userToken } = useUserToken();
+  const { sessionID } = useSessionID();
   const [userHistory, setUserHistory] = useState(null);
 
   useEffect(() => {
-    console.log(userToken);
+    console.log(sessionID);
     getPurchaseHistory();
-  }, [userToken]);
+  }, [sessionID]);
 
   const getPurchaseHistory = async () => {
-    if (userToken) {
+    if (sessionID) {
       const res = await fetch(`http://localhost:8000/purchaseHistory`, {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${userToken}`,
-          headers: { "Content-Type": "application/json" },
+          "x-session-id": sessionID,
+          "Content-Type": "application/json",
         },
       });
 

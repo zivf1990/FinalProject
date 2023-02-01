@@ -8,16 +8,6 @@ const createProductTable = `CREATE TABLE product (
     product_picture VARCHAR(255) NOT NULL
   );`;
 
-const triggerTableProduct1 = `
-  CREATE TRIGGER update_product_amount
-    AFTER INSERT ON purchase_history
-    FOR EACH ROW
-    BEGIN
-      UPDATE product
-      SET amount = amount - NEW.purchase_amount
-      WHERE product_id = NEW.product_id;
-    END;`;
-
 let values = [["sport"], ["electronics"], ["cars"]];
 
 let query = `INSERT INTO category (category_name) VALUES ?`;
@@ -29,3 +19,17 @@ let query = `INSERT INTO category (category_name) VALUES ?`;
 
 const defaultValueQuery = `ALTER TABLE user_info
     MODIFY COLUMN created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP;`;
+
+const triggerTableProduct1 = `
+      CREATE TRIGGER update_product_amount
+        AFTER INSERT ON purchase_history
+        FOR EACH ROW
+        BEGIN
+          UPDATE product
+          SET amount = amount - NEW.purchase_amount
+          WHERE product_id = NEW.product_id;
+        END;`;
+
+let query2 = `
+INSERT INTO purchase_history (user_id, product_id, purchase_amount, purchase_date)
+VALUES (1, 8,1,CURRENT_TIMESTAMP)`;

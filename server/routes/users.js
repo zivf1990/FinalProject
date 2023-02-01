@@ -16,30 +16,14 @@ const connection = require("../modules/sqlConfig");
 
 router.get("/profile", function (req, res, next) {
   console.log("user profile request");
-
-  const token = req.token;
-
-  console.log("token ", req.token);
+  const { user_id, permission_level } = req.user;
 
   sequelize
     .transaction(async (transaction) => {
-      const queryUserId = `
-      SELECT * FROM user_permission
-      WHERE token = "${token}";
-
-      `;
-
-      const data1 = await sequelize.query(queryUserId, {
-        transaction,
-      });
-
-      const userId = data1[0][0].user_id;
-
-      console.log("userId:::", userId);
 
       const queryUserInfo = `
       SELECT * FROM user_info
-      WHERE user_id = "${userId}";
+      WHERE user_id = "${user_id}";
 
       `;
       const data2 = await sequelize.query(queryUserInfo, {

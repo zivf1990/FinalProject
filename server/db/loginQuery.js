@@ -1,7 +1,6 @@
 const connection = require("../modules/sqlConfig");
 const bcrypt = require("bcrypt");
 const sequelize = require("../modules/sequelizeConfig");
-const { generateToken } = require("../modules/token");
 
 const login = {
   checkUser: async (username, password, cb) => {
@@ -15,6 +14,7 @@ const login = {
        ON u.user_id = per.user_id
        WHERE u.username = "${username}" and p.password = "${password}";
      `;
+
     connection.query(selectQuery, function (error, results) {
       if (error) {
         cb(false);

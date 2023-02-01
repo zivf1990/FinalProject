@@ -78,13 +78,17 @@ const dbScheme = [
       },
       {
         column_name: "token",
-        data_type: "VARCHAR(60)",
+        data_type: "VARCHAR(200)",
         unique: true,
       },
       {
         column_name: "permission_level",
         data_type: "VARCHAR(10)",
         not_null: true,
+      },
+      {
+        column_name: "sessionID",
+        data_type: "VARCHAR(100)",
       },
     ],
     foreign_keys: [

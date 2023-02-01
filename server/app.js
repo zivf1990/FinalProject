@@ -4,7 +4,7 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const cors = require("cors");
-const checkReqToken = require("./middleware/checkReqToken");
+const sessionIDcheck = require("./middleware/sessionIDcheck");
 
 //import routers.
 const indexRouter = require("./routes/index");
@@ -26,7 +26,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
-app.use(checkReqToken);
+app.use(sessionIDcheck);
 
 //Using Routers
 app.use("/", indexRouter);
@@ -46,20 +46,23 @@ const { createTables, createDatabase } = require("./modules/sqlManager");
 let values = [[1, 15, 1, "CURRENT_TIMESTAMP"]];
 
 // let query = `
-// INSERT INTO purchase_history (user_id, product_id, purchase_amount, purchase_date) 
+// INSERT INTO purchase_history (user_id, product_id, purchase_amount, purchase_date)
 // VALUES (1, 8,1,CURRENT_TIMESTAMP)`;
 
-// const triggerTableProduct1 = `
-//   CREATE TRIGGER update_product_amount
-//     AFTER INSERT ON purchase_history
-//     FOR EACH ROW
-//     BEGIN
-//       UPDATE product
-//       SET amount = amount - EW.purchase_amount
-//       WHERE product_id = NEW.product_id;
-//     END;`;
+const triggerTableProduct = `
+CREATE TRIGGER update_product_amount
+AFTER INSERT ON purchase_history
+FOR EACH ROW
+BEGIN
+  UPDATE product
+  SET amount = amount - NEW.purchase_amount
+  WHERE product_id = NEW.product_id;
+END;`;
 
-// connection.query(query ,  (err, result) => {
+const defaultValueQuery = `ALTER TABLE user_info
+MODIFY COLUMN created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP;`;
+
+// connection.query(triggerTableProduct ,  (err, result) => {
 //   if (err) console.log(err);
 //   console.log(result);
 // });

@@ -1,22 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { useUserToken } from "../context/UserContext";
+import { useSessionID } from "../context/UserContext";
 
 const Searched = () => {
   let { categoryId } = useParams();
-  const { userToken } = useUserToken();
+  const { sessionID } = useSessionID();
 
   const [category, setCategory] = useState([]);
 
   const getCategory = async (name) => {
-    if (userToken) {
+    if (sessionID) {
       const res = await fetch(
         `http://localhost:8000/products/category/${categoryId}`,
         {
           method: "GET",
           headers: {
-            Authorization: `Bearer ${userToken}`,
-            headers: { "Content-Type": "application/json" },
+            "x-session-id": sessionID,
+            "Content-Type": "application/json",
           },
         }
       );

@@ -1,25 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useUserToken } from "../context/UserContext";
+import { useSessionID } from "../context/UserContext";
 import "../style/shop.css";
 
 const Shop = () => {
-  const { userToken } = useUserToken();
+  const { sessionID } = useSessionID();
   const [categories, setCategories] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(userToken);
+    console.log(sessionID);
     getCategories();
-  }, [userToken]);
+  }, [sessionID]);
 
   const getCategories = async () => {
-    if (userToken) {
+    if (sessionID) {
       const res = await fetch(`http://localhost:8000/categories`, {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${userToken}`,
-          headers: { "Content-Type": "application/json" },
+          "x-session-id": sessionID,
+          "Content-Type": "application/json",
         },
       });
 

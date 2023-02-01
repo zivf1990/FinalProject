@@ -2,16 +2,16 @@ import "../style/signin.css";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { setCookie } from "../js/cookie";
-import { useUserToken } from "../context/UserContext";
+import { useSessionID } from "../context/UserContext";
 
 const Login = () => {
-  const { setUserToken } = useUserToken();
+  const { setSessionID } = useSessionID();
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
   const [userInput, setUserInput] = useState({
-    username: "ziv1",
-    password: "1234",
+    username: "",
+    password: "",
   });
 
   const [errorMessage, setErrorMessage] = useState("");
@@ -44,25 +44,25 @@ const Login = () => {
 
       //failed to login. need to show error message in the UI.
       if (!res.ok) {
-        throw "User does not exist";
+        throw new Error("User does not exist");
 
-        //success to login. need to save token to coockie and context and redirect.
+        //success to login. need to save sessionID to coockie and context and redirect.
       } else {
         const data = await res.json();
         console.log("data: ", data);
-        // setCookie("token", data.token);
-        // setUserToken(data.token);
+        // setCookie("sessionID", data.sessionID);
+        // setSessionID(data.sessionID);
         if (data.permission_level === "admin") {
-          setUserToken(data.token);
+          setSessionID(data.sessionID);
 
           navigate("/adminHome");
         } else if (data.permission_level === "user") {
-          setUserToken(data.token);
+          setSessionID(data.sessionID);
 
           console.log("eddddddddddddddddddddddddddd");
           navigate("/shop");
         } else if (data.permission_level === "blocked") {
-          throw "User is blocked";
+          throw new Error("User is blocked");
         }
       }
     } catch (e) {

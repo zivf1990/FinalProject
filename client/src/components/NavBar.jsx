@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { useUserToken } from "../context/UserContext";
+import { useSessionID } from "../context/UserContext";
 import { deleteCookie, getCookie } from "../js/cookie";
 import "../style/navbar.css";
 
 function NavBar() {
   // const [userId, setUserId] = useState("");
-  const { userToken, removeToken } = useUserToken();
+  const { sessionID, removeSessionID } = useSessionID();
 
   useEffect(() => {
     // setUserId(getCookie("userId"));
@@ -14,7 +14,7 @@ function NavBar() {
 
   function logOut() {
     // deleteCookie("userId");
-    removeToken();
+    removeSessionID();
   }
 
   return (
@@ -32,7 +32,7 @@ function NavBar() {
           <h4>sell</h4>
         </NavLink>
 
-        {userToken ? (
+        {sessionID ? (
           <NavLink onClick={logOut} id="logOutButton" to="/">
             <h4> Logout</h4>
           </NavLink>

@@ -1,27 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { useUserToken } from "../context/UserContext";
+import { useSessionID } from "../context/UserContext";
 import "../style/profile.css";
 
 const Profile = () => {
-  const { userToken } = useUserToken();
+  const { sessionID } = useSessionID();
   const [userInfo, setUserInfo] = useState(null);
   const [userProfilePic, setProfilePicture] = useState(
     "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
   );
 
   useEffect(() => {
-    console.log(userToken);
+    console.log(sessionID);
     getProfile();
-  }, [userToken]);
+  }, [sessionID]);
 
   const getProfile = async () => {
-    if (userToken) {
+    if (sessionID) {
       const res = await fetch(`http://localhost:8000/users/profile`, {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${userToken}`,
-          headers: { "Content-Type": "application/json" },
+          "x-session-id": sessionID,
+          "Content-Type": "application/json",
         },
       });
 
@@ -42,7 +42,7 @@ const Profile = () => {
           <h4>Address: {userInfo?.address}</h4>
         </>
       )}
-      <NavLink to='/purchaseHistory'>reerer</NavLink>
+      <NavLink to="/purchaseHistory">purchase History</NavLink>
     </div>
   );
 };
