@@ -1,4 +1,7 @@
 body {
   margin: 0;
   font-family: Roboto, Helvetica, Arial, sans-serif;
+  background-image: url("./img/bg2.jpg");
+  background-size: cover;
+  background-position: center;
 }

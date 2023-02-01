@@ -1,6 +1,4 @@
 .categories {
-  background-image: url("../img/bg2.jpg");
-  background-size: cover;
-  background-position: center;
   padding: 0 20px;
+  text-align: center;
 }

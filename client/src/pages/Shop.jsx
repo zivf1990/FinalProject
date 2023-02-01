@@ -40,12 +40,13 @@ const Shop = () => {
 
   return (
     <div className="categories">
-      <MDBRow className="row-cols-1 row-cols-md-3 g-4">
+      <MDBRow className="row-cols-1 row-cols-md-4 g-4 gap-5 m-4 justify-content-center">
         {categories && (
           <>
             {categories.map((item) => (
               <MDBCard
                 key={Math.random() * Number.MAX_SAFE_INTEGER}
+                className="p-4"
                 onClick={() => {
                   navigate("/category/" + item.category_id);
                 }}
