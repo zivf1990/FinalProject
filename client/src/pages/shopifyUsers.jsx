@@ -38,13 +38,16 @@ const ShopifyUsers = () => {
     }
   };
   function searchByName() {
-    let result = users.filter((str) => str.username.includes(searchBar));
+    let result = users.filter((str) => str.username.startsWith(searchBar));
     setVisibleUsers(result);
   }
   async function changePermission(user_id) {
     const res = await fetch(`http://localhost:8000/users/userPermission`, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "x-session-id": sessionID,
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
         user_id,
       }),

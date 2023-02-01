@@ -31,6 +31,9 @@ function AdminNavBar() {
       <NavLink className="NavLink" to="/adminHome/products">
         <h4>Products in Shopify</h4>
       </NavLink>
+      <NavLink className="NavLink" to="/adminHome/purchaseHistory">
+          <h4>The Purcahse History</h4>
+       </NavLink>
     </header>
   );
 }

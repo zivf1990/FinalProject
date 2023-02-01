@@ -20,7 +20,6 @@ router.get("/profile", function (req, res, next) {
 
   sequelize
     .transaction(async (transaction) => {
-
       const queryUserInfo = `
       SELECT * FROM user_info
       WHERE user_id = "${user_id}";
@@ -50,7 +49,6 @@ router.get("/profile", function (req, res, next) {
     });
 });
 
-
 router.get("/notAdmin", function (req, res, next) {
   console.log("hello");
   bringAllUsers((response) => {
@@ -64,7 +62,7 @@ router.get("/notAdmin", function (req, res, next) {
   });
 });
 router.put("/userPermission", function (req, res, next) {
-  changeUserPermission(req.body.user_id,(response) => {
+  changeUserPermission(req.body.user_id, (response) => {
     if (response.data) {
       res.status(200).json(response);
     } else {
@@ -73,7 +71,5 @@ router.put("/userPermission", function (req, res, next) {
     }
   });
 });
-
-
 
 module.exports = router;

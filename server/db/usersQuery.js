@@ -21,7 +21,8 @@ const usersQueries = {
     changeUserPermission: (id,cb) => {
         
         const query =
-            `UPDATE user_permission
+            `
+            UPDATE user_permission
             SET permission_level = CASE 
               WHEN permission_level = 'user' THEN 'blocked'
               WHEN permission_level = 'blocked' THEN 'user'

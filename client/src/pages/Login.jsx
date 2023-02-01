@@ -44,7 +44,7 @@ const Login = () => {
 
       //failed to login. need to show error message in the UI.
       if (!res.ok) {
-        throw new Error("User does not exist");
+        setErrorMessage("User does not exist");
 
         //success to login. need to save sessionID to coockie and context and redirect.
       } else {
@@ -62,11 +62,11 @@ const Login = () => {
           console.log("eddddddddddddddddddddddddddd");
           navigate("/shop");
         } else if (data.permission_level === "blocked") {
-          throw new Error("User is blocked");
+          setErrorMessage("User is blocked");
         }
       }
     } catch (e) {
-      setErrorMessage(e);
+      setErrorMessage(e.message);
     }
   };
 
@@ -118,7 +118,7 @@ const Login = () => {
                     value={loading === false ? "Login" : "Loading..."}
                   />
                 </div>
-                <p id="response-text">{errorMessage}</p>
+                {errorMessage && <p id="response-text">{errorMessage}</p>}
               </div>
             </form>
           </div>

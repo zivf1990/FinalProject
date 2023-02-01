@@ -29,14 +29,22 @@ const purchaseHistoryQuery = {
       }
     });
   },
-  brisngMyHistory: (user_id, cb) => {
-    console.log(user_id, "hjello");
+  bringAllHistory: (cb) => {
     const selectQuery = `
-           SELECT p.product_id, p.product_name, p.product_picture, p.price, p.amount, p.category_id
-           FROM product p
-           WHERE user_id = ${user_id}
-           GROUP BY product_id;
-         `;
+    SELECT
+    user_info.username,
+    product.product_name,
+    product.seller_name,
+    purchase_history.purchase_amount,
+    purchase_history.purchase_date
+    FROM
+    product
+    JOIN purchase_history
+    ON product.product_id = purchase_history.product_id
+    JOIN user_info 
+    ON purchase_history.user_id = user_info.user_id
+      
+       `;
     connection.query(selectQuery, function (error, results) {
       console.log(results);
       if (error) {

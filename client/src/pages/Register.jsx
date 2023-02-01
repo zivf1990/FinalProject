@@ -27,9 +27,9 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (loading) {
-      return;
-    }
+    // if (loading) {
+    //   return;
+    // }
     validateUser();
   };
 
