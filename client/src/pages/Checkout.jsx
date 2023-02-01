@@ -33,6 +33,7 @@ const Checkout = () => {
     console.log("Checkout... ", userInput);
 
     if (sessionID) {
+      console.log("data: ", "data");
       const res = await fetch(`http://localhost:8000/purchasehistory`, {
         method: "POST",
         headers: {
@@ -41,9 +42,8 @@ const Checkout = () => {
         },
         body: JSON.stringify({ userinfo: userInput, purchaseList: cart }),
       });
-
+      console.log("data: ", "bata");
       const data = await res.json();
-      console.log("data: ", data);
 
       setCart([]);
       navigate("/shop");
