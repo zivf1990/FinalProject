@@ -74,7 +74,6 @@ const Register = () => {
 
   return (
     <>
-      <ModeToggle />
 
       <Sheet 
         sx={{
@@ -129,6 +128,7 @@ const Register = () => {
             // html input attribute
             type="email"
             name="email"
+            placeholder="email"
             className={loading === false ? "input" : "input wait"}
             id="email"
             onChange={handleChange}
@@ -142,6 +142,7 @@ const Register = () => {
             // html input attribute
             type="text"
             name="name"
+            placeholder="name"
             className={loading === false ? "input" : "input wait"}
             id="name"
             onChange={handleChange}
@@ -155,6 +156,7 @@ const Register = () => {
             // html input attribute
             type="text"
             name="address"
+            placeholder="address"
             className={loading === false ? "input" : "input wait"}
             id="address"
             onChange={handleChange}
@@ -167,103 +169,15 @@ const Register = () => {
          Register
         </Button>
         <Typography
-          endDecorator={<Link href="/register">Sign up</Link>}
+          endDecorator={<Link href="/login">login</Link>}
           fontSize="sm"
           sx={{ alignSelf: "center" }}
         >
-          Don&apos;t have an account?
+         Already have an account?
         </Typography>
         {errorMessage && <p id="response-text">{errorMessage}</p>}
       </Sheet>
-{/* 
-      <div className="login-wrapper">
-        <div className="container main">
-          <div className="row">
-            <div className="col-md-6 signin-image">
-              <div className="text"></div>
-            </div>
 
-            <form
-              className={
-                loading === false ? "col-md-6 right" : "col-md-6 input-loading"
-              }
-              onSubmit={handleSubmit}
-            >
-              <div className="input-box">
-                <header>Register</header>
-                <div className="input-field">
-                  <input
-                    type="text"
-                    name="username"
-                    className={loading === false ? "input" : "input wait"}
-                    id="username"
-                    onChange={handleChange}
-                    value={userInput.username}
-                    required
-                  />
-                  <label htmlFor="username">Username</label>
-                </div>
-                <div className="input-field">
-                  <input
-                    type="password"
-                    name="password"
-                    className={loading === false ? "input" : "input wait"}
-                    id="password"
-                    onChange={handleChange}
-                    value={userInput.password}
-                    required
-                  />
-                  <label htmlFor="password">Password</label>
-                </div>
-                <div className="input-field">
-                  <input
-                    type="email"
-                    name="email"
-                    className={loading === false ? "input" : "input wait"}
-                    id="email"
-                    onChange={handleChange}
-                    value={userInput.email}
-                    required
-                  />
-                  <label htmlFor="email">Email</label>
-                </div>
-                <div className="input-field">
-                  <input
-                    type="text"
-                    name="name"
-                    className={loading === false ? "input" : "input wait"}
-                    id="name"
-                    onChange={handleChange}
-                    value={userInput.name}
-                    required
-                  />
-                  <label htmlFor="name">Name</label>
-                </div>
-                <div className="input-field">
-                  <input
-                    type="text"
-                    name="address"
-                    className={loading === false ? "input" : "input wait"}
-                    id="address"
-                    onChange={handleChange}
-                    value={userInput.address}
-                    required
-                  />
-                  <label htmlFor="address">Address</label>
-                </div>
-                <div className="input-field">
-                  <input
-                    type="submit"
-                    className={loading === false ? "submit" : "loading"}
-                    value={loading === false ? "Register" : "Loading..."}
-                  />
-                </div>
-                <p id="response-text">{errorMessage}</p>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div> */}
     </>
   );
 };

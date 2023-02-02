@@ -18,7 +18,7 @@ import {
   MDBNavbarBrand,
 } from "mdb-react-ui-kit";
 
-function AdminNavBar() {
+function NavBar() {
   const { sessionID, removeSessionID } = useSessionID();
   const [showNavColorSecond, setShowNavColorSecond] = useState(false);
 
@@ -35,6 +35,10 @@ function AdminNavBar() {
     <header className="navBar">
       <MDBNavbar expand="lg" white bgColor="white">
         <MDBContainer fluid>
+          <MDBNavbarBrand>
+            <i className="bx bxl-shopify"> </i>Shopify
+          </MDBNavbarBrand>
+
           <MDBNavbarToggler
             type="button"
             data-target="#navbarColor02"
@@ -49,21 +53,9 @@ function AdminNavBar() {
           <MDBCollapse show={showNavColorSecond} navbar id="navbarColor02">
             <MDBNavbarNav className="me-auto mb-2 mb-lg-0">
               <MDBNavbarItem className="active">
-                <MDBNavbarLink aria-current="page" href="/">
+                <MDBNavbarLink aria-current="page" href="/shop">
                   Home
                 </MDBNavbarLink>
-              </MDBNavbarItem>
-
-              <MDBNavbarItem>
-                <MDBNavbarLink href="/">About</MDBNavbarLink>
-              </MDBNavbarItem>
-              <MDBNavbarItem>
-                <MDBNavbarLink onClick={logOut} href="/">
-                  Logout
-                </MDBNavbarLink>
-              </MDBNavbarItem>
-              <MDBNavbarItem>
-                <MDBNavbarLink href="/register">Register</MDBNavbarLink>
               </MDBNavbarItem>
             </MDBNavbarNav>
           </MDBCollapse>
@@ -72,18 +64,23 @@ function AdminNavBar() {
               My Shopify
             </MDBDropdownToggle>
             <MDBDropdownMenu>
-              <MDBDropdownItem href="/adminHome/purchaseHistory" link>
+           <MDBDropdownItem href="/AdminHome/purchaseHistory" link>
                 Purchase History
               </MDBDropdownItem>
-              <MDBDropdownItem href="/adminHome/products" link>
-                My Products
+              <MDBDropdownItem href="/AdminHome/products" link>
+                Shopify Products
               </MDBDropdownItem>
-              <MDBDropdownItem href="/adminHome/profile" link>
+              <MDBDropdownItem href="/AdminHome/users" link>
+                Shopify users
+              </MDBDropdownItem>
+              <MDBDropdownItem href="/AdminHome/account" link>
                 Account
               </MDBDropdownItem>
-              <MDBDropdownItem href="/adminHome/users" link>
-                Users
+              <MDBDropdownItem href="/login"  onClick={logOut} link>
+                Logout
               </MDBDropdownItem>
+             
+             
             </MDBDropdownMenu>
           </MDBDropdown>
         </MDBContainer>
@@ -92,19 +89,6 @@ function AdminNavBar() {
   );
 }
 
+export default NavBar;
 
-export default AdminNavBar;
 
-
-{/* <NavLink id="users" to="/adminHome/users">
-<h4> Users</h4>
-</NavLink>
-<NavLink className="NavLink" to="/adminHome/profile">
-<h4>Profile</h4>
-</NavLink>
-<NavLink className="NavLink" to="/adminHome/products">
-<h4>Products in Shopify</h4>
-</NavLink>
-<NavLink className="NavLink" to="/adminHome/purchaseHistory">
-  <h4>The Purcahse History</h4>
-</NavLink> */}

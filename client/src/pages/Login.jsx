@@ -82,7 +82,6 @@ const Login = () => {
 
   return (
     <>
-      <ModeToggle />
 
       <Sheet
         sx={{

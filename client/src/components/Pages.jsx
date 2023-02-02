@@ -32,7 +32,7 @@ function Pages() {
             <>
               <Route path="/AdminHome" element={<AdminHome />}>
                 <Route path="users" element={<Users />} />
-                <Route path="profile" element={<Account />} />
+                <Route path="account" element={<Account />} />
                 <Route path="addProduct" element={<AddProduct />} />
                 <Route path="products" element={<ShopifyProducts />} />
                 <Route path="purchaseHistory" element={<PurchaseHistory />} />
@@ -46,20 +46,22 @@ function Pages() {
                 <Route path="sellerproducts" element={<SellerProducts />} />
                 <Route path="product/:productId" element={<Product />} />
                 <Route path="purchaseHistory" element={<PurchaseHistory />} />
-                <Route path="shoppingcart" element={<ShoppingCart />} />
-                <Route path="checkout" element={<Checkout />} />
               </Route>
+              <Route path="shoppingcart" element={<ShoppingCart />} />
+              <Route path="checkout" element={<Checkout />} />
             </>
           ) : (
             <>
               <Route path="/" element={<Home />}>
                 <Route path="shop" element={<Shop />} />
+                <Route path="category/:categoryId" element={<Category />} />
+                <Route path="product/:productId" element={<Product />} />
                 <Route path="*" element={<NotSigned />} />
               </Route>
 
               <Route path="login" element={<Login />} />
               <Route path="register" element={<Register />} />
-            </>
+              </>
           )}
         </Routes>
       </>
