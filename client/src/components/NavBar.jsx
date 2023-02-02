@@ -53,22 +53,22 @@ function NavBar() {
           <MDBCollapse show={showNavColorSecond} navbar id="navbarColor02">
             <MDBNavbarNav className="me-auto mb-2 mb-lg-0">
               <MDBNavbarItem className="active">
-                <MDBNavbarLink aria-current="page" href="/">
+                <MDBNavbarLink aria-current="page" href="/shop">
                   Home
                 </MDBNavbarLink>
               </MDBNavbarItem>
 
               <MDBNavbarItem>
-                <MDBNavbarLink href="/">About</MDBNavbarLink>
+              <MDBNavbarLink href="/shop">Service</MDBNavbarLink>
               </MDBNavbarItem>
               <MDBNavbarItem>
-                <MDBNavbarLink onClick={logOut} href="/">
-                  Logout
-                </MDBNavbarLink>
+                <MDBNavbarLink href="/shop">Discounts</MDBNavbarLink>
               </MDBNavbarItem>
               <MDBNavbarItem>
-                <MDBNavbarLink href="/register">Register</MDBNavbarLink>
+                <MDBNavbarLink href="/shop">About</MDBNavbarLink>
               </MDBNavbarItem>
+        
+             
             </MDBNavbarNav>
           </MDBCollapse>
           <MDBDropdown>
@@ -85,6 +85,15 @@ function NavBar() {
               <MDBDropdownItem href="/account" link>
                 Account
               </MDBDropdownItem>
+              {sessionID ? <MDBDropdownItem href="/shop"  onClick={logOut} link>
+                Logout
+              </MDBDropdownItem>
+              :
+              <MDBDropdownItem href="/login" link>
+                Login
+              </MDBDropdownItem>
+            }
+             
             </MDBDropdownMenu>
           </MDBDropdown>
         </MDBContainer>
@@ -94,27 +103,3 @@ function NavBar() {
 }
 
 export default NavBar;
-
-/*
-  <div className="logo">
-  
-      </div>
-      <div className="nav">
-   
-        </Link>
-    
-        </Link>
-   
-        </Link>
-       
-          </Link>
-        ) : (
-          <>
-      
-          </>
-        )}
-        <Link className="Link" to="shoppingcart">
-          <i className="bx bx-cart"></i>
-        </Link>
-      </div>
-*/

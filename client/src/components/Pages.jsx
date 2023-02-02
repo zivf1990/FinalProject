@@ -54,6 +54,8 @@ function Pages() {
             <>
               <Route path="/" element={<Home />}>
                 <Route path="shop" element={<Shop />} />
+                <Route path="category/:categoryId" element={<Category />} />
+                <Route path="product/:productId" element={<Product />} />
                 <Route path="*" element={<NotSigned />} />
               </Route>
 

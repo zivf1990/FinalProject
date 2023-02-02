@@ -30,11 +30,15 @@ const SellerProducts = () => {
     console.log("data", data);
     setProducts(data.data);
   };
+
   async function deleteProduct(product_id) {
     console.log("erere");
     const res = await fetch(`http://localhost:8000/products/deleteProduct`, {
       method: "DELETE",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "x-session-id": sessionID,
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
         product_id: product_id,
       }),
@@ -49,7 +53,10 @@ const SellerProducts = () => {
   async function updateAmount(product_id) {
     const res = await fetch(`http://localhost:8000/products/updateAmount`, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "x-session-id": sessionID,
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
         product_id: product_id,
         amount: newAmount,
@@ -77,7 +84,10 @@ const SellerProducts = () => {
         {products?.map((product) => (
           <li key={product.product_id}>
             {product.product_name}
-            <img src={product.product_picture} />
+            <img
+              src={"http://localhost:8000/" + product.product_picture}
+              alt=""
+            />
             <b>price:</b> {product.price}
             <b>amount:</b> {product.amount}
             <button onClick={() => updateAmount(product.product_id)}>

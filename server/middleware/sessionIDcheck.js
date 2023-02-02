@@ -12,9 +12,23 @@ const getTokenAndSessionID = async (sessionID) => {
 };
 
 const sessionIDcheck = async (req, res, next) => {
-  const excludePaths = ["/login", "/register"];
+  const excludePaths = [
+    "/login",
+    "/register",
+    "/categories",
+    "/category/",
+    "/products/",
+  ];
+  console.log("req.path::: ", req.path);
 
-  if (!excludePaths.includes(req.path)) {
+  let exclude = false;
+  excludePaths.forEach((path) => {
+    if (req.path.startsWith(path)) {
+      exclude = true;
+    }
+  });
+
+  if (!exclude) {
     console.log("Running middleware sessionIDcheck");
 
     const clientSessionID = req.headers["x-session-id"];
@@ -25,7 +39,7 @@ const sessionIDcheck = async (req, res, next) => {
     }
 
     const data = await getTokenAndSessionID(clientSessionID);
-    
+
     const sessionID = data["sessionID"];
     const token = data["token"];
 

@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const multer = require("multer");
+const upload = multer({ dest: "upload/" });
 const {
   getSellerProducts,
   addProduct,
@@ -51,23 +53,18 @@ router.get("/category/:categoryId", async function (req, res, next) {
   res.json(category);
 });
 
-router.post("/addProduct", function (req, res) {
+router.post("/addProduct", upload.single("product_picture"), function (req, res) {
   const { user_id, permission_level } = req.user;
+  const image = req.file;
+  console.log("product_picture ", image.path);
   console.log("addProduct ", user_id, permission_level);
-  const {
-    product_name,
-    product_picture,
-    price,
-    amount,
-    category_id,
-    description,
-  } = req.body;
+  const { product_name, price, amount, category_id, description } = req.body;
 
   addProduct(
     user_id,
     permission_level,
     product_name,
-    product_picture,
+    image.path,
     price,
     amount,
     category_id,

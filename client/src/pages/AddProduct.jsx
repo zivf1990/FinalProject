@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSessionID } from "../context/UserContext";
+import axios from "axios";
 
 const AddProduct = () => {
   const { sessionID } = useSessionID();
@@ -13,6 +14,7 @@ const AddProduct = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([]);
+  const [image, setImage] = useState(null);
 
   const [userInput, setUserInput] = useState({
     product_name: "",
@@ -27,6 +29,10 @@ const AddProduct = () => {
     getCategories();
   }, []);
 
+  const handleFileInput = (e) => {
+    setImage(e.target.files[0]);
+  };
+
   const handleChange = ({ target }) => {
     const { name, value } = target;
     setUserInput((prevUser) => ({ ...prevUser, [name]: value }));
@@ -34,6 +40,8 @@ const AddProduct = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setUserInput((prevUser) => ({ ...prevUser, product_picture: image }));
+
     AddProduct();
   };
 
@@ -52,35 +60,40 @@ const AddProduct = () => {
   };
 
   async function AddProduct() {
-    const category_id = userInput.category[0];
-    console.log("resuuuu");
-    const res = await fetch(`http://localhost:8000/products/addProduct`, {
-      method: "POST",
-      headers: {
-        "x-session-id": sessionID,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        product_name: userInput.product_name,
-        product_picture: userInput.product_picture,
-        price: userInput.price,
-        amount: userInput.amount,
-        category_id: category_id,
-        description: userInput.description,
-      }),
-    });
-    console.log("res");
-    let jes = await res.json();
-    if (res.ok) {
-      if (jes.data == "user") {
+    setLoading(true);
+
+    const formData = new FormData();
+    formData.append("product_name", userInput.product_name);
+    formData.append("price", userInput.price);
+    formData.append("amount", userInput.amount);
+    formData.append("category_id", userInput.category[0]);
+    formData.append("description", userInput.description);
+    formData.append("product_picture", image);
+
+    try {
+      const res = await axios.post(
+        "http://localhost:8000/products/addProduct",
+        formData,
+        {
+          headers: {
+            "x-session-id": sessionID,
+            "Content-Type": `multipart/form-data`,
+          },
+        }
+      );
+      const { data } = res;
+      if (data.data === "user") {
         navigate("/sellerproducts");
       } else {
         navigate("/AdminHome/products");
       }
-    } else {
-      setErrorMessage(jes);
+    } catch (error) {
+      setErrorMessage(error.response.data);
+    } finally {
+      setLoading(false);
     }
   }
+
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -99,11 +112,10 @@ const AddProduct = () => {
           <div className="input-field">
             <label htmlFor="product_picture">product picture url</label>
             <input
-              type="text"
               name="product_picture"
               id="product_picture"
-              onChange={handleChange}
-              value={userInput.product_picture}
+              type="file"
+              onChange={handleFileInput}
               required
             />
           </div>

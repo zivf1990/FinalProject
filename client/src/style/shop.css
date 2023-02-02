@@ -8,5 +8,6 @@
 }
 
 .card {
-  color: aliceblue;
+  color: rgb(7, 7, 7);
+  background-color: rgba(217, 213, 213, 0.733);
 }

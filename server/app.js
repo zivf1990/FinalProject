@@ -14,7 +14,6 @@ const signupRouter = require("./routes/signup");
 const productsRouter = require("./routes/products");
 const categoriesRouter = require("./routes/categories");
 const purchaseHistoryRouter = require("./routes/purchaseHistory");
-const createUser = require("./db/signupQuery");
 
 //initialize express.
 const app = express();
@@ -27,6 +26,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(sessionIDcheck);
+
 
 //Using Routers
 app.use("/", indexRouter);

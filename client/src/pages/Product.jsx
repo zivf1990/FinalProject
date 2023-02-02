@@ -3,7 +3,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useSessionID } from "../context/UserContext";
 import { useCart } from "../context/CartContext";
 
-
 const Product = () => {
   const { sessionID } = useSessionID();
   const { addToCart, removeFromCart } = useCart();
@@ -23,24 +22,20 @@ const Product = () => {
   };
 
   const getProduct = async () => {
-    console.log("sdssd");
-    if (sessionID) {
-      const res = await fetch(
-        `http://localhost:8000/products/${productId}/data`,
-        {
-          method: "GET",
-          headers: {
-            "x-session-id": sessionID,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+    const res = await fetch(
+      `http://localhost:8000/products/${productId}/data`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
-      const data = await res.json();
-      console.log("data: ", data);
-      setProduct(data);
-      console.log("product ", product);
-    }
+    const data = await res.json();
+    console.log("data: ", data);
+    setProduct(data);
+    console.log("product ", product);
   };
 
   return (
@@ -55,7 +50,6 @@ const Product = () => {
           <button onClick={() => addAndNavigateToCart(product)}>
             Add to cart
           </button>
-     
           <b>description:</b> {product.description}
         </div>
       )}
