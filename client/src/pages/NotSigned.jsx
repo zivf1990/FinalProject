@@ -1,5 +1,6 @@
 import React from "react";
 import Typography from "@mui/joy/Typography";
+import { Link } from "react-router-dom";
 
 const NotSigned = () => {
   return (
@@ -7,7 +8,7 @@ const NotSigned = () => {
       <Typography level="h4" component="h1">
         You need to be logged in
       </Typography>
-      <Typography level="body2">Sign in to continue.</Typography>
+      <Typography level="body2"><Link to="/login">Sign in</Link> to continue.</Typography>
     </div>
   );
 };

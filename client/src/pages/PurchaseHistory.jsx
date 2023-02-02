@@ -45,17 +45,16 @@ const PurchaseHistory = () => {
 
   return (
     <div>
-      <h2>My Purchase History</h2>
-      <label htmlFor="searchBar">
-        Search By Username
+      <h2>The Purchase History</h2>
         <input
+          placeholder="Search By Username"
           type="text"
           name="searchBar"
           id="searchBar"
+          className="historyInput"
           onChange={handleChange}
           value={searchBar}
         />
-      </label>
       <table>
         <tr>
           <th>Buyer name</th>

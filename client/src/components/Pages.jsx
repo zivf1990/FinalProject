@@ -32,7 +32,7 @@ function Pages() {
             <>
               <Route path="/AdminHome" element={<AdminHome />}>
                 <Route path="users" element={<Users />} />
-                <Route path="profile" element={<Account />} />
+                <Route path="account" element={<Account />} />
                 <Route path="addProduct" element={<AddProduct />} />
                 <Route path="products" element={<ShopifyProducts />} />
                 <Route path="purchaseHistory" element={<PurchaseHistory />} />
@@ -61,7 +61,7 @@ function Pages() {
 
               <Route path="login" element={<Login />} />
               <Route path="register" element={<Register />} />
-            </>
+              </>
           )}
         </Routes>
       </>

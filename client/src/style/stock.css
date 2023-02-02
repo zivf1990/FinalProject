@@ -1,0 +1,260 @@
+#sellerProducts {
+  list-style: none;
+  font-size: 0.5rem;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  width: 1100px;
+  height: 200px;
+}
+#productsDiv{
+  position: relative;
+}
+
+#headersPr{
+  display: flex;
+  width: 100vw;
+}
+#searchBar{
+  height: 50px;
+  width: 400px;
+  padding: 10px;
+  border-radius: 25px;
+  border: none;
+  outline: none;
+  margin-right: 50%;
+  box-shadow: 0 0 10px #ccc;
+ 
+}
+#addProduct {
+  color: black;
+  text-decoration: none;
+  position: relative;
+  transition: all 0.3s ease-in-out;
+}
+
+#addProduct::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background-color: black;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: all 0.3s ease-in-out;
+}
+
+#addProduct:hover::before {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+#sellerProduct{
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  border-radius: 0.3rem;
+  display: flex;
+  background-color: rgba(255, 166, 0,0.7);
+  padding: 1rem;
+  margin: 1rem;
+  width: 30%;
+  height: 90%;
+}
+
+#sellerProduct div{
+  width: 60%;
+  height: 100%;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+}
+
+#sellerProduct img {
+  width: 40%;
+  margin-bottom: 1rem;
+  border: 2px ridge lightsalmon;
+}
+
+#sellerProduct div b {
+  font-weight: bold;
+  margin-bottom: 0.2rem;
+}
+
+#sellerProduct div div {
+ display: flex;
+ flex-direction: row;
+ justify-content: space-evenly;
+ width: 100%;
+}
+#sellerProduct div div button {
+  border-radius: 0.2rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.4rem;
+  background-color: #af8c4c;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+
+@media screen and (max-width: 700px) {
+  #searchBar{
+    height: 50px;
+    width: 200px;
+    padding: 10px;
+    border-radius: 25px;
+    border: none;
+    outline: none;
+    margin-right: 50%;
+    box-shadow: 0 0 10px #ccc;
+   
+  }
+  #sellerProducts {
+    list-style: none;
+    font-size: 0.5rem;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    width: 600px;
+    height: 200px;
+  }
+  
+  #sellerProduct{
+    align-self: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    border-radius: 0.3rem;
+    display: flex;
+    background-color: rgba(255, 166, 0,0.7);
+    padding: 1rem;
+    margin: 1rem;
+    width: 40%;
+    height: 90%;
+  }
+  
+  #sellerProduct div{
+    width: 60%;
+    height: 100%;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+  }
+  
+  #sellerProduct img {
+    width: 40%;
+    margin-bottom: 1rem;
+    border: 2px ridge lightsalmon;
+  }
+  
+  #sellerProduct div b {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  
+  #sellerProduct div div {
+   display: flex;
+   flex-direction: row;
+   justify-content: space-evenly;
+   width: 100%;
+  }
+  #sellerProduct div div button {
+    border-radius: 0.2rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.4rem;
+    background-color: #af8c4c;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+}
+
+@media screen and (max-width: 450px) {
+  #root{
+    font-size: 9px;
+  }
+  #products{
+    width: 450px;
+  }
+  #headersPr{
+    display: flex;
+    width: 100vw;
+  }
+  #searchBar{
+    height: 50px;
+    width: 400px;
+    padding: 10px;
+    border-radius: 25px;
+    border: none;
+    outline: none;
+    margin-right: 50%;
+    box-shadow: 0 0 10px #ccc;
+   
+  }
+  #sellerProducts {
+    list-style: none;
+    font-size: 0.5rem;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    width: 350px;
+    height: 200px;
+  }
+  
+  #sellerProduct{
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    border-radius: 0.3rem;
+    display: flex;
+    background-color: rgba(255, 166, 0,0.7);
+    padding: 1rem;
+    margin: 1rem;
+    width: 80%;
+    height: 90%;
+  }
+  
+  #sellerProduct div{
+    width: 60%;
+    height: 100%;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+  }
+  
+  #sellerProduct img {
+    width: 100px;
+    height: 120px;
+    margin-bottom: 1rem;
+    border: 2px ridge lightsalmon;
+  }
+  
+  #sellerProduct div b {
+    font-weight: bold;
+    margin-bottom: 0.2rem;
+    padding-left: 0.2rem;
+  }
+  
+  #sellerProduct div div {
+   display: flex;
+   flex-direction: row;
+   justify-content: space-evenly;
+   width: 100%;
+  }
+  #sellerProduct div div button {
+    border-radius: 0.2rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.4rem;
+    background-color: #af8c4c;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+}

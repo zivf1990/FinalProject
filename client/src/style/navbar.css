@@ -6,7 +6,7 @@
 
 .navBar .nav {
   display: flex;
-  gap: 35px;
+  gap: 3rem;
 }
 
 /* .navBar .logo {
@@ -21,11 +21,11 @@
 }
 
 .bx-cart {
-  font-size: 50px;
+  font-size: 3rem;
   color: black;
 }
 
 .bxl-shopify {
-  font-size: 50px;
+  font-size: 3rem;
   color: black;
 }

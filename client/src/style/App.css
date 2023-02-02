@@ -1,3 +1,28 @@
+body{
+  font-size: 18px;
+  overflow: none;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+#permission_cell:hover{
+  background-color: pink;
+}
+
+
 img {
   width: 180px;
 }
@@ -9,10 +34,53 @@ img {
 .category-card {
   min-width: 100%;
   max-height: 100px;
-  /* max-width: 200px; */
-  /* max-height: 30px; */
+
   text-align: center;
 }
 
-.App {
+.historyInput{
+ margin-left: 30%;
+ margin-bottom: 10px;
+}
+
+.checkout-form {
+  margin-left: calc(50% - 200px);
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  padding: 40px;
+  background-color: #fafafa;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.checkout-form label {
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.checkout-form input[type="text"],
+.checkout-form input[type="email"],
+.checkout-form input[type="month"],
+.checkout-form input[type="submit"] {
+  padding: 10px;
+  font-size: 16px;
+  width: 100%;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.checkout-form input[type="submit"] {
+  background-color: #333;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.checkout-form input[type="submit"]:hover {
+  background-color: #fff;
+  color: #333;
 }

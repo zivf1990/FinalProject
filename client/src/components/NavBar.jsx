@@ -76,7 +76,7 @@ function NavBar() {
               My Shopify
             </MDBDropdownToggle>
             <MDBDropdownMenu>
-              <MDBDropdownItem href="/purchaseHistory" link>
+            {sessionID ? (<div><MDBDropdownItem href="/purchaseHistory" link>
                 Purchase History
               </MDBDropdownItem>
               <MDBDropdownItem href="/sellerproducts" link>

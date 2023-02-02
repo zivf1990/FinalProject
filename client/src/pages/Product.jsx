@@ -39,18 +39,21 @@ const Product = () => {
   };
 
   return (
-    <div className="product">
+    <div >
       {product && (
-        <div key={Math.random() * Number.MAX_SAFE_INTEGER} className="product">
-          <b>price:</b> {product.price}
-          <b>amount:</b> {product.amount}
-          <b>seller:</b> {product.seller_name}
-          <br />
+        <div key={Math.random() * Number.MAX_SAFE_INTEGER} className="product" id="theProduct">
           <img src={`${product.product_picture}`} alt="" />
+          <div>
+          <p><b> price: </b> {product.price}
+          <b> amount: </b> {product.amount} 
+          <b>  seller: </b> {product.seller_name} 
+          <b> description:</b> {product.description} 
+          </p><br/>
+        
           <button onClick={() => addAndNavigateToCart(product)}>
             Add to cart
           </button>
-          <b>description:</b> {product.description}
+          </div>
         </div>
       )}
     </div>

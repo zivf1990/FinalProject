@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSessionID } from "../context/UserContext";
 import axios from "axios";
+import "../style/addProduct.css";
 
 const AddProduct = () => {
   const { sessionID } = useSessionID();
@@ -96,7 +97,7 @@ const AddProduct = () => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="addProduct">
         <div className="input-box">
           <div className="input-field">
             <label htmlFor="product_name">product name</label>
@@ -152,8 +153,7 @@ const AddProduct = () => {
               required
             >
               {categories.map((item) => (
-                <option key={item.category_id} value={item.category_id}>
-                  {item.category_name}
+                <option key={item.category_id}>{item.category_id} {item.category_name}
                 </option>
               ))}
             </select>
