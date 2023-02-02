@@ -39,7 +39,7 @@ const MyPurchaseHistory = () => {
       setHistory(data.data);
       setVisibleHistory(data.data);
     } else {
-      console.log("Erer");
+      console.log("error");
     }
   };
 

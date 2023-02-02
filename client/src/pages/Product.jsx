@@ -27,6 +27,7 @@ const Product = () => {
       {
         method: "GET",
         headers: {
+          "x-session-id": sessionID,
           "Content-Type": "application/json",
         },
       }
@@ -39,20 +40,27 @@ const Product = () => {
   };
 
   return (
-    <div >
+    <div>
       {product && (
-        <div key={Math.random() * Number.MAX_SAFE_INTEGER} className="product" id="theProduct">
-          <img src={`${product.product_picture}`} alt="" />
+        <div
+          key={Math.random() * Number.MAX_SAFE_INTEGER}
+          className="product"
+          id="theProduct"
+        >
+          <img src={product.product_picture} alt="" />
+
           <div>
-          <p><b> price: </b> {product.price}
-          <b> amount: </b> {product.amount} 
-          <b>  seller: </b> {product.seller_name} 
-          <b> description:</b> {product.description} 
-          </p><br/>
-        
-          <button onClick={() => addAndNavigateToCart(product)}>
-            Add to cart
-          </button>
+            <p>
+              <b> price: </b> {product.price}
+              <b> amount: </b> {product.amount}
+              <b> seller: </b> {product.seller_name}
+              <b> description:</b> {product.description}
+            </p>
+            <br />
+
+            <button onClick={() => addAndNavigateToCart(product)}>
+              Add to cart
+            </button>
           </div>
         </div>
       )}

@@ -40,6 +40,7 @@ router.get("/", function (req, res, next) {
     }
   });
 });
+
 router.post(`/`, (req, res, next) => {
   const { user_id } = req.user;
   const { userinfo, purchaseList } = req.body;

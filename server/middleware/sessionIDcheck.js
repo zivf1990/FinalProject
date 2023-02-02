@@ -17,7 +17,9 @@ const sessionIDcheck = async (req, res, next) => {
     "/register",
     "/categories",
     "/category/",
-    "/products/",
+    "/upload",
+    "/download",
+    // "/products/",
   ];
   console.log("req.path::: ", req.path);
 

@@ -29,7 +29,9 @@ const ShoppingCart = () => {
               <option key={Math.random() * Number.MAX_SAFE_INTEGER} value={i}>
                 {i}
               </option>
+              
             );
+            console.log("OPTIONS", options)
           }
 
           return (

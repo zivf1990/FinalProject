@@ -13,11 +13,16 @@ const purchaseHistoryQuery = {
         product
         JOIN purchase_history
         ON product.product_id = purchase_history.product_id
-        WHERE user_id =1
+        WHERE user_id = ${user_id}
        `;
     connection.query(selectQuery, function (error, results) {
-      console.log(results[0].purchase_date,"Wewwew");
-      results[0].purchase_date=moment.utc(results[0].purchase_date).local().format('DD/MM/YYYY');
+      console.log(results);
+      for (let x in results) {
+        results[x].purchase_date = moment
+          .utc(results[0].purchase_date)
+          .local()
+          .format("DD/MM/YYYY");
+      }
       if (error) {
         cb({ message: "failed to bring your products" });
         console.log("sds");
@@ -48,7 +53,13 @@ const purchaseHistoryQuery = {
       
        `;
     connection.query(selectQuery, function (error, results) {
-      results[0].purchase_date=moment.utc(results[0].purchase_date).local().format('DD/MM/YYYY');      if (error) {
+      for (let x in results) {
+        results[x].purchase_date = moment
+          .utc(results[0].purchase_date)
+          .local()
+          .format("DD/MM/YYYY");
+      }
+      if (error) {
         cb({ message: "failed to bring your products" });
         console.log("sds");
       }
@@ -62,4 +73,5 @@ const purchaseHistoryQuery = {
     });
   },
 };
+
 module.exports = purchaseHistoryQuery;

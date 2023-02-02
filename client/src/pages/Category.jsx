@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useSessionID } from "../context/UserContext";
 import "../style/categoryProducts.css";
-
 
 const Category = () => {
   let { categoryId } = useParams();
   const { sessionID } = useSessionID();
-
+  const navigate = useNavigate();
   const [category, setCategory] = useState([]);
   const [visibleCategory, setVisibleCategory] = useState([]);
   const [searchBar, setSearchBar] = useState("");
@@ -31,6 +30,10 @@ const Category = () => {
   };
 
   useEffect(() => {
+    if (!sessionID) {
+      navigate("/notsigned");
+      return;
+    }
     getCategory(categoryId);
   }, [categoryId]);
   useEffect(() => searchByName(), [searchBar]);
@@ -48,19 +51,31 @@ const Category = () => {
     <div>
       <label htmlFor="searchBar">
         Search By Product name
-        <input type="text" name="searchBar" id="searchBar" onChange={handleChange} value={searchBar} />
+        <input
+          type="text"
+          name="searchBar"
+          id="searchBar"
+          onChange={handleChange}
+          value={searchBar}
+        />
       </label>
       <div id="categoryProducts">
-      {visibleCategory.map((item) => {
-        return (
-          <Link className="product" key={item.product_id} to={`/product/${item.product_id}`}>
-              <h4>{item.product_name}</h4>
-              <b>seller:</b> {item.seller_name}<br />
-              <b>price:</b> {item.price}
-              <img src={item.product_picture} />
-          </Link>
-        );
-      })}
+        {visibleCategory.map(
+          (item) =>
+            item.amount > 0 && (
+              <Link
+                className="product"
+                key={item.product_id}
+                to={`/product/${item.product_id}`}
+              >
+                <h4>{item.product_name}</h4>
+                <b>seller:</b> {item.seller_name}
+                <br />
+                <b>price:</b> {item.price}
+                <img src={item.product_picture} alt="" />
+              </Link>
+            )
+        )}
       </div>
     </div>
   );

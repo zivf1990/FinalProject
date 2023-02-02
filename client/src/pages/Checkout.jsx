@@ -43,10 +43,10 @@ const Checkout = () => {
         body: JSON.stringify({ userinfo: userInput, purchaseList: cart }),
       });
       console.log("data: ", "bata");
-      const data = await res.json();
 
-      setCart([]);
+      await setCart([]);
       navigate("/shop");
+      console.log("CART ", cart);
     }
   };
 

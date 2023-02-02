@@ -33,7 +33,7 @@ function NavBar() {
 
   return (
     <header className="navBar">
-      <MDBNavbar expand="lg" white bgColor="white">
+      <MDBNavbar expand="lg" bgColor="white">
         <MDBContainer fluid>
           <MDBNavbarBrand href="/shop">
             <i className="bx bxl-shopify"> </i>Shopify
@@ -67,8 +67,12 @@ function NavBar() {
               <MDBNavbarItem>
                 <MDBNavbarLink href="/shop">About</MDBNavbarLink>
               </MDBNavbarItem>
+             
         
              
+          <MDBNavbarItem>
+                <MDBNavbarLink  href="/shoppingcart"><i className='bx bx-cart'></i></MDBNavbarLink>
+              </MDBNavbarItem>
             </MDBNavbarNav>
           </MDBCollapse>
           <MDBDropdown>
@@ -85,9 +89,9 @@ function NavBar() {
               <MDBDropdownItem href="/account" link>
                 Account
               </MDBDropdownItem>
-              {sessionID ? <MDBDropdownItem href="/shop"  onClick={logOut} link>
+              <MDBDropdownItem href="/shop"  onClick={logOut} link>
                 Logout
-              </MDBDropdownItem>
+              </MDBDropdownItem></div>)
               :
               <MDBDropdownItem href="/login" link>
                 Login

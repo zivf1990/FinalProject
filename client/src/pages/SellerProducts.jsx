@@ -88,7 +88,7 @@ const SellerProducts = () => {
       <ul id="sellerProducts">
         {products?.map((product) => (
           <li id="sellerProduct" key={product.product_id}>
-            <img src={product.product_picture} />
+            <img src={product.product_picture} alt=""/>
             <div>
             <b>product name:</b>
             {product.product_name}
