@@ -35,6 +35,7 @@ const MyPurchaseHistory = () => {
     const data = await res.json();
     console.log("data", data);
     if (res.ok) {
+      console.log(data);
       setHistory(data.data);
       setVisibleHistory(data.data);
     } else {

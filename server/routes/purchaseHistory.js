@@ -18,8 +18,9 @@ router.get("/user", function (req, res, next) {
   const { user_id, permission_level } = req.user;
 
   bringMyHistory(user_id, (response) => {
-    console.log("response:: ", response);
+    // console.log("response:: ", response);
     if (response?.data) {
+      // console.log(response);
       res.status(200).json(response);
     } else {
       console.log("failed to login");

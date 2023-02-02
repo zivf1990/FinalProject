@@ -1,5 +1,6 @@
 const connection = require("../modules/sqlConfig");
 const connection2 = require("../modules/sqlPromiseConfig");
+const moment = require("moment");
 
 const purchaseHistoryQuery = {
   bringMyHistory: (user_id, cb) => {
@@ -12,10 +13,11 @@ const purchaseHistoryQuery = {
         product
         JOIN purchase_history
         ON product.product_id = purchase_history.product_id
-        WHERE user_id =${user_id}
+        WHERE user_id =1
        `;
     connection.query(selectQuery, function (error, results) {
-      console.log(results);
+      console.log(results[0].purchase_date,"Wewwew");
+      results[0].purchase_date=moment.utc(results[0].purchase_date).local().format('DD/MM/YYYY');
       if (error) {
         cb({ message: "failed to bring your products" });
         console.log("sds");
@@ -46,8 +48,7 @@ const purchaseHistoryQuery = {
       
        `;
     connection.query(selectQuery, function (error, results) {
-      console.log(results);
-      if (error) {
+      results[0].purchase_date=moment.utc(results[0].purchase_date).local().format('DD/MM/YYYY');      if (error) {
         cb({ message: "failed to bring your products" });
         console.log("sds");
       }

@@ -1,5 +1,6 @@
 const connection = require("../modules/sqlConfig");
 const connection2 = require("../modules/sqlPromiseConfig");
+const moment = require("moment");
 
 const usersQueries = {
   bringAllUsers: (cb) => {
@@ -9,6 +10,9 @@ const usersQueries = {
             ON u.user_id = per.user_id
             WHERE NOT per.permission_level = "admin";`
             connection.query(query,(err,response) => {
+                for(let x of response){
+                x.updated_at=moment.utc(x.updated_at).local().format('DD/MM/YYYY');
+                }
                 if(err){
                     cb({message:"failed to fetch users"})
                 }
